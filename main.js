@@ -48,7 +48,6 @@ document.addEventListener("drop", (e) => {
 
   const droppedFiles = Array.from(e.dataTransfer.files);
 
-  // PDF のみ抽出
   const pdfFiles = droppedFiles.filter(f =>
     f.name.toLowerCase().endsWith(".pdf")
   );
@@ -117,7 +116,9 @@ folderInput.addEventListener("change", () => {
   processFiles(pdfFiles);
 });
 
-cancelBtn.onclick = () => {
+/* ▼ onclick を addEventListener に置き換え（CSP対応） */
+
+cancelBtn.addEventListener("click", () => {
   cancelRequested = true;
 
   cancelBtn.style.display = "none";
@@ -127,9 +128,11 @@ cancelBtn.onclick = () => {
   folderInput.disabled = false;
 
   alert("変換をキャンセルしました");
-};
+});
 
-resetBtn.onclick = () => location.reload();
+resetBtn.addEventListener("click", () => {
+  location.reload();
+});
 
 async function processFiles(files) {
 
@@ -157,7 +160,7 @@ async function processFiles(files) {
     totalPages += pdf.numPages;
   }
 
-  let jpegFiles = []; // ← PDF1つのときに使う
+  let jpegFiles = [];
 
   for (const file of files) {
 
@@ -211,7 +214,6 @@ async function processFiles(files) {
   folderInput.disabled = false;
   cancelBtn.style.display = "none";
 
-  /* ▼ PDF が 1つの場合は ZIP ではなく JPEG を直接保存 */
   if (singlePDF) {
     const first = jpegFiles[0];
     download.href = first.data;
@@ -233,6 +235,9 @@ async function processFiles(files) {
   msg.style.display = "block";
   setTimeout(() => msg.classList.add("show"), 10);
 }
+
+/* ▼ ボタンイベント（CSP対応済み） */
+
 document.getElementById("fileButton").addEventListener("click", () => {
   fileInput.click();
 });
