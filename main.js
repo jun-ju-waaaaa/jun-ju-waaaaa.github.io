@@ -1,0 +1,242 @@
+const fileInput = document.getElementById("fileInput");
+const folderInput = document.getElementById("folderInput");
+const progressBar = document.getElementById("progressBar");
+const download = document.getElementById("download");
+const thumbs = document.getElementById("thumbs");
+const cancelBtn = document.getElementById("cancelBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+let cancelRequested = false;
+
+function resetScreen() {
+  cancelRequested = false;
+
+  cancelBtn.style.display = "none";
+  resetBtn.style.display = "none";
+
+  const msg = document.getElementById("completeMsg");
+  msg.style.display = "none";
+  msg.classList.remove("show");
+
+  download.style.display = "none";
+  download.classList.remove("show");
+
+  document.getElementById("downloadNote").style.display = "none";
+
+  thumbs.innerHTML = "";
+  progressBar.style.width = "0%";
+}
+
+/* ▼ ドラッグ＆ドロップ対応 */
+
+// デフォルト動作を無効化
+document.addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
+
+document.addEventListener("dragenter", () => {
+  document.body.classList.add("dragover");
+});
+
+document.addEventListener("dragleave", () => {
+  document.body.classList.remove("dragover");
+});
+
+document.addEventListener("drop", (e) => {
+  e.preventDefault();
+  document.body.classList.remove("dragover");
+
+  const droppedFiles = Array.from(e.dataTransfer.files);
+
+  // PDF のみ抽出
+  const pdfFiles = droppedFiles.filter(f =>
+    f.name.toLowerCase().endsWith(".pdf")
+  );
+
+  if (pdfFiles.length === 0) {
+    alert("PDFファイルをドロップしてください。");
+    return;
+  }
+
+  resetScreen();
+  processFiles(pdfFiles);
+});
+
+const dropArea = document.getElementById("dropArea");
+
+// クリックでもファイル選択を開く
+dropArea.addEventListener("click", () => {
+  fileInput.click();
+});
+
+// ドラッグが乗った時
+dropArea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropArea.classList.add("dragover");
+});
+
+// ドラッグが離れた時
+dropArea.addEventListener("dragleave", () => {
+  dropArea.classList.remove("dragover");
+});
+
+// ドロップされた時
+dropArea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropArea.classList.remove("dragover");
+
+  const droppedFiles = Array.from(e.dataTransfer.files);
+  const pdfFiles = droppedFiles.filter(f =>
+    f.name.toLowerCase().endsWith(".pdf")
+  );
+
+  if (pdfFiles.length === 0) {
+    alert("PDFファイルをドロップしてください。");
+    return;
+  }
+
+  resetScreen();
+  processFiles(pdfFiles);
+});
+
+fileInput.addEventListener("change", () => {
+  resetScreen();
+  const files = Array.from(fileInput.files);
+  processFiles(files);
+});
+
+folderInput.addEventListener("change", () => {
+  resetScreen();
+  const allFiles = Array.from(folderInput.files);
+  const pdfFiles = allFiles.filter(f => f.name.toLowerCase().endsWith(".pdf"));
+
+  if (pdfFiles.length !== allFiles.length) {
+    alert("PDF以外のデータは無視して変換を開始します。");
+  }
+
+  processFiles(pdfFiles);
+});
+
+cancelBtn.onclick = () => {
+  cancelRequested = true;
+
+  cancelBtn.style.display = "none";
+  resetBtn.style.display = "inline-block";
+
+  fileInput.disabled = false;
+  folderInput.disabled = false;
+
+  alert("変換をキャンセルしました");
+};
+
+resetBtn.onclick = () => location.reload();
+
+async function processFiles(files) {
+
+  fileInput.disabled = true;
+  folderInput.disabled = true;
+  cancelBtn.style.display = "inline-block";
+
+  if (files.length === 0) {
+    alert("PDF が見つかりません");
+    return;
+  }
+
+  thumbs.innerHTML = "";
+  progressBar.style.width = "0%";
+
+  const zip = new JSZip();
+  let processedPages = 0;
+  let totalPages = 0;
+
+  const singlePDF = (files.length === 1 && totalPages === 1);
+
+  for (const file of files) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    totalPages += pdf.numPages;
+  }
+
+  let jpegFiles = []; // ← PDF1つのときに使う
+
+  for (const file of files) {
+
+    if (cancelRequested) return;
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+    const baseName = file.name.replace(/\.pdf$/i, "");
+
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+
+      if (cancelRequested) return;
+
+      const page = await pdf.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      const jpegData = canvas.toDataURL("image/jpeg");
+
+      if (singlePDF) {
+        jpegFiles.push({
+          name: `${baseName}_${String(pageNum).padStart(3, "0")}.jpg`,
+          data: jpegData
+        });
+      } else {
+        const base64 = jpegData.split(",")[1];
+        const pageStr = String(pageNum).padStart(3, "0");
+        zip.file(`${baseName}_${pageStr}.jpg`, base64, { base64: true });
+      }
+
+      const thumbDiv = document.createElement("div");
+      thumbDiv.className = "thumb";
+      thumbDiv.innerHTML = `<img src="${jpegData}"><div>${file.name} - p.${pageNum}</div>`;
+      thumbs.appendChild(thumbDiv);
+
+      processedPages++;
+      const percent = Math.floor((processedPages / totalPages) * 100);
+      progressBar.style.width = percent + "%";
+    }
+  }
+
+  fileInput.disabled = false;
+  folderInput.disabled = false;
+  cancelBtn.style.display = "none";
+
+  /* ▼ PDF が 1つの場合は ZIP ではなく JPEG を直接保存 */
+  if (singlePDF) {
+    const first = jpegFiles[0];
+    download.href = first.data;
+    download.download = first.name;
+  } else {
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(zipBlob);
+    download.href = url;
+    download.download = "converted.zip";
+  }
+
+  download.style.display = "block";
+  setTimeout(() => download.classList.add("show"), 10);
+
+  document.getElementById("downloadNote").style.display = "block";
+  resetBtn.style.display = "inline-block";
+
+  const msg = document.getElementById("completeMsg");
+  msg.style.display = "block";
+  setTimeout(() => msg.classList.add("show"), 10);
+}
+document.getElementById("fileButton").addEventListener("click", () => {
+  fileInput.click();
+});
+
+document.getElementById("folderButton").addEventListener("click", () => {
+  folderInput.click();
+});
