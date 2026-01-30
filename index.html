@@ -251,28 +251,36 @@ footer nav a {
   color: #0066cc;
   text-decoration: none;
 }
+.main-title {
+  font-size: 20px;   /* 好きなサイズに変更 */
+  font-weight: bold; /* 太さも調整可能 */
+  margin-bottom: 10px;
+}
   </style>
 </head>
 
 <body>
-  
   <div id="container">
 
-    <h2>PDF → JPEG変換<br>(1枚でも複数でも変換)</h2>
-    <p class="note">
-      選択されたファイルやフォルダはサーバーに送信されません。<br>すべてお使いのPCやスマホ内で処理されます。<br>
+    <!-- ▼ SEOの柱となるh1 -->
+    <h1 class="main-title">PDFをJPEGに変換する無料オンラインツール</h1>
 
-</p>
+    <!-- ▼ 元のh2はサブ見出しとして活かす -->
+    <h2>PDF → JPEG変換<br>(1枚でも複数でも変換)</h2>
+
+    <p class="note">
+      選択されたファイルやフォルダはサーバーに送信されません。<br>
+      すべてお使いのPCやスマホ内で処理されます。
+    </p>
 
     <button onclick="fileInput.click()">PDFファイルを選択</button>
-    <button id="folderButton" onclick="folderInput.click()">フォルダを選択<br></button>
-    
-
+    <button id="folderButton" onclick="folderInput.click()">フォルダを選択</button>
 
     <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
     <input type="file" id="folderInput" webkitdirectory directory multiple style="display:none">
-    
+
     <div id="dropArea">ここに PDF をドラッグ＆ドロップ</div>
+
     <div id="progressContainer"><div id="progressBar"></div></div>
 
     <p id="completeMsg">変換が完了しました！</p>
@@ -284,14 +292,17 @@ footer nav a {
 
     <button id="cancelBtn">キャンセル</button>
     <button id="resetBtn">リセット</button>
+
     <p class="note2">
       ※データが大きいと、時間がかかる場合があります。<br>
       ※ご利用の端末によっては、メモリ不足により変換が途中で止まる場合があります。<br>
       ※iPhoneでページが読み込めない場合、iCloudの「プライベートリレー」をOFFにすると改善することがあります。
+    </p>
 
     <div id="thumbs"></div>
+
     <div class="info-section">
-  <h3>■ サーバーを使用していないため無料で使えます</h3>
+<h3>■ サーバーを使用していないため無料で使えます</h3>
   <p>
     このツールはサーバーを一切使わず、すべての処理をあなたの端末の中だけで実行しています。
     そのため、サーバーの維持費・通信費・ストレージ費用が発生しません。
@@ -303,11 +314,11 @@ footer nav a {
     という仕組みのため、運営側にコストがかかります。
   </p>
   <p>
-    しかしこのツールは、ブラウザ内で PDF を読み込み、画像に変換し、保存するところまですべてローカルで完結するため、<br>
+    しかしこのツールは、ブラウザ内で PDF を読み込み、画像に変換し、保存するところまですべてローカルで完結するため、
     運営側のコストがゼロに近く、無料で提供できます。
   </p>
 
-  <h3>■ アップロード不要</h3>
+  <h3>■ アップロード不要で安全</h3>
   <p>
     このツールはサーバーを使用していないため、アップロード不要です。
   </p>
@@ -319,18 +330,24 @@ footer nav a {
   <p>
     そのため、サーバーへのアップロードが無く、プライバシー面で優れています。
   </p>
-  
+
+  <!-- 内部リンク（SEO強化） -->
+  <p>詳しい使い方は <a href="guide/">こちら</a> をご覧ください。</p>
+  <p>よくある質問は <a href="faq/">FAQページ</a> にまとめています。</p>
 </div>
-  <footer>
-    <p>&copy; 2026 jun3</p>
-    <nav>
+
+    <footer>
+      <p>&copy; 2026 jun3</p>
+      <nav>
         <a href="guide/">使い方</a> |
-        <a href="faq/">FAQ</a> |      
-        <a href="about/">運営者情報</a> |        
+        <a href="faq/">FAQ</a> |
+        <a href="about/">運営者情報</a> |
         <a href="contact/">お問い合わせ</a> |
         <a href="privacy/">プライバシーポリシー</a> |
-    </nav>
-  </footer>
+      </nav>
+    </footer>
+
+  </div>
 
 
     <script>
