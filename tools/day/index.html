@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YS73FMCE7S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YS73FMCE7S');
+</script>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8" />
+  <title>生まれて何日？｜赤ちゃん月齢・週齢・日齢を自動計算｜シンプルで見やすい育児ツール</title>
+  <meta name="description" content="赤ちゃんの生年月日を入力するだけで、月齢・週齢・日齢を自動で計算！スマホ対応のシンプルな育児サポートツールです。">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png?v=4" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
+
+
+
+  <!-- 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "赤ちゃん生まれて何日たった？月齢・週齢・日齢 計算ツール",
+    "url": "https://jun-ju-waaaaa.github.io/-Day-Counter/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "赤ちゃんの生年月日から月齢・週齢・日齢を自動で計算する無料ツール。スマホ対応で育児をサポートします。"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #111;
+      --card: #e5e5e5;
+      --input-bg: #f0f0f0;
+      --border: #ccc;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --text: #f5f5f5;
+        --card: #1e1e1e;
+        --input-bg: #1a1a1a;
+        --border: #333;
+      }
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    p {
+      text-align: center;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      opacity: 0.8;
+    }
+
+    .date-wrapper {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .date-placeholder {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      pointer-events: none;
+      font-size: 16px;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    input[type="date"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      background: var(--input-bg);
+      color: var(--text);
+      height: 52px;
+      line-height: 52px;
+      border-radius: 8px;
+      z-index: 1;
+      position: relative;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      margin: 0;
+      padding: 0;
+      filter: invert(0.7);
+    }
+
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      height: 52px;
+      line-height: 52px;
+      padding: 0 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      background: #0066ff;
+      color: white;
+      font-weight: 600;
+      border: 1px solid #0066ff;
+    }
+    button {
+  border: 1px solid var(--border) !important;
+}
+button.selected {
+  border: 1px solid #0066ff !important;
+}
+
+    .card {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 18px;
+      padding: 22px;
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      font-size: 1.3rem;
+      line-height: 1.9;
+      color: var(--text);
+      height: 110px;
+      overflow: hidden;
+    }
+
+    .label {
+      font-size: 1.1rem;
+      opacity: 0.7;
+    }
+
+    .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .placeholder {
+      opacity: 0.6;
+      font-size: 1.2rem;
+    }
+    .title-with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* アイコンと文字の間隔 */
+}
+
+.title-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px; /* 角丸にしたい場合 */
+}
+button:focus {
+  outline: none;
+  border: 1px solid var(--border);
+}
+  </style>
+</head>
+<body>
+
+  <h1 class="title-with-icon">
+  <img src="favicon.png" alt="" class="title-icon">
+  赤ちゃん 生まれて何日？
+</h1>
+  <h2>生年月日を入力するだけで、現在の月齢・週齢・日齢を自動で計算できます。</h2>
+  <p>広告なしで見やすい。<br>ダークモード対応で寝かしつけ中でも使いやすい。</p>
+
+  <div class="date-wrapper">
+    <input type="date" id="birthDate">
+    <div class="date-placeholder" id="birthPlaceholder">
+      カレンダーから生年月日を選んでください
+    </div>
+  </div>
+
+<div style="display:flex; gap:8px; margin-bottom:12px;">
+
+    <button type="button" id="excludeBtn" onclick="setMode(false)"
+    style="flex:1; background:#0066ff; color:white;">
+    初日を含めない
+  </button>
+
+  <button type="button" id="includeBtn" onclick="setMode(true)"
+    style="flex:1; background:var(--input-bg); color:var(--text);">
+    初日を含める
+  </button>
+
+</div>
+  <button onclick="calculate()">計算する</button>
+
+  <div id="dayCard" class="card">
+    <div class="placeholder">生後日数がここに表示されます</div>
+  </div>
+
+  <div id="weekCard" class="card">
+    <div class="placeholder">生後週数がここに表示されます</div>
+  </div>
+
+  <div id="monthCard" class="card">
+    <div class="placeholder">生後月齢がここに表示されます</div>
+  </div>
+
+  <script>
+    const birthInput = document.getElementById("birthDate");
+    const birthPlaceholder = document.getElementById("birthPlaceholder");
+
+    birthInput.addEventListener("change", () => {
+      birthPlaceholder.style.display = birthInput.value ? "none" : "block";
+    });
+let includeFirstDay = false; // デフォルト：初日を含めない
+
+function setMode(mode) {
+  includeFirstDay = mode;
+
+  includeBtn.classList.toggle("selected", mode);
+  excludeBtn.classList.toggle("selected", !mode);
+
+  includeBtn.style.background = mode ? "#0066ff" : "var(--input-bg)";
+  includeBtn.style.color = mode ? "white" : "var(--text)";
+
+  excludeBtn.style.background = mode ? "var(--input-bg)" : "#0066ff";
+  excludeBtn.style.color = mode ? "var(--text)" : "white";
+}
+
+    function calculate() {
+  const birthValue = birthInput.value;
+  if (!birthValue) return;
+
+  const birth = new Date(birthValue);
+  const today = new Date();
+
+  const diffTime = today - birth;
+  let days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  // ★ 初日を含める／含めないの分岐
+  if (includeFirstDay) {
+    days += 1;
+  }
+
+  const weeks = Math.floor(days / 7);
+  const extraDays = days % 7;
+
+  let months = (today.getFullYear() - birth.getFullYear()) * 12 +
+               (today.getMonth() - birth.getMonth());
+  if (today.getDate() < birth.getDate()) months--;
+
+  document.getElementById("dayCard").innerHTML =
+    `<div class="label">生後日数</div><div class="value">${days} 日</div>`;
+
+  document.getElementById("weekCard").innerHTML =
+    `<div class="label">生後週数</div><div class="value">${weeks} 週 ${extraDays} 日</div>`;
+
+  document.getElementById("monthCard").innerHTML =
+    `<div class="label">生後月齢</div><div class="value">${months} ヶ月</div>`;
+}
+
+  </script>
+
+</body>
+</html>

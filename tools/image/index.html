@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="cblGyKe8u_P_jGL-Jqw0_tqURcwRZ_4dW379GVVuG0c" />
+  <meta name="google-adsense-account" content="ca-pub-6769343629657319">
+  <title>PDFをJPEGに変換｜無料・安全・高速のオンライン変換ツール</title>
+
+  <meta name="description" content="PDFを無料でJPEG画像に変換できるオンラインツール。アップロード不要で安全、すべての処理がブラウザ内で完結します。スマホ・PC対応で高速変換できます。">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+        integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ=="
+        crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
+        crossorigin="anonymous"></script>
+
+  <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self' blob:;
+        script-src 'self' https://cdnjs.cloudflare.com 'unsafe-eval' blob:;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self';
+        connect-src 'self' blob:;
+        worker-src 'self' blob:;
+        child-src 'none';
+        frame-ancestors 'none';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+      ">
+
+ <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="container">
+
+    <!-- ▼ SEOの柱となるh1 -->
+    <h1 class="main-title">PDFをJPEGに変換する無料オンラインツール</h1>
+
+    <!-- ▼ 元のh2はサブ見出しとして活かす -->
+    <h2>PDF → JPEG変換<br>(1枚でも複数でも変換)</h2>
+
+    <p class="note">
+      選択されたファイルやフォルダはサーバーに送信されません。<br>
+      すべてお使いのPCやスマホ内で処理されます。
+    </p>
+
+<button id="fileButton">PDFファイルを選択</button>
+<button id="folderButton">フォルダを選択</button>
+
+    <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
+    <input type="file" id="folderInput" webkitdirectory multiple style="display:none">
+
+    <div id="dropArea">ここに PDF をドラッグ＆ドロップ</div>
+
+    <div id="progressContainer"><div id="progressBar"></div></div>
+
+    <p id="completeMsg">変換が完了しました！</p>
+
+    <a id="download">保存</a>
+    <p id="downloadNote" style="display:none; color:gray; font-size:0.85em;">
+      ※保存されなかった変換データは、ページを閉じると自動的に消去されます。
+    </p>
+
+    <button id="cancelBtn">キャンセル</button>
+    <button id="resetBtn">リセット</button>
+
+    <p class="note2">
+      ※データが大きいと、時間がかかる場合があります。<br>
+      ※ご利用の端末によっては、メモリ不足により変換が途中で止まる場合があります。<br>
+      ※iPhoneでページが読み込めない場合、iCloudの「プライベートリレー」をOFFにすると改善することがあります。
+    </p>
+
+    <div id="thumbs"></div>
+
+    <div class="info-section">
+<h3>■ なぜ無料でつかえるのか？</h3>
+  <p>
+    このツールはサーバーを一切使わず、すべての処理をあなたの端末の中だけで実行しています。
+    そのため、サーバーの維持費・通信費・ストレージ費用が発生しません。
+  </p>
+  <p>
+    一般的なオンライン変換サービスは、<br>
+    ・アップロードされたファイルをサーバーで処理<br>
+    ・変換結果をサーバーからダウンロード<br>
+    という仕組みのため、運営側にコストがかかります。
+  </p>
+  <p>
+    しかしこのツールは、ブラウザ内で PDF を読み込み、画像に変換し、保存するところまですべてローカルで完結するため、
+    運営側のコストがゼロに近く、無料で提供できます。
+  </p>
+
+  <h3>■ アップロード不要</h3>
+  <p>
+    このツールはサーバーを使用していないため、アップロード不要です。
+  </p>
+  <p>
+    ・PDF はあなたの端末から外に出ない<br>
+    ・インターネットを経由しない<br>
+    ・変換処理はすべてあなたのブラウザのメモリ上で完結する<br>
+  </p>
+  <p>
+    そのため、サーバーへのアップロードが無く、プライバシー面で優れています。
+  </p>
+
+  <!-- 内部リンク（SEO強化） -->
+  <p>詳しい使い方は <a href="guide/">こちら</a> をご覧ください。</p>
+  <p>よくある質問は <a href="faq/">FAQページ</a> にまとめています。</p>
+</div>
+
+    <footer>
+      <p>&copy; 2026 jun3</p>
+      <nav>
+<a href="/">ホーム</a>
+<a href="/guide/">使い方</a>
+<a href="/faq/">FAQ</a>
+<a href="/about/">運営者情報</a>
+<a href="/contact/">お問い合わせ</a>
+<a href="/privacy/">プライバシーポリシー</a>
+      </nav>
+    </footer>
+
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
