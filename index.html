@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToolJapan | 無料オンラインツール</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  background:#F5F9FF; /* ほんのり水色 */
+  color:#333;
+}
+
+/* ヘッダー */
+.site-header{
+  background:#3AA8E8; /* メイン水色 */
+  color:white;
+  text-align:center;
+  padding:22px 10px;
+}
+
+.site-header .title{
+  font-size:26px;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
+.site-header .subtitle{
+  font-size:14px;
+  opacity:0.9;
+  margin-top:4px;
+}
+
+/* メインコンテナ */
+.main{
+  padding:16px 12px 24px;
+}
+
+/* 説明テキスト（任意） */
+.lead{
+  max-width:900px;
+  margin:0 auto 12px;
+  font-size:14px;
+  color:#555;
+}
+
+/* カード一覧 */
+.tools{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:0;
+  max-width:900px;
+  margin:0 auto;
+}
+
+.tool-card{
+  background:white;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:bold;
+  font-size:17px;
+  text-decoration:none;
+  color:#2F6FA5; /* 水色に合う濃い青 */
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  aspect-ratio:1/1;
+  transition:0.15s ease;
+  padding:18px 10px;
+}
+
+.tool-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 4px 10px rgba(0,0,0,0.12);
+  background:#E8F5FF; /* hoverで淡い水色 */
+}
+
+.tool-card span{
+  display:block;
+  line-height:1.3;
+}
+
+/* PC 4列 */
+@media (min-width:768px){
+  .tools{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+/* フッター */
+.site-footer{
+  text-align:center;
+  padding:20px;
+  font-size:13px;
+  color:#666;
+  border-top:1px solid rgba(0,0,0,0.05);
+  background:#F5F9FF;
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="title">ToolJapan</div>
+  <div class="subtitle">無料オンラインツール</div>
+</header>
+
+<main class="main">
+
+  <p class="lead">
+    日常で使えるシンプルなオンラインツールをまとめたサイトです。インストール不要で、すぐにご利用いただけます。
+  </p>
+
+  <div class="tools">
+
+    <a class="tool-card" href="/tools/date/day-counter">
+      <span>日数</span><span>カウンター</span>
+    </a>
+
+    <a class="tool-card" href="/tools/calc/age-calculator">
+      <span>年齢</span><span>計算</span>
+    </a>
+
+    <a class="tool-card" href="/tools/pdf/pdf-to-jpeg">
+      <span>PDF→</span><span>JPEG</span>
+    </a>
+
+    <a class="tool-card" href="/tools/image/image-compress">
+      <span>画像</span><span>圧縮</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  © 2026 ToolJapan
+</footer>
+
+</body>
+</html>
