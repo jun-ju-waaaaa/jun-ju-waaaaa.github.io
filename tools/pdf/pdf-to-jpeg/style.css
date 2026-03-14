@@ -246,3 +246,101 @@ footer nav a {
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+/* ============================
+   ダークモード
+   ============================ */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #121212;
+    color: #e0e0e0;
+  }
+
+  #container {
+    background: #1e1e1e;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    border-color: #333;
+  }
+
+  button {
+    background: #388e3c;
+    color: #fff;
+  }
+  button:hover {
+    background: #2e7d32;
+  }
+  button:disabled {
+    background: #555;
+    opacity: 0.5;
+  }
+
+  #progressContainer {
+    background: #333;
+  }
+  #progressBar {
+    background: #66bb6a;
+  }
+
+  .note,
+  .note2 {
+    color: #aaa;
+  }
+
+  #dropArea {
+    background: #1e1e1e;
+    border-color: #555;
+    color: #90caf9;
+  }
+  #dropArea.dragover {
+    background: #263238;
+    border-color: #64b5f6;
+    color: #bbdefb;
+  }
+
+  .thumb {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+
+  #download {
+    background: #1976d2;
+  }
+  #download:hover {
+    background: #1565c0;
+  }
+
+  #resetBtn {
+    background: #616161;
+  }
+  #resetBtn:hover {
+    background: #424242;
+  }
+
+  #cancelBtn {
+    background: #d32f2f;
+  }
+  #cancelBtn:hover {
+    background: #b71c1c;
+  }
+
+  #completeMsg {
+    color: #81c784;
+  }
+
+  .info-section {
+    background: #1e1e1e;
+    border-color: #333;
+    color: #ccc;
+  }
+  .info-section h3 {
+    color: #eee;
+  }
+
+  footer {
+    border-top-color: #333;
+    color: #aaa;
+  }
+  footer nav a {
+    color: #64b5f6;
+  }
+}
