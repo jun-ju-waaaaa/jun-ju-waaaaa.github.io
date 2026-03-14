@@ -1,253 +1,251 @@
-// ===============================
-// PDF圧縮ツール main.js（究極安定版）
-// ===============================
+const fileInput   = document.getElementById("fileInput");
+const folderInput = document.getElementById("folderInput");
+const progressBar = document.getElementById("progressBar");
+const download    = document.getElementById("download");
+const thumbs      = document.getElementById("thumbs");
+const cancelBtn   = document.getElementById("cancelBtn");
+const resetBtn    = document.getElementById("resetBtn");
 
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+let cancelRequested = false;
 
-const { PDFDocument } = PDFLib;
-let isCanceled = false;
-let compressedFiles = [];
-const isMobile = window.innerWidth < 768;
+function resetScreen() {
+  cancelRequested = false;
 
-// dataURL → Uint8Array
-function dataURLToUint8Array(dataURL) {
-  const base64 = dataURL.split(',')[1];
-  const binary = atob(base64);
-  const len = binary.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
-  return bytes;
-}
+  cancelBtn.style.display = "none";
+  resetBtn.style.display  = "none";
 
-// 画質プリセット（文字ボケ対策にDPIを調整）
-function getPresetSettings() {
-  const preset = document.querySelector("input[name='qualityPreset']:checked").value;
-  let setting = {};
+  const msg = document.getElementById("completeMsg");
+  msg.style.display = "none";
+  msg.classList.remove("show");
 
-  switch (preset) {
-    case "mobile": setting = { dpi: 110, quality: 0.5 }; break; // 読みやすさ重視
-    case "pc":     setting = { dpi: 150, quality: 0.6 }; break;
-    case "pc-hi":  setting = { dpi: 300, quality: 0.8 }; break; // 文字が鮮明
-    case "print":  setting = { dpi: 220, quality: 0.8 }; break;
-    case "min":    setting = { dpi: 72,  quality: 0.3 }; break;
-    default:       setting = { dpi: 150, quality: 0.6 };
-  }
+  download.style.display = "none";
+  download.classList.remove("show");
 
-  // スマホでのメモリクラッシュ防止（上限を強制）
-  if (isMobile && setting.dpi > 160) {
-    setting.dpi = 160;
-    setting.quality = 0.6;
-  }
-  return setting;
-}
-
-function updateProgress(percent) {
-  const bar = document.getElementById("progressBar");
-  if (bar) bar.style.width = percent + "%";
-}
-
-function resetUI() {
-  updateProgress(0);
-  document.getElementById("download").style.display = "none";
-  document.getElementById("completeMsg").style.display = "none";
-  document.getElementById("cancelMsg").style.display = "none";
-  const list = document.getElementById("completeList");
-  if (list) list.innerHTML = "";
-  compressedFiles = [];
-  document.getElementById("resetBtn").style.display = "none";
-  document.getElementById("cancelBtn").style.display = "none";
   document.getElementById("downloadNote").style.display = "none";
-  isCanceled = false;
+
+  thumbs.innerHTML = "";
+  progressBar.style.width = "0%";
 }
 
-// ===============================
-// PDF圧縮コア処理（メモリ最適化版）
-// ===============================
-async function compressPDF(file) {
-  const preset = getPresetSettings();
-  const scale = preset.dpi / 72;
-  const quality = preset.quality;
+/* ▼ ドラッグ＆ドロップ対応 */
 
-  let pdf;
-  let loadingTask;
-  
-  try {
+// デフォルト動作を無効化
+document.addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
+
+document.addEventListener("dragenter", () => {
+  document.body.classList.add("dragover");
+});
+
+document.addEventListener("dragleave", () => {
+  document.body.classList.remove("dragover");
+});
+
+// ▼ ここ重要：document の drop は削除し、dropArea のみ使用
+const dropArea = document.getElementById("dropArea");
+
+dropArea.addEventListener("click", () => {
+  fileInput.click();
+});
+
+dropArea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropArea.classList.add("dragover");
+});
+
+dropArea.addEventListener("dragleave", () => {
+  dropArea.classList.remove("dragover");
+});
+
+dropArea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropArea.classList.remove("dragover");
+
+  const droppedFiles = Array.from(e.dataTransfer.files);
+  const pdfFiles = droppedFiles.filter(f =>
+    f.name.toLowerCase().endsWith(".pdf")
+  );
+
+  if (pdfFiles.length === 0) {
+    alert("PDFファイルをドロップしてください。");
+    return;
+  }
+
+  resetScreen();
+  processFiles(pdfFiles);
+});
+
+fileInput.addEventListener("change", () => {
+  resetScreen();
+  const files = Array.from(fileInput.files);
+  processFiles(files);
+});
+
+folderInput.addEventListener("change", () => {
+  resetScreen();
+  const allFiles = Array.from(folderInput.files);
+  const pdfFiles = allFiles.filter(f => f.name.toLowerCase().endsWith(".pdf"));
+
+  if (pdfFiles.length !== allFiles.length) {
+    alert("PDF以外のデータは無視して変換を開始します。");
+  }
+
+  processFiles(pdfFiles);
+});
+
+/* ▼ onclick → addEventListener（CSP対応） */
+
+cancelBtn.addEventListener("click", () => {
+  cancelRequested = true;
+
+  cancelBtn.style.display = "none";
+  resetBtn.style.display  = "inline-block";
+
+  fileInput.disabled   = false;
+  folderInput.disabled = false;
+
+  alert("変換をキャンセルしました");
+});
+
+resetBtn.addEventListener("click", () => {
+  location.reload();
+});
+
+async function processFiles(files) {
+
+  fileInput.disabled   = true;
+  folderInput.disabled = true;
+  cancelBtn.style.display = "inline-block";
+
+  if (files.length === 0) {
+    alert("PDF が見つかりません");
+    return;
+  }
+
+  thumbs.innerHTML = "";
+  progressBar.style.width = "0%";
+
+  const zip = new JSZip();
+  let processedPages = 0;
+  let totalPages     = 0;
+
+  // ▼ 全ページ数を先にカウント
+  for (const file of files) {
     const arrayBuffer = await file.arrayBuffer();
-    loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
-    pdf = await loadingTask.promise;
-  } catch (e) {
-    alert("PDFの読み込みに失敗しました。ファイルが壊れているか、パスワードがかかっている可能性があります。");
-    return null;
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    totalPages += pdf.numPages;
   }
 
-  const newPdf = await PDFDocument.create();
-  const totalPages = pdf.numPages;
+  const singlePDF = (files.length === 1 && totalPages === 1);
 
-  for (let i = 1; i <= totalPages; i++) {
-    if (isCanceled) {
-      loadingTask.destroy();
-      return null;
-    }
-
-    try {
-      const page = await pdf.getPage(i);
-      const viewport = page.getViewport({ scale: 1 });
-      const renderViewport = page.getViewport({ scale });
-
-      // Canvasの作成と描画
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = renderViewport.width;
-      canvas.height = renderViewport.height;
-
-      const renderTask = page.render({
-        canvasContext: ctx,
-        viewport: renderViewport
-      });
-
-      await renderTask.promise;
-
-      // 画像化
-      const jpegDataUrl = canvas.toDataURL("image/jpeg", quality);
-      const jpegBytes = dataURLToUint8Array(jpegDataUrl);
-      const embeddedJpeg = await newPdf.embedJpg(jpegBytes);
-
-      // 新しいPDFページに追加
-      const newPage = newPdf.addPage([viewport.width, viewport.height]);
-      newPage.drawImage(embeddedJpeg, {
-        x: 0, y: 0,
-        width: viewport.width,
-        height: viewport.height
-      });
-
-      // --- メモリ解放処理 ---
-      canvas.width = 0;
-      canvas.height = 0;
-      // --------------------
-
-      updateProgress((i / totalPages) * 100);
-
-      // ブラウザに休息を与える（固まり防止）
-      // ページ数が多いほどこの待機が重要になる
-      const waitTime = isMobile ? 400 : 100;
-      await new Promise(r => setTimeout(r, waitTime));
-
-    } catch (err) {
-      console.error(`Page ${i} error:`, err);
-      // 1ページ失敗しても続行を試みるか、エラーを出す
-    }
-  }
-
-  loadingTask.destroy();
-  const pdfBytes = await newPdf.save();
-  return new Blob([pdfBytes], { type: "application/pdf" });
-}
-
-// ===============================
-// 単体PDFの処理（表示系を確実にする修正）
-// ===============================
-async function handleSingle(file) {
-  resetUI();
-  document.getElementById("cancelBtn").style.display = "inline-block";
-
-  const result = await compressPDF(file);
-
-  if (isCanceled || !result) return;
-
-  const url = URL.createObjectURL(result);
-  const downloadLink = document.getElementById("download");
-
-  // ここで確実に表示させる
-  downloadLink.href = url;
-  downloadLink.download = file.name.replace(/\.pdf$/i, "_compressed.pdf");
-  downloadLink.style.display = "inline-block"; // noneを解除
-  downloadLink.style.visibility = "visible";   // visibility対策
-  downloadLink.classList.add("show");
-
-  const completeMsg = document.getElementById("completeMsg");
-  completeMsg.textContent = "圧縮が完了しました！";
-  completeMsg.style.display = "block";
-  completeMsg.classList.add("show");
-
-  document.getElementById("resetBtn").style.display = "inline-block";
-  document.getElementById("cancelBtn").style.display = "none";
-  document.getElementById("downloadNote").style.display = "block";
-}
-
-// ===============================
-// 複数PDFの処理（リスト表示を確実にする修正）
-// ===============================
-async function handleMultiple(files) {
-  resetUI();
-  document.getElementById("cancelBtn").style.display = "inline-block";
-
-  const list = document.getElementById("completeList");
-  list.style.display = "block"; // リスト自体を表示
+  let jpegFiles = [];
 
   for (const file of files) {
-    if (isCanceled) break;
 
-    const result = await compressPDF(file);
-    if (!result) continue;
+    if (cancelRequested) return;
 
-    const url = URL.createObjectURL(result);
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-    const li = document.createElement("li");
-    li.className = "compressed-item"; // CSSで制御しやすいようクラス付与
-    li.style.display = "flex";
-    li.style.justifyContent = "space-between";
-    li.style.alignItems = "center";
-    li.style.padding = "10px";
-    li.style.borderBottom = "1px solid #eee";
+    const baseName = file.name.replace(/\.pdf$/i, "");
 
-    const nameSpan = document.createElement("span");
-    nameSpan.textContent = file.name;
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
 
-    const saveBtn = document.createElement("button");
-    saveBtn.textContent = "保存";
-    saveBtn.className = "save-btn"; // HTML側で定義したボタン風デザインを適用
-    saveBtn.style.padding = "8px 16px";
-    saveBtn.style.cursor = "pointer";
+      if (cancelRequested) return;
 
-    saveBtn.addEventListener("click", () => {
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = file.name.replace(/\.pdf$/i, "_compressed.pdf");
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    });
+      const page = await pdf.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
 
-    li.appendChild(nameSpan);
-    li.appendChild(saveBtn);
-    list.appendChild(li);
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
-    await new Promise(r => setTimeout(r, 100));
+      canvas.width  = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      const jpegData = canvas.toDataURL("image/jpeg");
+
+      // ▼ ダウンロード用データ
+      if (singlePDF) {
+        jpegFiles.push({
+          name: `${baseName}_${String(pageNum).padStart(3, "0")}.jpg`,
+          data: jpegData
+        });
+      } else {
+        const base64  = jpegData.split(",")[1];
+        const pageStr = String(pageNum).padStart(3, "0");
+        zip.file(`${baseName}_${pageStr}.jpg`, base64, { base64: true });
+      }
+
+      // ▼ サムネイル用 Blob URL（Chrome の about:blank#blocked 回避）
+      const byteString = atob(jpegData.split(",")[1]);
+      const array = new Uint8Array(byteString.length);
+      for (let i = 0; i < byteString.length; i++) {
+        array[i] = byteString.charCodeAt(i);
+      }
+      const blob    = new Blob([array], { type: "image/jpeg" });
+      const blobUrl = URL.createObjectURL(blob);
+
+      // ▼ サムネイル生成
+      const thumbDiv = document.createElement("div");
+      thumbDiv.className = "thumb";
+
+      const link = document.createElement("a");
+      link.href   = blobUrl;
+      link.target = "_blank";
+      link.rel    = "noopener noreferrer";
+
+      const img = document.createElement("img");
+      img.src = jpegData;
+
+      const caption = document.createElement("div");
+      caption.textContent = `${file.name} - p.${pageNum}`;
+
+      link.appendChild(img);
+      thumbDiv.appendChild(link);
+      thumbDiv.appendChild(caption);
+      thumbs.appendChild(thumbDiv);
+
+      processedPages++;
+      const percent = Math.floor((processedPages / totalPages) * 100);
+      progressBar.style.width = percent + "%";
+    }
   }
 
-  document.getElementById("completeMsg").style.display = "block";
-  document.getElementById("completeMsg").textContent = "すべての処理が完了しました";
-  document.getElementById("resetBtn").style.display = "inline-block";
-  document.getElementById("cancelBtn").style.display = "none";
+  fileInput.disabled   = false;
+  folderInput.disabled = false;
+  cancelBtn.style.display = "none";
+
+  if (singlePDF) {
+    const first = jpegFiles[0];
+    download.href     = first.data;
+    download.download = first.name;
+  } else {
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(zipBlob);
+    download.href     = url;
+    download.download = "converted.zip";
+  }
+
+  download.style.display = "block";
+  setTimeout(() => download.classList.add("show"), 10);
+
   document.getElementById("downloadNote").style.display = "block";
+  resetBtn.style.display = "inline-block";
+
+  const msg = document.getElementById("completeMsg");
+  msg.style.display = "block";
+  setTimeout(() => msg.classList.add("show"), 10);
 }
 
-// イベント設定
-document.getElementById("fileButton").addEventListener("click", () => document.getElementById("fileInput").click());
-document.getElementById("fileInput").addEventListener("change", (e) => {
-  const files = [...e.target.files];
-  if (files.length === 0) return;
-  e.target.value = "";
-  if (files.length === 1) handleSingle(files[0]);
-  else handleMultiple(files);
+/* ▼ ボタンイベント（CSP対応済み） */
+
+document.getElementById("fileButton").addEventListener("click", () => {
+  fileInput.click();
 });
 
-// キャンセル処理
-document.getElementById("cancelBtn").addEventListener("click", () => {
-  isCanceled = true;
-  document.getElementById("cancelMsg").style.display = "block";
-  setTimeout(resetUI, 1000);
+document.getElementById("folderButton").addEventListener("click", () => {
+  folderInput.click();
 });
-
-document.getElementById("resetBtn").addEventListener("click", resetUI);

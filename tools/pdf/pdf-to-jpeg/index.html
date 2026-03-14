@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>PDF圧縮｜無料・安全・高速のオンラインPDF圧縮ツール</title>
-
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
+  <meta name="google-site-verification" content="cblGyKe8u_P_jGL-Jqw0_tqURcwRZ_4dW379GVVuG0c" />
   <meta name="google-adsense-account" content="ca-pub-6769343629657319">
+  <title>PDFをJPEGに変換｜無料・安全・高速のオンライン変換ツール</title>
 
-  <meta name="description" content="PDFファイルを無料で圧縮できるオンラインツール。アップロード不要で安全、すべての処理がブラウザ内で完結します。スマホ・PC対応で高速にPDFを軽量化できます。">
+  <meta name="description" content="PDFを無料でJPEG画像に変換できるオンラインツール。アップロード不要で安全、すべての処理がブラウザ内で完結します。スマホ・PC対応で高速変換できます。">
 
-  <!-- pdf.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+        integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ=="
+        crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
+        crossorigin="anonymous"></script>
 
-  <!-- pdf-lib -->
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
-
-  <!-- JSZip（今は使わないが残してOK） -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
-
-  <!-- CSP -->
   <meta http-equiv="Content-Security-Policy"
-        content="
+      content="
         default-src 'self' blob:;
-        script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net 'unsafe-eval' blob:;
+        script-src 'self' https://cdnjs.cloudflare.com 'unsafe-eval' blob:;
         style-src 'self' 'unsafe-inline';
-        img-src 'self' data: blob:;
+        img-src 'self' data:;
         font-src 'self';
         connect-src 'self' blob:;
-        worker-src 'self' https://cdnjs.cloudflare.com blob:;
+        worker-src 'self' blob:;
         child-src 'none';
         frame-ancestors 'none';
         object-src 'none';
@@ -39,98 +34,99 @@
         form-action 'self';
       ">
 
-  <!-- 外部CSS -->
-  <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div id="container">
 
-    <h1 class="main-title">PDF圧縮</h1>
-    <h2>ブラウザ完結型<br>PDF圧縮ツール</h2>
+    <!-- ▼ SEOの柱となるh1 -->
+    <h1 class="main-title">PDFをJPEGに変換する無料オンラインツール</h1>
+
+    <!-- ▼ 元のh2はサブ見出しとして活かす -->
+    <h2>PDF → JPEG変換<br>(1枚でも複数でも変換)</h2>
 
     <p class="note">
-      選択されたPDFは外部に送信されません。<br>
-      すべてお使いの端末内で処理されます。<br>
-      日本製のため不可解な日本語を目にすることはありません。
+      選択されたファイルやフォルダはサーバーに送信されません。<br>
+      すべてお使いのPCやスマホ内で処理されます。
     </p>
 
-    <!-- 画質プリセット -->
-    <div id="qualityBox">
-      <p style="margin-bottom:10px; font-weight:600;">圧縮後の画質を選択</p>
+<button id="fileButton">PDFファイルを選択</button>
+<button id="folderButton">フォルダを選択</button>
 
-      <label><input type="radio" name="qualityPreset" value="min">72dpi（最小）</label><br>
-      <label><input type="radio" name="qualityPreset" value="mobile">96dpi（スマホ画面）</label><br>
-      <label><input type="radio" name="qualityPreset" value="pc" checked>144dpi（パソコン画面）</label><br>
-      <label><input type="radio" name="qualityPreset" value="print">200dpi（印刷用）</label><br>
-      <label class="pc-only"><input type="radio" name="qualityPreset" value="pc-hi">300dpi（最大画質）</label>
-    </div>
-
-    <!-- ファイル選択 -->
-    <button id="fileButton">PDFファイルを選択</button>
     <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
+    <input type="file" id="folderInput" webkitdirectory multiple style="display:none">
 
-    <!-- ドラッグ＆ドロップ -->
-    <div id="dropArea" class="pc-only">ここに PDF をドラッグ＆ドロップ（複数可）</div>
+    <div id="dropArea">ここに PDF をドラッグ＆ドロップ</div>
 
-    <!-- 進捗バー -->
     <div id="progressContainer"><div id="progressBar"></div></div>
 
-    <!-- 完了メッセージ -->
-    <p id="completeMsg" style="display:none;">圧縮が完了しました！</p>
+    <p id="completeMsg">変換が完了しました！</p>
 
-    <!-- ★ キャンセルメッセージ（追加） -->
-    <p id="cancelMsg" style="display:none; color:#e53935; font-weight:bold; margin-top:15px;">
-      キャンセルされました
-    </p>
-
-    <!-- 複数PDFの保存ボタンリスト -->
-    <ul id="completeList" style="margin-top:15px; text-align:left; font-size:14px; list-style:none; padding:0;"></ul>
-
-    <!-- 単体PDFダウンロード -->
-    <a id="download" style="display:none;">圧縮後のPDFを開く</a>
-
+    <a id="download">保存</a>
     <p id="downloadNote" style="display:none; color:gray; font-size:0.85em;">
       ※保存されなかった変換データは、ページを閉じると自動的に消去されます。
     </p>
 
-    <!-- 操作ボタン -->
-    <button id="cancelBtn" style="display:none;">キャンセル</button>
-    <button id="resetBtn" style="display:none;">リセット</button>
+    <button id="cancelBtn">キャンセル</button>
+    <button id="resetBtn">リセット</button>
 
     <p class="note2">
-      ※ページ数や画像が多いPDFは、圧縮に時間がかかる場合があります。<br>
-      ※ご利用の端末によっては、メモリ不足により処理が途中で止まる場合があります。
+      ※データが大きいと、時間がかかる場合があります。<br>
+      ※ご利用の端末によっては、メモリ不足により変換が途中で止まる場合があります。<br>
+      ※iPhoneでページが読み込めない場合、iCloudの「プライベートリレー」をOFFにすると改善することがあります。
     </p>
 
+    <div id="thumbs"></div>
+
     <div class="info-section">
-      <h3>■ このPDF圧縮ツールの特徴</h3>
-      <p>このツールは、PDFの各ページを画像化し、JPEGとして再圧縮してPDFを再生成することでサイズを削減します。</p>
+<h3>■ なぜ無料でつかえるのか？</h3>
+  <p>
+    このツールはサーバーを一切使わず、すべての処理をあなたの端末の中だけで実行しています。
+    そのため、サーバーの維持費・通信費・ストレージ費用が発生しません。
+  </p>
+  <p>
+    一般的なオンライン変換サービスは、<br>
+    ・アップロードされたファイルをサーバーで処理<br>
+    ・変換結果をサーバーからダウンロード<br>
+    という仕組みのため、運営側にコストがかかります。
+  </p>
+  <p>
+    しかしこのツールは、ブラウザ内で PDF を読み込み、画像に変換し、保存するところまですべてローカルで完結するため、
+    運営側のコストがゼロに近く、無料で提供できます。
+  </p>
 
-      <h3>■ なぜ無料で使えるのか？</h3>
-      <p>すべての処理が端末内で完結するため、サーバー費用が発生しません。</p>
+  <h3>■ アップロード不要</h3>
+  <p>
+    このツールはサーバーを使用していないため、アップロード不要です。
+  </p>
+  <p>
+    ・PDF はあなたの端末から外に出ない<br>
+    ・インターネットを経由しない<br>
+    ・変換処理はすべてあなたのブラウザのメモリ上で完結する<br>
+  </p>
+  <p>
+    そのため、サーバーへのアップロードが無く、プライバシー面で優れています。
+  </p>
 
-
-
-      <p>詳しい使い方は <a href="guide/">こちら</a></p>
-      <p>FAQは <a href="faq/">こちら</a></p>
-    </div>
+  <!-- 内部リンク（SEO強化） -->
+  <p>詳しい使い方は <a href="guide/">こちら</a> をご覧ください。</p>
+  <p>よくある質問は <a href="faq/">FAQページ</a> にまとめています。</p>
+</div>
 
     <footer>
       <p>&copy; 2026 jun3</p>
       <nav>
-        <a href="/">ホーム</a>
-        <a href="/guide/">使い方</a>
-        <a href="/faq/">FAQ</a>
-        <a href="/about/">運営者情報</a>
-        <a href="/contact/">お問い合わせ</a>
-        <a href="/privacy/">プライバシーポリシー</a>
+<a href="/">ホーム</a>
+<a href="/guide/">使い方</a>
+<a href="/faq/">FAQ</a>
+<a href="/about/">運営者情報</a>
+<a href="/contact/">お問い合わせ</a>
+<a href="/privacy/">プライバシーポリシー</a>
       </nav>
     </footer>
 
   </div>
-
-  <!-- 外部JS -->
   <script src="main.js"></script>
 </body>
 </html>
