@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>動画リサイズ＆ダウンロード</title>
+<style>
+  body {
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  /* スマホ風プレビュー枠 */
+  #preview-frame {
+    width: 360px;
+    height: 640px;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 14px;
+    padding: 10px;
+    background: #f8f8f8;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+
+  #preview {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  #video-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+  }
+
+  canvas { display: none; }
+
+  button {
+    padding: 10px 18px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .control-group {
+    margin-bottom: 16px;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  label { font-weight: 600; }
+
+  /* アイコン付きボタン（ラジオ風） */
+  .mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin: 6px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    transition: 0.2s;
+  }
+
+  .mode-btn.selected {
+    border-color: #3b82f6;
+    background: #eef5ff;
+  }
+
+  .mode-btn input {
+    display: none;
+  }
+
+  /* 進捗バー */
+  #progress-container {
+    width: 100%;
+    max-width: 400px;
+    background: #ddd;
+    border-radius: 6px;
+    height: 20px;
+    margin: 20px auto;
+    display: none;
+  }
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #6a4df5;
+    border-radius: 6px;
+    transition: width 0.2s linear;
+  }
+
+  /* 完了メッセージ */
+  #complete-message {
+    display: none;
+    background: #e6ffed;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 400px;
+    margin: 20px auto 10px auto;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ダウンロードボタン */
+  #downloadLink {
+    display: none;
+    background: #6a4df5;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+  }
+  #downloadLink.show {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<h2>動画リサイズしてダウンロード（高画質＋音声対応）</h2>
+
+<div class="control-group">
+  <label for="file-input">動画ファイルを選択</label><br>
+  <input id="file-input" type="file" accept="video/*">
+</div>
+
+<div class="control-group">
+  <label for="preset-select">サイズプリセット</label><br>
+  <select id="preset-select">
+    <option value="1080x1920">TikTok (9:16) 1080×1920</option>
+    <option value="1080x1920">Instagram Reels (9:16) 1080×1920</option>
+    <option value="1080x1920">YouTube Shorts (9:16) 1080×1920</option>
+    <option value="1920x1080">YouTube (16:9) 1920×1080</option>
+    <option value="1080x1080">Instagram Square (1:1) 1080×1080</option>
+    <option value="1080x1350">Instagram Portrait (4:5) 1080×1350</option>
+    <option value="1280x720">Twitter/X (16:9) 1280×720</option>
+    <option value="1920x1080">LinkedIn (16:9) 1920×1080</option>
+    <option value="1080x1920">カスタムサイズ（初期値）1080×1920</option>
+  </select>
+</div>
+
+<div class="control-group">
+  <label>カスタムサイズ（任意）</label><br>
+  幅: <input id="custom-width" type="number" value="1080" style="width:80px;"> px
+  高さ: <input id="custom-height" type="number" value="1920" style="width:80px;"> px
+  <button id="apply-custom">カスタム適用</button>
+</div>
+
+<div class="control-group">
+  <label>リサイズ方式</label><br>
+
+  <label class="mode-btn selected">
+    <input type="radio" name="resizeMode" value="blur" checked>
+    🌫 フィット（ぼかしバー）
+  </label>
+
+  <label class="mode-btn">
+    <input type="radio" name="resizeMode" value="black">
+    ⬛ フィット（黒バー）
+  </label>
+
+  <label class="mode-btn">
+    <input type="radio" name="resizeMode" value="white">
+    ⬜ フィット（白バー）
+  </label>
+
+  <label class="mode-btn">
+    <input type="radio" name="resizeMode" value="fill">
+    🔍 塗りつぶし（ズーム）
+  </label>
+
+  <label class="mode-btn">
+    <input type="radio" name="resizeMode" value="stretch">
+    ↔ 引き伸ばし（ストレッチ）
+  </label>
+</div>
+
+<div id="preview-frame">
+  <video id="preview" controls></video>
+</div>
+
+<div id="video-info">動画情報：未読み込み</div>
+
+<canvas id="canvas"></canvas>
+
+<button id="startBtn">リサイズ動画を生成</button>
+
+<div id="progress-container">
+  <div id="progress-bar"></div>
+</div>
+
+<div id="complete-message">
+  ✅ 動画の生成が完了しました
+</div>
+
+<a id="downloadLink">⬇ リサイズ動画をダウンロード</a>
+
+<script>
+const fileInput = document.getElementById("file-input");
+const preview = document.getElementById("preview");
+const videoInfo = document.getElementById("video-info");
+const canvas = document.getElementById("canvas");
+const preset = document.getElementById("preset-select");
+const cw = document.getElementById("custom-width");
+const ch = document.getElementById("custom-height");
+const startBtn = document.getElementById("startBtn");
+const downloadLink = document.getElementById("downloadLink");
+const progressContainer = document.getElementById("progress-container");
+const progressBar = document.getElementById("progress-bar");
+const completeMessage = document.getElementById("complete-message");
+
+const modeButtons = document.querySelectorAll(".mode-btn");
+
+modeButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    modeButtons.forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    btn.querySelector("input").checked = true;
+    updatePreviewMode();
+  });
+});
+
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  preview.src = URL.createObjectURL(file);
+  preview.play();
+
+  preview.onloadedmetadata = () => {
+    videoInfo.textContent =
+      `動画情報：${preview.videoWidth}×${preview.videoHeight} / ${preview.duration.toFixed(1)}秒`;
+  };
+});
+
+preset.addEventListener("change", () => {
+  const [w, h] = preset.value.split("x").map(Number);
+  cw.value = w;
+  ch.value = h;
+});
+
+function updatePreviewMode() {
+  const mode = document.querySelector('input[name="resizeMode"]:checked').value;
+
+  if (mode === "stretch") {
+    preview.style.objectFit = "fill";
+  } else if (mode === "fill") {
+    preview.style.objectFit = "cover";
+  } else {
+    preview.style.objectFit = "contain";
+  }
+}
+
+startBtn.addEventListener("click", async () => {
+  if (!preview.src) {
+    alert("先に動画を選択してください");
+    return;
+  }
+
+  const width = Number(cw.value);
+  const height = Number(ch.value);
+
+  canvas.width = width;
+  canvas.height = height;
+
+  const ctx = canvas.getContext("2d");
+
+  const stream = canvas.captureStream();
+
+  const audioTracks = preview.captureStream().getAudioTracks();
+  audioTracks.forEach(track => stream.addTrack(track));
+
+  const recorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp9",
+    videoBitsPerSecond: 10_000_000
+  });
+
+  let chunks = [];
+
+  recorder.ondataavailable = e => chunks.push(e.data);
+
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: "video/webm" });
+    const url = URL.createObjectURL(blob);
+
+    downloadLink.href = url;
+    downloadLink.download = "resized-video.webm";
+
+    completeMessage.style.display = "block";
+
+    downloadLink.style.display = "inline-block";
+    setTimeout(() => {
+      downloadLink.classList.add("show");
+    }, 50);
+
+    progressBar.style.width = "100%";
+  };
+
+  completeMessage.style.display = "none";
+  downloadLink.classList.remove("show");
+  downloadLink.style.display = "none";
+
+  progressContainer.style.display = "block";
+  progressBar.style.width = "0%";
+
+  let fakeProgress = 0;
+  const timer = setInterval(() => {
+    fakeProgress += 1;
+    if (fakeProgress <= 95) {
+      progressBar.style.width = fakeProgress + "%";
+    }
+  }, 80);
+
+  recorder.start();
+
+  preview.currentTime = 0;
+  preview.play();
+
+  function drawFrame() {
+    if (preview.paused || preview.ended) {
+      clearInterval(timer);
+      recorder.stop();
+      return;
+    }
+
+    const mode = document.querySelector('input[name="resizeMode"]:checked').value;
+
+    const videoW = preview.videoWidth;
+    const videoH = preview.videoHeight;
+    const videoRatio = videoW / videoH;
+    const canvasRatio = width / height;
+
+    let drawW, drawH, offsetX, offsetY;
+
+    if (videoRatio > canvasRatio) {
+      drawW = width;
+      drawH = width / videoRatio;
+      offsetX = 0;
+      offsetY = (height - drawH) / 2;
+    } else {
+      drawH = height;
+      drawW = height * videoRatio;
+      offsetX = (width - drawW) / 2;
+      offsetY = 0;
+    }
+
+    if (mode === "black") {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    if (mode === "white") {
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    if (mode === "blur") {
+      ctx.filter = "blur(30px)";
+      ctx.drawImage(preview, 0, 0, width, height);
+      ctx.filter = "none";
+    }
+
+    if (mode === "fill") {
+      let fillW, fillH;
+      if (videoRatio > canvasRatio) {
+        fillH = height;
+        fillW = height * videoRatio;
+      } else {
+        fillW = width;
+        fillH = width / videoRatio;
+      }
+      ctx.drawImage(preview, (width - fillW) / 2, (height - fillH) / 2, fillW, fillH);
+      requestAnimationFrame(drawFrame);
+      return;
+    }
+
+    if (mode === "stretch") {
+      ctx.drawImage(preview, 0, 0, width, height);
+      requestAnimationFrame(drawFrame);
+      return;
+    }
+
+    ctx.drawImage(preview, offsetX, offsetY, drawW, drawH);
+
+    requestAnimationFrame(drawFrame);
+  }
+
+  drawFrame();
+});
+</script>
+
+</body>
+</html>
