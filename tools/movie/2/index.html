@@ -1,493 +1,377 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>動画リサイズ＆MP4出力（高画質＋音声対応）</title>
+<meta charset="UTF-8">
+<title>動画サイズトリミングツール</title>
+<style>
+  body {
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    text-align: center;
+  }
 
-  <!-- ★ ffmpeg.wasm を最初に読み込む（ここが超重要） -->
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+  /* プレビュー枠（固定） */
+  #preview-frame {
+    width: 360px;
+    height: 640px;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 14px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
 
-  <style>
-    body {
-      font-family: sans-serif;
-      max-width: 900px;
-      margin: 20px auto;
-      text-align: center;
-    }
+  #trimPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
 
-    /* スマホ風プレビュー枠 */
-    #preview-frame {
-      width: 360px;
-      height: 640px;
-      margin: 20px auto;
-      border: 2px solid #ccc;
-      border-radius: 14px;
-      padding: 10px;
-      background: #f8f8f8;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
+  /* 切り抜き範囲（明るい部分） */
+  #trim-overlay {
+    position: absolute;
+    border: 2px solid #fff;
+    background: rgba(255,255,255,0.05);
+    pointer-events: none;
+    z-index: 10;
+  }
 
-    #preview {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      object-fit: contain;
-      border-radius: 8px;
-    }
+  /* 暗いマスク（外側） */
+  .mask {
+    position: absolute;
+    background: rgba(0,0,0,0.55);
+    pointer-events: none;
+    z-index: 5;
+  }
 
-    #video-info {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #444;
-    }
+  select, button {
+    padding: 10px 16px;
+    font-size: 16px;
+    margin-top: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    canvas { display: none; }
+  /* 進捗バー */
+  #progress-container {
+    width: 100%;
+    max-width: 400px;
+    background: #ddd;
+    border-radius: 6px;
+    height: 20px;
+    margin: 20px auto;
+    display: none;
+  }
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #6a4df5;
+    border-radius: 6px;
+    transition: width 0.2s linear;
+  }
 
-    button {
-      padding: 10px 18px;
-      margin-top: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+  /* 完了メッセージ */
+  #complete-message {
+    display: none;
+    background: #e6ffed;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    max-width: 400px;
+    margin: 20px auto;
+  }
 
-    .control-group {
-      margin-bottom: 16px;
-      text-align: left;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  /* ダウンロードボタン */
+  #downloadLink {
+    display: none;
+    background: #6a4df5;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px auto;
+  }
 
-    label { font-weight: 600; }
-
-    /* アイコン付きボタン（ラジオ風） */
-    .mode-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      margin: 6px 0;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #fff;
-      transition: 0.2s;
-    }
-    .mode-btn.selected {
-      border-color: #3b82f6;
-      background: #eef5ff;
-    }
-    .mode-btn input {
-      display: none;
-    }
-
-    /* 画質選択 */
-    .quality-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      margin: 6px 0;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #fff;
-      transition: 0.2s;
-    }
-    .quality-btn.selected {
-      border-color: #16a34a;
-      background: #e8fbe8;
-    }
-    .quality-btn input {
-      display: none;
-    }
-
-    /* 進捗バー */
-    #progress-container {
-      width: 100%;
-      max-width: 400px;
-      background: #ddd;
-      border-radius: 6px;
-      height: 20px;
-      margin: 20px auto;
-      display: none;
-    }
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #6a4df5;
-      border-radius: 6px;
-      transition: width 0.2s linear;
-    }
-
-    /* 完了メッセージ */
-    #complete-message {
-      display: none;
-      background: #e6ffed;
-      color: #0f5132;
-      border: 1px solid #badbcc;
-      padding: 14px 18px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      max-width: 400px;
-      margin: 20px auto 10px auto;
-      animation: fadeIn 0.4s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ダウンロードボタン */
-    #downloadLink {
-      display: none;
-      background: #6a4df5;
-      color: #fff;
-      padding: 14px 22px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 20px;
-      display: inline-block;
-      opacity: 0;
-      transition: opacity 0.4s ease-out;
-    }
-    #downloadLink.show {
-      opacity: 1;
-    }
-  </style>
+  canvas { display: none; }
+</style>
 </head>
 <body>
 
-<h2>動画リサイズして MP4 をダウンロード（高画質＋音声対応）</h2>
+<h2>動画サイズトリミングツール</h2>
 
-<div class="control-group">
-  <label for="file-input">動画ファイルを選択</label><br>
-  <input id="file-input" type="file" accept="video/*">
-</div>
-
-<div class="control-group">
-  <label for="preset-select">サイズプリセット</label><br>
-  <select id="preset-select">
-    <option value="1080x1920">TikTok (9:16) 1080×1920</option>
-    <option value="1080x1920">Instagram Reels (9:16) 1080×1920</option>
-    <option value="1080x1920">YouTube Shorts (9:16) 1080×1920</option>
-    <option value="1920x1080">YouTube (16:9) 1920×1080</option>
-    <option value="1080x1080">Instagram Square (1:1) 1080×1080</option>
-    <option value="1080x1350">Instagram Portrait (4:5) 1080×1350</option>
-    <option value="1280x720">Twitter/X (16:9) 1280×720</option>
-    <option value="1920x1080">LinkedIn (16:9) 1920×1080</option>
-    <option value="1080x1920">カスタムサイズ（初期値）1080×1920</option>
-  </select>
-</div>
-
-<div class="control-group">
-  <label>カスタムサイズ（任意）</label><br>
-  幅: <input id="custom-width" type="number" value="1080" style="width:80px;"> px
-  高さ: <input id="custom-height" type="number" value="1920" style="width:80px;"> px
-  <button id="apply-custom">カスタム適用</button>
-</div>
-
-<!-- リサイズ方式 -->
-<div class="control-group">
-  <label>リサイズ方式</label><br>
-
-  <label class="mode-btn selected">
-    <input type="radio" name="resizeMode" value="blur" checked>
-    🌫 フィット（ぼかしバー）
-  </label>
-
-  <label class="mode-btn">
-    <input type="radio" name="resizeMode" value="black">
-    ⬛ フィット（黒バー）
-  </label>
-
-  <label class="mode-btn">
-    <input type="radio" name="resizeMode" value="white">
-    ⬜ フィット（白バー）
-  </label>
-
-  <label class="mode-btn">
-    <input type="radio" name="resizeMode" value="fill">
-    🔍 塗りつぶし（ズーム）
-  </label>
-
-  <label class="mode-btn">
-    <input type="radio" name="resizeMode" value="stretch">
-    ↔ 引き伸ばし（ストレッチ）
-  </label>
-</div>
-
-<!-- 画質選択 -->
-<div class="control-group">
-  <label>MP4 画質</label><br>
-
-  <label class="quality-btn selected">
-    <input type="radio" name="quality" value="standard" checked>
-    📦 標準画質（CRF 23）
-  </label>
-
-  <label class="quality-btn">
-    <input type="radio" name="quality" value="high">
-    💎 高画質（CRF 18）
-  </label>
-</div>
+<input type="file" id="trimFile" accept="video/*">
 
 <div id="preview-frame">
-  <video id="preview" controls></video>
+  <video id="trimPreview" controls></video>
+
+  <!-- 明るい切り抜き範囲 -->
+  <div id="trim-overlay"></div>
+
+  <!-- 暗いマスク（4方向） -->
+  <div id="mask-top" class="mask"></div>
+  <div id="mask-bottom" class="mask"></div>
+  <div id="mask-left" class="mask"></div>
+  <div id="mask-right" class="mask"></div>
 </div>
 
-<div id="video-info">動画情報：未読み込み</div>
+<select id="trimPreset">
+  <option value="1080x1920">TikTok（縦動画 9:16）1080×1920</option>
+  <option value="1080x1920">Instagramリール（縦動画 9:16）1080×1920</option>
+  <option value="1080x1920">YouTubeショート（縦動画 9:16）1080×1920</option>
+  <option value="1920x1080">YouTube（横動画 16:9）1920×1080</option>
+  <option value="1080x1080">Instagram 正方形（1:1）1080×1080</option>
+  <option value="1080x1350">Instagram ポートレート（4:5）1080×1350</option>
+  <option value="1280x720">X（旧Twitter）横動画（16:9）1280×720</option>
+  <option value="1920x1080">LinkedIn（横動画 16:9）1920×1080</option>
+  <option value="1080x1920">カスタムサイズ（初期値）1080×1920</option>
+</select>
 
-<canvas id="canvas"></canvas>
-
-<button id="startBtn">リサイズ動画を生成</button>
+<button id="trimStartBtn">このサイズでトリミング</button>
 
 <div id="progress-container">
   <div id="progress-bar"></div>
 </div>
 
-<div id="complete-message">
-  ✅ 動画の生成が完了しました
-</div>
+<div id="complete-message">トリミングが完了しました！</div>
 
-<a id="downloadLink">⬇ MP4 をダウンロード</a>
+<a id="downloadLink" download="trimmed.webm">トリミング動画をダウンロード</a>
+
+<canvas id="trimCanvas"></canvas>
 
 <script>
-  const fileInput = document.getElementById("file-input");
-  const preview = document.getElementById("preview");
-  const videoInfo = document.getElementById("video-info");
-  const canvas = document.getElementById("canvas");
-  const preset = document.getElementById("preset-select");
-  const cw = document.getElementById("custom-width");
-  const ch = document.getElementById("custom-height");
-  const startBtn = document.getElementById("startBtn");
-  const downloadLink = document.getElementById("downloadLink");
-  const progressContainer = document.getElementById("progress-container");
-  const progressBar = document.getElementById("progress-bar");
-  const completeMessage = document.getElementById("complete-message");
+const trimFile = document.getElementById("trimFile");
+const trimPreview = document.getElementById("trimPreview");
+const overlay = document.getElementById("trim-overlay");
+const maskTop = document.getElementById("mask-top");
+const maskBottom = document.getElementById("mask-bottom");
+const maskLeft = document.getElementById("mask-left");
+const maskRight = document.getElementById("mask-right");
 
-  const modeButtons = document.querySelectorAll(".mode-btn");
-  const qualityButtons = document.querySelectorAll(".quality-btn");
+/* 切り抜き範囲だけ更新（プレビュー枠は固定） */
+function updateOverlay() {
+  const frame = document.getElementById("preview-frame");
+  const frameW = frame.clientWidth;
+  const frameH = frame.clientHeight;
 
-  modeButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      modeButtons.forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
-      btn.querySelector("input").checked = true;
-      updatePreviewMode();
+  const [w, h] = document.getElementById("trimPreset").value.split("x").map(Number);
+
+  // プレビュー枠の幅に合わせて縮小
+  const ratio = frameW / w;
+  const ow = frameW;
+  const oh = h * ratio;
+
+  overlay.style.width = ow + "px";
+  overlay.style.height = oh + "px";
+  overlay.style.top = `calc(50% - ${oh/2}px)`;
+  overlay.style.left = `calc(50% - ${ow/2}px)`;
+
+  // マスク更新
+  const topH = (frameH - oh) / 2;
+  const bottomH = topH;
+
+  maskTop.style.top = "0";
+  maskTop.style.left = "0";
+  maskTop.style.width = frameW + "px";
+  maskTop.style.height = topH + "px";
+
+  maskBottom.style.bottom = "0";
+  maskBottom.style.left = "0";
+  maskBottom.style.width = frameW + "px";
+  maskBottom.style.height = bottomH + "px";
+
+  maskLeft.style.top = topH + "px";
+  maskLeft.style.left = "0";
+  maskLeft.style.width = "0px";
+  maskLeft.style.height = oh + "px";
+
+  maskRight.style.top = topH + "px";
+  maskRight.style.right = "0";
+  maskRight.style.width = "0px";
+  maskRight.style.height = oh + "px";
+}
+
+trimFile.onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  trimPreview.src = URL.createObjectURL(file);
+  updateOverlay();
+};
+
+document.getElementById("trimPreset").onchange = updateOverlay;
+
+/* --- ここから生成→進捗→完了→ダウンロード（リサイズ版と同じ） --- */
+
+const trimCanvas = document.getElementById("trimCanvas");
+const trimStartBtn = document.getElementById("trimStartBtn");
+const progressBar = document.getElementById("progress-bar");
+const progressContainer = document.getElementById("progress-container");
+const completeMessage = document.getElementById("complete-message");
+const downloadLink = document.getElementById("downloadLink");
+
+let recorder, chunks = [];
+
+trimStartBtn.onclick = async () => {
+  if (!trimPreview.src) return;
+
+  const [tw, th] = document.getElementById("trimPreset").value.split("x").map(Number);
+
+  if (trimPreview.readyState < 2) {
+    await new Promise(resolve => {
+      trimPreview.addEventListener("loadedmetadata", resolve, { once: true });
     });
-  });
-
-  qualityButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      qualityButtons.forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
-      btn.querySelector("input").checked = true;
-    });
-  });
-
-  fileInput.addEventListener("change", () => {
-    const file = fileInput.files[0];
-    if (!file) return;
-
-    preview.src = URL.createObjectURL(file);
-    preview.play();
-
-    preview.onloadedmetadata = () => {
-      videoInfo.textContent =
-        `動画情報：${preview.videoWidth}×${preview.videoHeight} / ${preview.duration.toFixed(1)}秒`;
-    };
-  });
-
-  preset.addEventListener("change", () => {
-    const [w, h] = preset.value.split("x").map(Number);
-    cw.value = w;
-    ch.value = h;
-  });
-
-  function updatePreviewMode() {
-    const mode = document.querySelector('input[name="resizeMode"]:checked').value;
-
-    if (mode === "stretch") {
-      preview.style.objectFit = "fill";
-    } else if (mode === "fill") {
-      preview.style.objectFit = "cover";
-    } else {
-      preview.style.objectFit = "contain";
-    }
   }
 
-  // WebM → MP4 変換
-  async function convertWebMtoMP4(webmBlob) {
-    const { createFFmpeg, fetchFile } = FFmpeg;
-    const ffmpeg = createFFmpeg({ log: false });
+  const vw = trimPreview.videoWidth;
+  const vh = trimPreview.videoHeight;
 
-    await ffmpeg.load();
+  const cw = Math.min(tw, vw);
+  const ch = Math.min(th, vh);
 
-    ffmpeg.FS('writeFile', 'input.webm', await fetchFile(webmBlob));
+  const sx = (vw - cw) / 2;
+  const sy = (vh - ch) / 2;
 
-    const quality = document.querySelector('input[name="quality"]:checked').value;
-    const crf = (quality === "high") ? "18" : "23";
-    const preset = (quality === "high") ? "slow" : "fast";
+  trimCanvas.width = cw;
+  trimCanvas.height = ch;
+  const ctx = trimCanvas.getContext("2d");
 
-await ffmpeg.run(
-  '-i', 'input.webm',
-  '-c:v', 'libx264',
-  '-preset', preset,
-  '-crf', crf,
-  '-c:a', 'aac',
-  '-b:a', '128k',
-  'output.mp4'
-);
+  chunks = [];
 
-    const data = ffmpeg.FS('readFile', 'output.mp4');
-    return new Blob([data.buffer], { type: 'video/mp4' });
-  }
+  progressContainer.style.display = "block";
+  progressBar.style.width = "0%";
+  completeMessage.style.display = "none";
+  downloadLink.style.display = "none";
 
-  startBtn.addEventListener("click", async () => {
-    if (!preview.src) {
-      alert("先に動画を選択してください");
+  await trimPreview.play();
+
+  const stream = trimCanvas.captureStream(30);
+
+  recorder = new MediaRecorder(stream, {
+    mimeType: "video/webm;codecs=vp9",
+    videoBitsPerSecond: 8000000
+  });
+
+  recorder.ondataavailable = e => {
+    if (e.data.size > 0) chunks.push(e.data);
+  };
+
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: "video/webm" });
+    const url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.style.display = "inline-block";
+    completeMessage.style.display = "block";
+  };
+
+  recorder.start();
+
+  const draw = () => {
+    if (trimPreview.paused || trimPreview.ended) {
+      recorder.stop();
+      progressBar.style.width = "100%";
       return;
     }
 
-    const width = Number(cw.value);
-    const height = Number(ch.value);
+    ctx.drawImage(trimPreview, sx, sy, cw, ch, 0, 0, cw, ch);
 
-    canvas.width = width;
-    canvas.height = height;
+    const p = (trimPreview.currentTime / trimPreview.duration) * 100;
+    progressBar.style.width = p + "%";
 
-    const ctx = canvas.getContext("2d");
+    requestAnimationFrame(draw);
+  };
 
-    const stream = canvas.captureStream();
-
-    const audioTracks = preview.captureStream().getAudioTracks();
-    audioTracks.forEach(track => stream.addTrack(track));
-
-    const recorder = new MediaRecorder(stream, {
-      mimeType: "video/webm;codecs=vp9",
-      videoBitsPerSecond: 10_000_000
-    });
-
-    let chunks = [];
-
-    recorder.ondataavailable = e => chunks.push(e.data);
-
-    recorder.onstop = async () => {
-      const webmBlob = new Blob(chunks, { type: "video/webm" });
-
-      // WebM → MP4 変換
-      const mp4Blob = await convertWebMtoMP4(webmBlob);
-      const url = URL.createObjectURL(mp4Blob);
-
-      downloadLink.href = url;
-      downloadLink.download = "resized-video.mp4";
-
-      completeMessage.style.display = "block";
-
-      downloadLink.style.display = "inline-block";
-      setTimeout(() => {
-        downloadLink.classList.add("show");
-      }, 50);
-
-      progressBar.style.width = "100%";
-    };
-
-    completeMessage.style.display = "none";
-    downloadLink.classList.remove("show");
-    downloadLink.style.display = "none";
-
-    progressContainer.style.display = "block";
-    progressBar.style.width = "0%";
-
-    let fakeProgress = 0;
-    const timer = setInterval(() => {
-      fakeProgress += 1;
-      if (fakeProgress <= 95) {
-        progressBar.style.width = fakeProgress + "%";
-      }
-    }, 80);
-
-    recorder.start();
-
-    preview.currentTime = 0;
-    preview.play();
-
-    function drawFrame() {
-      if (preview.paused || preview.ended) {
-        clearInterval(timer);
-        recorder.stop();
-        return;
-      }
-
-      const mode = document.querySelector('input[name="resizeMode"]:checked').value;
-
-      const videoW = preview.videoWidth;
-      const videoH = preview.videoHeight;
-      const videoRatio = videoW / videoH;
-      const canvasRatio = width / height;
-
-      let drawW, drawH, offsetX, offsetY;
-
-      if (videoRatio > canvasRatio) {
-        drawW = width;
-        drawH = width / videoRatio;
-        offsetX = 0;
-        offsetY = (height - drawH) / 2;
-      } else {
-        drawH = height;
-        drawW = height * videoRatio;
-        offsetX = (width - drawW) / 2;
-        offsetY = 0;
-      }
-
-      if (mode === "black") {
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, width, height);
-      }
-
-      if (mode === "white") {
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, width, height);
-      }
-
-      if (mode === "blur") {
-        ctx.filter = "blur(30px)";
-        ctx.drawImage(preview, 0, 0, width, height);
-        ctx.filter = "none";
-      }
-
-      if (mode === "fill") {
-        let fillW, fillH;
-        if (videoRatio > canvasRatio) {
-          fillH = height;
-          fillW = height * videoRatio;
-        } else {
-          fillW = width;
-          fillH = width / videoRatio;
-        }
-        ctx.drawImage(preview, (width - fillW) / 2, (height - fillH) / 2, fillW, fillH);
-        requestAnimationFrame(drawFrame);
-        return;
-      }
-
-      if (mode === "stretch") {
-        ctx.drawImage(preview, 0, 0, width, height);
-        requestAnimationFrame(drawFrame);
-        return;
-      }
-
-      ctx.drawImage(preview, offsetX, offsetY, drawW, drawH);
-
-      requestAnimationFrame(drawFrame);
-    }
-
-    drawFrame();
-  });
+  draw();
+};
 </script>
+<section id="ai-overview" style="margin-top:60px; text-align:left; max-width:900px; margin-left:auto; margin-right:auto;">
 
+<h1>動画サイズトリミングツール｜TikTok・リール・ショート対応</h1>
+
+<p>
+この動画サイズトリミングツールは、TikTok・Instagramリール・YouTubeショートなど
+縦型SNS向けの動画サイズに、ブラウザだけで安全にトリミングできる無料ツールです。
+動画データはサーバーに送信されず、すべてお使いの端末内で処理されます。
+</p>
+
+<h2>対応している動画サイズ</h2>
+<ul>
+  <li>TikTok / Instagramリール / YouTubeショート：1080×1920（9:16）</li>
+  <li>YouTube：1920×1080（16:9）</li>
+  <li>Instagram 正方形：1080×1080（1:1）</li>
+  <li>Instagram ポートレート：1080×1350（4:5）</li>
+  <li>X（旧Twitter）：1280×720（16:9）</li>
+</ul>
+
+<h2>このツールでできること</h2>
+<ul>
+  <li>動画の中央部分を指定サイズにトリミング</li>
+  <li>プレビュー枠は固定のまま、切り抜き範囲だけを視覚的に表示</li>
+  <li>外側を暗くすることで、実際の切り抜き範囲が一目で分かる</li>
+  <li>ブラウザだけで完結（アップロード不要）</li>
+  <li>生成 → 進捗バー → 完了 → ダウンロードのシンプルな操作</li>
+</ul>
+
+<h2>よくある質問（FAQ）</h2>
+
+<h3>このツールは無料ですか？</h3>
+<p>はい、完全に無料で利用できます。</p>
+
+<h3>動画はサーバーにアップロードされますか？</h3>
+<p>いいえ。動画はブラウザ内だけで処理され、外部に送信されません。</p>
+
+<h3>どんな動画形式に対応していますか？</h3>
+<p>MP4など、ブラウザで再生できる一般的な動画形式に対応しています。</p>
+
+<h3>出力形式は何ですか？</h3>
+<p>WebM形式で出力されます。</p>
+
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "このツールは無料ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい、完全に無料で利用できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "動画はサーバーにアップロードされますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。動画はブラウザ内だけで処理され、外部に送信されません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "どんな動画形式に対応していますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MP4など、ブラウザで再生できる一般的な動画形式に対応しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "出力形式は何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WebM形式で出力されます。"
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>
