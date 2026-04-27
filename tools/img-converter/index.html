@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="画像を PNG・WEBP・JPEG・GIF・BMP・ICO などの形式に無料で変換できるオンラインツールです。ファイルはすべてブラウザ内で処理され、サーバーにアップロードされません。">
+  <meta name="keywords" content="画像変換,フォーマット変換,PNG変換,WEBP変換,JPEG変換,オンラインツール,無料">
+  <meta property="og:title" content="画像フォーマット変換ツール | 無料オンラインサービス">
+  <meta property="og:description" content="JPEG・PNG・WEBPなど各種画像形式を無料で変換。ブラウザ内処理で安全・高速。">
+  <meta property="og:type" content="website">
+  <title>画像フォーマット変換ツール | 無料オンラインサービス</title>
+
+  <!-- Google AdSense (サイト確認用 — 実際のpublisher-idに変更してください) -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f0f9ff;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --border: #bae6fd;
+      --border-light: #e0f2fe;
+      --accent: #0ea5e9;
+      --accent-dark: #0284c7;
+      --accent-bg: #e0f2fe;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-bg: #d1fae5;
+      --error: #ef4444;
+      --error-bg: #fee2e2;
+      --shadow: 0 1px 3px rgba(14,165,233,0.08), 0 4px 16px rgba(14,165,233,0.06);
+      --shadow-card: 0 2px 8px rgba(14,165,233,0.10), 0 1px 2px rgba(0,0,0,0.04);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font-ui: 'Outfit', 'Noto Sans JP', sans-serif;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --transition: 0.18s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c1220;
+        --surface: #131d2e;
+        --card: #1a2740;
+        --border: #1e3a5f;
+        --border-light: #1a2e48;
+        --accent: #38bdf8;
+        --accent-dark: #7dd3fc;
+        --accent-bg: #0c2540;
+        --text: #e2eaf4;
+        --text-muted: #7fa8cc;
+        --text-light: #4d7a9e;
+        --success: #34d399;
+        --success-bg: #064e3b;
+        --error: #f87171;
+        --error-bg: #450a0a;
+        --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+        --shadow-card: 0 2px 8px rgba(0,0,0,0.3);
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-ja);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      gap: 12px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent), #06b6d4);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 18px; height: 18px; fill: white; }
+    .logo-text { font-family: var(--font-ui); font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+    .logo-text span { color: var(--accent); }
+    nav { display: flex; gap: 4px; }
+    nav a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      padding: 6px 10px; border-radius: 6px; transition: all var(--transition);
+    }
+    nav a:hover { background: var(--accent-bg); color: var(--accent); }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent-bg); color: var(--accent);
+      font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 1rem; font-family: var(--font-ui);
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    h1 {
+      font-family: var(--font-ui);
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1rem 4rem;
+    }
+
+    /* ===== AD PLACEHOLDER ===== */
+    .ad-unit {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 12px;
+      margin-bottom: 1.5rem;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .card-head {
+      padding: 1rem 1.25rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-head-icon {
+      width: 28px; height: 28px;
+      background: var(--accent-bg);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-head-icon svg { width: 15px; height: 15px; fill: var(--accent); }
+    .card-head h2 {
+      font-family: var(--font-ui);
+      font-size: 14px; font-weight: 600;
+      color: var(--text);
+    }
+    .card-body { padding: 1.25rem; }
+
+    /* ===== DROP ZONE ===== */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      background: var(--bg);
+    }
+    .drop-zone:hover, .drop-zone.over {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    .drop-zone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer;
+      width: 100%; height: 100%;
+    }
+    .drop-icon {
+      width: 52px; height: 52px;
+      background: var(--accent-bg);
+      border-radius: 14px;
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .drop-icon svg { width: 26px; height: 26px; fill: var(--accent); }
+    .drop-title {
+      font-family: var(--font-ui);
+      font-size: 15px; font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .drop-sub { font-size: 12px; color: var(--text-muted); }
+    .drop-formats {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 4px; margin-top: 12px;
+    }
+    .drop-formats span {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 2px 7px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== PREVIEW ===== */
+    .preview-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .preview-thumb {
+      width: 80px; height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+    .preview-meta { flex: 1; min-width: 0; }
+    .preview-filename {
+      font-size: 14px; font-weight: 500;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      margin-bottom: 4px;
+    }
+    .meta-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .meta-item { font-size: 12px; color: var(--text-muted); }
+    .meta-item span { color: var(--text); font-weight: 500; }
+    .change-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px;
+      font-size: 12px; color: var(--text-muted);
+      cursor: pointer; font-family: var(--font-ja);
+      transition: all var(--transition); margin-top: 6px;
+    }
+    .change-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+
+    /* ===== FORMAT SELECT ===== */
+    .format-label {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-family: var(--font-ui);
+    }
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+    @media (min-width: 480px) {
+      .format-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+    .fmt-btn {
+      background: var(--bg);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: var(--font-ui);
+    }
+    .fmt-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      transform: translateY(-1px);
+    }
+    .fmt-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+    }
+    .fmt-name {
+      font-size: 14px; font-weight: 700;
+      color: var(--text);
+      display: block; margin-bottom: 2px;
+    }
+    .fmt-btn.active .fmt-name { color: var(--accent); }
+    .fmt-desc {
+      font-size: 10px; color: var(--text-light);
+      display: block; line-height: 1.3;
+    }
+
+    /* ===== SETTINGS ===== */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 480px) {
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+    .setting-group label {
+      display: block;
+      font-size: 12px; font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-family: var(--font-ui);
+    }
+    .quality-control { display: flex; align-items: center; gap: 10px; }
+    .quality-control input[type="range"] {
+      flex: 1; height: 4px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .quality-val {
+      font-size: 14px; font-weight: 600;
+      font-family: var(--font-ui);
+      color: var(--accent);
+      min-width: 38px;
+      text-align: right;
+    }
+    .resize-inputs { display: flex; align-items: center; gap: 6px; }
+    .resize-inputs input[type="number"] {
+      flex: 1; min-width: 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 13px;
+      color: var(--text);
+      font-family: var(--font-ja);
+      text-align: center;
+      transition: all var(--transition);
+    }
+    .resize-inputs input[type="number"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    .resize-sep { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+    .aspect-lock {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text-muted);
+      cursor: pointer; margin-top: 6px;
+      font-family: var(--font-ja);
+    }
+    .aspect-lock input { accent-color: var(--accent); }
+
+    /* ===== CONVERT BUTTON ===== */
+    .convert-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--accent), #06b6d4);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: 0.3px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .convert-btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(14,165,233,0.35); }
+    .convert-btn:active { transform: translateY(0); filter: brightness(1); }
+    .convert-btn:disabled {
+      background: var(--border-light);
+      color: var(--text-light);
+      cursor: not-allowed; transform: none; filter: none; box-shadow: none;
+    }
+    .btn-icon { width: 18px; height: 18px; fill: white; }
+
+    /* ===== ERROR/NOTICE ===== */
+    .notice {
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 13px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .notice.error { background: var(--error-bg); color: var(--error); display: flex; }
+    .notice.success { background: var(--success-bg); color: var(--success); display: flex; }
+
+    /* ===== RESULT ===== */
+    .result-card { margin-top: 1.5rem; display: none; }
+    .result-card.show { display: block; }
+    .result-inner {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .result-thumb {
+      width: 80px; height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .result-meta { flex: 1; min-width: 0; }
+    .result-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--success-bg); color: var(--success);
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 8px;
+      font-family: var(--font-ui);
+    }
+    .result-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4px; margin-bottom: 10px;
+    }
+    .result-stat { font-size: 12px; color: var(--text-muted); }
+    .result-stat span { color: var(--text); font-weight: 500; }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent);
+      color: white;
+      border: none; border-radius: 8px;
+      padding: 9px 18px;
+      font-family: var(--font-ui); font-size: 14px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: all var(--transition);
+    }
+    .dl-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .dl-btn svg { width: 15px; height: 15px; fill: white; }
+
+    /* ===== FEATURES ===== */
+    .section-title {
+      font-family: var(--font-ui);
+      font-size: 20px; font-weight: 700;
+      text-align: center;
+      margin: 3rem 0 1.5rem;
+      letter-spacing: -0.3px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-card);
+    }
+    .feature-icon {
+      width: 40px; height: 40px;
+      background: var(--accent-bg);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .feature-icon svg { width: 20px; height: 20px; fill: var(--accent); }
+    .feature-card h3 {
+      font-family: var(--font-ui);
+      font-size: 14px; font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===== HOW TO USE ===== */
+    .howto-list { display: grid; gap: 12px; }
+    .howto-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow-card);
+    }
+    .howto-num {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--accent), #06b6d4);
+      color: white; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      font-family: var(--font-ui);
+      flex-shrink: 0;
+    }
+    .howto-content h4 {
+      font-family: var(--font-ui); font-size: 14px; font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .howto-content p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===== FAQ ===== */
+    .faq-list { display: grid; gap: 8px; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .faq-q {
+      width: 100%;
+      background: none; border: none;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-family: var(--font-ja); font-size: 14px; font-weight: 500;
+      color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    .faq-q:hover { background: var(--bg); }
+    .faq-arrow {
+      width: 20px; height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform var(--transition);
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 0 1.25rem 1rem;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.75rem;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border-light);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 860px; margin: 0 auto; }
+    .footer-links {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 4px 16px; margin-bottom: 1rem;
+    }
+    .footer-links a {
+      font-size: 13px; color: var(--text-muted);
+      text-decoration: none; transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-note { font-size: 12px; color: var(--text-light); line-height: 1.7; margin-bottom: 0.5rem; }
+    .footer-copy { font-size: 12px; color: var(--text-light); }
+
+    /* ===== POLICY PAGES (hidden by default) ===== */
+    .policy-section {
+      display: none;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    .policy-section.show { display: block; }
+    .policy-section h2 {
+      font-family: var(--font-ui); font-size: 22px; font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .policy-section h3 {
+      font-family: var(--font-ui); font-size: 16px; font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .policy-section p, .policy-section ul {
+      font-size: 14px; color: var(--text-muted); line-height: 1.8;
+    }
+    .policy-section ul { padding-left: 1.25rem; }
+    .policy-section li { margin-bottom: 4px; }
+
+    /* ===== HIDDEN HELPER ===== */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+    }
+    #main-tool { display: block; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="showMain();return false;" aria-label="ホームへ戻る">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <span class="logo-text">Image<span>Converter</span></span>
+    </a>
+    <nav>
+      <a href="#howto" onclick="showMain();return false;">使い方</a>
+      <a href="#faq" onclick="showMain();return false;">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<div id="main-tool">
+  <main>
+    <div class="hero">
+      <div class="hero-badge">無料・登録不要</div>
+      <h1>画像フォーマットを<br><em>かんたん変換</em></h1>
+      <p class="hero-desc">
+        JPEG・PNG・WEBPなどの画像ファイルを、さまざまな形式に素早く変換できます。
+        ファイルはブラウザ内で処理されるため、安全・高速です。
+      </p>
+    </div>
+
+    <div class="container">
+
+      <!-- 広告枠（上部） -->
+      <div class="ad-unit" aria-label="広告">
+        <!-- AdSense広告をここに挿入 -->
+        広告スペース (728×90 / レスポンシブ)
+      </div>
+
+      <!-- ツール本体 -->
+      <div class="card" id="converter-card">
+        <div class="card-head">
+          <div class="card-head-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+          </div>
+          <h2>画像をアップロード</h2>
+        </div>
+        <div class="card-body">
+
+          <!-- ドロップゾーン -->
+          <div class="drop-zone" id="drop-zone">
+            <input type="file" id="file-input" accept="image/*" aria-label="画像ファイルを選択">
+            <div class="drop-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <p class="drop-title">ここにドロップ、またはクリックして選択</p>
+            <p class="drop-sub">スマホはタップして選択・撮影できます</p>
+            <div class="drop-formats">
+              <span>JPEG</span><span>PNG</span><span>WEBP</span><span>GIF</span><span>BMP</span><span>TIFF</span><span>SVG</span>
+            </div>
+          </div>
+
+          <div id="notice-area" class="notice" aria-live="polite"></div>
+
+          <!-- プレビュー -->
+          <div id="preview-area" style="display:none; margin-top:1.25rem;">
+            <div class="preview-row">
+              <img id="preview-img" class="preview-thumb" src="" alt="元画像プレビュー">
+              <div class="preview-meta">
+                <p class="preview-filename" id="preview-filename"></p>
+                <div class="meta-grid" id="preview-meta"></div>
+                <button class="change-btn" id="change-btn">別の画像を選択</button>
+              </div>
+            </div>
+
+            <!-- フォーマット選択 -->
+            <p class="format-label">変換形式</p>
+            <div class="format-grid" id="format-grid">
+              <div class="fmt-btn active" data-fmt="image/png" data-ext="png">
+                <span class="fmt-name">PNG</span>
+                <span class="fmt-desc">透過・高画質</span>
+              </div>
+              <div class="fmt-btn" data-fmt="image/webp" data-ext="webp">
+                <span class="fmt-name">WEBP</span>
+                <span class="fmt-desc">軽量・高品質</span>
+              </div>
+              <div class="fmt-btn" data-fmt="image/jpeg" data-ext="jpg">
+                <span class="fmt-name">JPEG</span>
+                <span class="fmt-desc">高圧縮率</span>
+              </div>
+              <div class="fmt-btn" data-fmt="image/gif" data-ext="gif">
+                <span class="fmt-name">GIF</span>
+                <span class="fmt-desc">256色・アニメ</span>
+              </div>
+              <div class="fmt-btn" data-fmt="image/bmp" data-ext="bmp">
+                <span class="fmt-name">BMP</span>
+                <span class="fmt-desc">無圧縮・高互換</span>
+              </div>
+              <div class="fmt-btn" data-fmt="ico" data-ext="ico">
+                <span class="fmt-name">ICO</span>
+                <span class="fmt-desc">ファビコン用</span>
+              </div>
+            </div>
+
+            <!-- 設定 -->
+            <div class="settings-grid">
+              <div class="setting-group" id="quality-group">
+                <label for="quality-slider">品質設定</label>
+                <div class="quality-control">
+                  <input type="range" id="quality-slider" min="10" max="100" value="90" step="5" aria-label="画質設定">
+                  <span class="quality-val" id="quality-display">90%</span>
+                </div>
+              </div>
+              <div class="setting-group">
+                <label>リサイズ（px・任意）</label>
+                <div class="resize-inputs">
+                  <input type="number" id="resize-w" placeholder="幅" min="1" max="8000" aria-label="幅（ピクセル）">
+                  <span class="resize-sep">×</span>
+                  <input type="number" id="resize-h" placeholder="高さ" min="1" max="8000" aria-label="高さ（ピクセル）">
+                </div>
+                <label class="aspect-lock">
+                  <input type="checkbox" id="aspect-lock" checked aria-label="縦横比を固定">
+                  縦横比を固定
+                </label>
+              </div>
+            </div>
+
+            <button class="convert-btn" id="convert-btn" aria-label="変換を開始する">
+              <svg class="btn-icon" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              変換する
+            </button>
+          </div>
+
+          <!-- 結果 -->
+          <div class="result-card" id="result-area">
+            <div class="card-head" style="border-top:1px solid var(--border-light);margin:1.25rem -1.25rem 1.25rem;">
+              <div class="card-head-icon" style="background:var(--success-bg);">
+                <svg viewBox="0 0 24 24" style="fill:var(--success)"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <h2>変換完了</h2>
+            </div>
+            <div class="result-inner">
+              <img id="result-img" class="result-thumb" src="" alt="変換後の画像プレビュー">
+              <div class="result-meta">
+                <div class="result-badge">✓ 変換成功</div>
+                <div class="result-stats" id="result-stats"></div>
+                <a class="dl-btn" id="dl-link" href="#" download aria-label="変換した画像をダウンロード">
+                  <svg viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  ダウンロード
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 広告枠（中間） -->
+      <div class="ad-unit" style="margin-top:1.5rem;" aria-label="広告">
+        広告スペース (336×280 / レクタングル)
+      </div>
+
+      <!-- 使い方 -->
+      <section id="howto" aria-labelledby="howto-title">
+        <h2 class="section-title" id="howto-title">使い方</h2>
+        <div class="howto-list">
+          <div class="howto-item">
+            <div class="howto-num">1</div>
+            <div class="howto-content">
+              <h4>画像をアップロード</h4>
+              <p>変換したい画像ファイルをドラッグ＆ドロップするか、クリックして選択します。スマートフォンの場合はタップしてカメラロールや写真から選択できます。</p>
+            </div>
+          </div>
+          <div class="howto-item">
+            <div class="howto-num">2</div>
+            <div class="howto-content">
+              <h4>変換形式・オプションを選ぶ</h4>
+              <p>PNG・WEBP・JPEG・GIF・BMP・ICO から変換先の形式を選択します。必要に応じて画質やサイズを調整することもできます。</p>
+            </div>
+          </div>
+          <div class="howto-item">
+            <div class="howto-num">3</div>
+            <div class="howto-content">
+              <h4>変換してダウンロード</h4>
+              <p>「変換する」ボタンをタップすると即座に変換が完了します。「ダウンロード」ボタンで変換済みの画像を保存してください。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 特徴 -->
+      <section aria-labelledby="features-title">
+        <h2 class="section-title" id="features-title">特徴</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <h3>完全プライバシー保護</h3>
+            <p>すべての処理はブラウザ内で完結します。画像ファイルがサーバーにアップロードされることは一切ありません。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3>高速変換</h3>
+            <p>ネットワーク通信なしにローカルで処理するため、ファイルサイズに関わらず数秒以内に変換が完了します。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <h3>スマホ完全対応</h3>
+            <p>スマートフォン・タブレットでも快適に操作できます。カメラで撮影した画像もその場で変換可能です。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <h3>リサイズ機能付き</h3>
+            <p>変換と同時に画像サイズの変更も可能。縦横比を固定したまま任意のサイズに調整できます。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+            <h3>多様な形式に対応</h3>
+            <p>PNG・WEBP・JPEG・GIF・BMP・ICO など、主要なすべての画像フォーマットに変換できます。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3>完全無料</h3>
+            <p>登録不要・無制限で無料でご利用いただけます。広告表示がありますが、機能に制限はありません。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 広告枠（下部） -->
+      <div class="ad-unit" aria-label="広告">
+        広告スペース (728×90 / レスポンシブ)
+      </div>
+
+      <!-- FAQ -->
+      <section id="faq" aria-labelledby="faq-title">
+        <h2 class="section-title" id="faq-title">よくある質問</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+              アップロードした画像はどこに保存されますか？
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-a">
+              画像ファイルはサーバーに送信されることは一切ありません。すべての処理はお使いのブラウザ（端末）の中だけで行われます。そのため、インターネット接続がなくても変換が可能な場合があります。
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+              変換できるファイルサイズに制限はありますか？
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-a">
+              サーバー側での制限はありませんが、ブラウザのメモリや端末のスペックによって、非常に大きなファイル（目安: 50MB以上）の処理が遅くなる場合があります。一般的な写真（数MB程度）は問題なく処理できます。
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+              PNG と WEBP はどちらを選べばよいですか？
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-a">
+              ウェブサイトで使用する場合はWEBPがおすすめです。PNGと同等の品質でファイルサイズを大幅に削減できます。透過が必要な画像や幅広い互換性が必要な場合はPNGを選択してください。
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+              スマートフォンでカメラで撮影した画像を変換できますか？
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-a">
+              はい、できます。スマートフォンのブラウザでアップロードボタンをタップすると、カメラロールや写真アプリから選択することができます。一部の端末ではカメラを直接起動することも可能です。
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+              ICO形式への変換はどのような用途に使いますか？
+              <span class="faq-arrow">▾</span>
+            </button>
+            <div class="faq-a">
+              ICO形式は主にウェブサイトのファビコン（ブラウザのタブに表示される小さなアイコン）として使用されます。本ツールでは最大256×256pxのICOファイルを生成できます。
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- プライバシーポリシーページ -->
+<div id="privacy-page" style="display:none;">
+  <div class="container">
+    <div class="policy-section show">
+      <h2>プライバシーポリシー</h2>
+      <p>最終更新日：2024年1月1日</p>
+      <h3>個人情報の収集について</h3>
+      <p>本サービスでは、画像変換処理をすべてお客様のブラウザ内で行うため、アップロードされた画像ファイルをサーバーで収集・保存することはありません。</p>
+      <h3>Cookieおよびアクセス解析について</h3>
+      <p>本サービスでは、サービス改善のためGoogle Analyticsを使用する場合があります。Google Analyticsはクッキーを使用してアクセス情報を収集しますが、個人を特定する情報は含まれません。</p>
+      <h3>広告について</h3>
+      <p>本サービスはGoogle AdSenseを利用した広告を表示しています。広告配信にあたり、Googleはクッキーを使用して、以前のウェブサイトへのアクセス情報に基づく広告を配信することがあります。</p>
+      <h3>お問い合わせ</h3>
+      <p>本プライバシーポリシーに関するお問い合わせは、お問い合わせページよりご連絡ください。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 利用規約ページ -->
+<div id="terms-page" style="display:none;">
+  <div class="container">
+    <div class="policy-section show">
+      <h2>利用規約</h2>
+      <p>最終更新日：2024年1月1日</p>
+      <h3>サービスの利用について</h3>
+      <p>本サービスは、個人・法人を問わず無料でご利用いただけます。以下の行為は禁止します：</p>
+      <ul>
+        <li>著作権を侵害するコンテンツの変換・配布</li>
+        <li>第三者の権利を侵害する目的での使用</li>
+        <li>違法なコンテンツの作成・配布を目的とした使用</li>
+        <li>サービスへの不正アクセスや過度な負荷をかける行為</li>
+      </ul>
+      <h3>免責事項</h3>
+      <p>本サービスは現状有姿で提供されます。変換結果の品質や正確性について、当サービスは一切の保証をいたしません。サービスの利用によって生じたいかなる損害についても、当サービスは責任を負いかねます。</p>
+      <h3>変更・終了について</h3>
+      <p>当サービスは予告なくサービスの内容変更・終了を行う場合があります。あらかじめご了承ください。</p>
+    </div>
+  </div>
+</div>
+
+<!-- お問い合わせページ -->
+<div id="contact-page" style="display:none;">
+  <div class="container">
+    <div class="policy-section show">
+      <h2>お問い合わせ</h2>
+      <p>バグの報告・ご意見・ご要望などは以下のフォームよりお送りください。</p>
+      <div class="card" style="margin-top:1.5rem;">
+        <div class="card-body">
+          <div style="display:grid;gap:1rem;">
+            <div>
+              <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;" for="contact-name">お名前</label>
+              <input type="text" id="contact-name" placeholder="例：山田 太郎"
+                style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--text);font-family:var(--font-ja);">
+            </div>
+            <div>
+              <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;" for="contact-email">メールアドレス</label>
+              <input type="email" id="contact-email" placeholder="例：example@email.com"
+                style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--text);font-family:var(--font-ja);">
+            </div>
+            <div>
+              <label style="display:block;font-size:13px;font-weight:500;margin-bottom:6px;" for="contact-msg">お問い合わせ内容</label>
+              <textarea id="contact-msg" rows="5" placeholder="お問い合わせ内容をご記入ください"
+                style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--text);font-family:var(--font-ja);resize:vertical;"></textarea>
+            </div>
+            <button onclick="alert('送信しました。（デモ）')" class="convert-btn" style="max-width:200px;">送信する</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#" onclick="showMain();return false;">ホーム</a>
+      <a href="#" onclick="showPage('privacy-page');return false;">プライバシーポリシー</a>
+      <a href="#" onclick="showPage('terms-page');return false;">利用規約</a>
+      <a href="#" onclick="showPage('contact-page');return false;">お問い合わせ</a>
+    </div>
+    <p class="footer-note">
+      本サービスはブラウザ内でのみ画像処理を行います。<br>
+      アップロードされたファイルはサーバーに送信されません。
+    </p>
+    <p class="footer-copy">© 2024 ImageConverter. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const previewArea = document.getElementById('preview-area');
+  const previewImg = document.getElementById('preview-img');
+  const previewFilename = document.getElementById('preview-filename');
+  const previewMeta = document.getElementById('preview-meta');
+  const changeBtn = document.getElementById('change-btn');
+  const noticeArea = document.getElementById('notice-area');
+  const convertBtn = document.getElementById('convert-btn');
+  const resultArea = document.getElementById('result-area');
+  const resultImg = document.getElementById('result-img');
+  const resultStats = document.getElementById('result-stats');
+  const dlLink = document.getElementById('dl-link');
+  const qualitySlider = document.getElementById('quality-slider');
+  const qualityDisplay = document.getElementById('quality-display');
+  const resizeW = document.getElementById('resize-w');
+  const resizeH = document.getElementById('resize-h');
+  const aspectLock = document.getElementById('aspect-lock');
+  const qualityGroup = document.getElementById('quality-group');
+
+  let currentFile = null, origImg = null, origW = 0, origH = 0;
+  let selFmt = 'image/png', selExt = 'png';
+
+  qualitySlider.addEventListener('input', () => {
+    qualityDisplay.textContent = qualitySlider.value + '%';
+  });
+
+  document.querySelectorAll('.fmt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.fmt-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selFmt = btn.dataset.fmt;
+      selExt = btn.dataset.ext;
+      const showQ = selFmt === 'image/jpeg' || selFmt === 'image/webp';
+      qualityGroup.style.display = showQ ? 'block' : 'none';
+    });
+  });
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('over');
+    const f = e.dataTransfer.files[0];
+    if (f) loadFile(f);
+  });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+  changeBtn.addEventListener('click', () => { fileInput.click(); });
+
+  function loadFile(file) {
+    if (!file.type.startsWith('image/')) { showNotice('error', '画像ファイルを選択してください（JPEG・PNG・WEBPなど）'); return; }
+    clearNotice();
+    currentFile = file;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        origW = img.width; origH = img.height; origImg = img;
+        previewImg.src = e.target.result;
+        previewFilename.textContent = file.name;
+        previewMeta.innerHTML =
+          `<div class="meta-item">形式：<span>${(file.type || '不明').replace('image/', '').toUpperCase()}</span></div>` +
+          `<div class="meta-item">サイズ：<span>${origW}×${origH}px</span></div>` +
+          `<div class="meta-item">容量：<span>${formatBytes(file.size)}</span></div>`;
+        resizeW.value = origW; resizeH.value = origH;
+        previewArea.style.display = 'block';
+        resultArea.classList.remove('show');
+        dropZone.style.display = 'none';
+      };
+      img.onerror = () => showNotice('error', '画像の読み込みに失敗しました。別のファイルをお試しください。');
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  resizeW.addEventListener('input', () => {
+    if (aspectLock.checked && origW && origH) {
+      resizeH.value = Math.round(parseInt(resizeW.value) * origH / origW) || '';
+    }
+  });
+  resizeH.addEventListener('input', () => {
+    if (aspectLock.checked && origW && origH) {
+      resizeW.value = Math.round(parseInt(resizeH.value) * origW / origH) || '';
+    }
+  });
+
+  convertBtn.addEventListener('click', () => {
+    if (!origImg) { showNotice('error', '先に画像をアップロードしてください。'); return; }
+    convertBtn.disabled = true;
+    convertBtn.textContent = '変換中...';
+    clearNotice();
+    setTimeout(() => {
+      try {
+        const tw = Math.max(1, Math.min(8000, parseInt(resizeW.value) || origW));
+        const th = Math.max(1, Math.min(8000, parseInt(resizeH.value) || origH));
+        const canvas = document.createElement('canvas');
+        canvas.width = tw; canvas.height = th;
+        const ctx = canvas.getContext('2d');
+        if (selFmt !== 'image/jpeg') {
+          ctx.clearRect(0, 0, tw, th);
+        } else {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, tw, th);
+        }
+        ctx.drawImage(origImg, 0, 0, tw, th);
+        const q = parseInt(qualitySlider.value) / 100;
+        let dataURL;
+        if (selFmt === 'ico') {
+          const ic = document.createElement('canvas');
+          const ms = Math.min(tw, th, 256);
+          ic.width = ms; ic.height = ms;
+          ic.getContext('2d').drawImage(canvas, 0, 0, ms, ms);
+          dataURL = ic.toDataURL('image/png');
+        } else {
+          dataURL = canvas.toDataURL(selFmt, q);
+        }
+        const bytes = Math.round((dataURL.length - dataURL.indexOf(',') - 1) * 0.75);
+        const baseName = currentFile.name.replace(/\.[^.]+$/, '') || 'image';
+        resultImg.src = dataURL;
+        dlLink.href = dataURL;
+        dlLink.download = baseName + '.' + selExt;
+        resultStats.innerHTML =
+          `<div class="result-stat">変換形式：<span>${selExt.toUpperCase()}</span></div>` +
+          `<div class="result-stat">解像度：<span>${tw}×${th}px</span></div>` +
+          `<div class="result-stat">概算容量：<span>${formatBytes(bytes)}</span></div>` +
+          `<div class="result-stat">元の容量：<span>${formatBytes(currentFile.size)}</span></div>`;
+        resultArea.classList.add('show');
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (e) {
+        showNotice('error', '変換中にエラーが発生しました：' + e.message);
+      }
+      convertBtn.disabled = false;
+      convertBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>変換する';
+    }, 50);
+  });
+
+  function showNotice(type, msg) {
+    noticeArea.className = 'notice ' + type;
+    noticeArea.textContent = msg;
+  }
+  function clearNotice() {
+    noticeArea.className = 'notice';
+    noticeArea.textContent = '';
+  }
+  function formatBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+})();
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+
+function showPage(id) {
+  document.getElementById('main-tool').style.display = 'none';
+  ['privacy-page', 'terms-page', 'contact-page'].forEach(p => {
+    document.getElementById(p).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+  window.scrollTo(0, 0);
+}
+function showMain() {
+  document.getElementById('main-tool').style.display = 'block';
+  ['privacy-page', 'terms-page', 'contact-page'].forEach(p => {
+    document.getElementById(p).style.display = 'none';
+  });
+}
+</script>
+</body>
+</html>
