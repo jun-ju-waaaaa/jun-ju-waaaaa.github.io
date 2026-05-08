@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>0-TOOLs.JAPAN | 無料オンラインツール集</title>
+<title>0-TOOLs | 無料オンラインツール集</title>
 <link rel="canonical" href="https://0-tools.com/">
 <meta name="description" content="PDF変換・圧縮、画像フォーマット変換、カラーピッカーなど、すべてブラウザ内で動作する無料オンラインツール集。アップロード不要・登録不要で安全に使えます。">
-<meta property="og:title" content="0-TOOLs.JAPAN | 無料オンラインツール集">
+<meta property="og:title" content="0-TOOLs | 無料オンラインツール集">
 <meta property="og:description" content="PDF・画像変換など、ブラウザだけで使える無料ツール集。サーバー不要で安全・高速。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://0-tools.com/">
@@ -15,22 +15,22 @@
 body{
   font-family:sans-serif;
   margin:0;
-  background:#F5F9FF; /* ほんのり水色 */
+  background:#F5F9FF;
   color:#333;
 }
 
-/* ヘッダー */
 .site-header{
-  background:#3AA8E8; /* メイン水色 */
+  background:#3AA8E8;
   color:white;
   text-align:center;
   padding:22px 10px;
 }
 
-.site-header .title{
+.site-header h1{
   font-size:26px;
   font-weight:600;
   letter-spacing:0.5px;
+  margin:0;
 }
 
 .site-header .subtitle{
@@ -39,20 +39,49 @@ body{
   margin-top:4px;
 }
 
-/* メインコンテナ */
 .main{
   padding:16px 12px 24px;
 }
 
-/* 説明テキスト（任意） */
 .lead{
   max-width:900px;
-  margin:0 auto 12px;
+  margin:0 auto 20px;
   font-size:14px;
   color:#555;
+  line-height:1.8;
+  background:white;
+  border-radius:12px;
+  padding:16px 20px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
 }
 
-/* カード一覧 */
+.lead p{
+  margin:0 0 10px;
+}
+
+.lead p:last-child{
+  margin-bottom:0;
+}
+
+.lead ul{
+  margin:8px 0 0;
+  padding-left:1.4em;
+}
+
+.lead ul li{
+  margin-bottom:4px;
+}
+
+.category-title{
+  max-width:900px;
+  margin:24px auto 10px;
+  font-size:16px;
+  font-weight:700;
+  color:#2F6FA5;
+  border-left:4px solid #3AA8E8;
+  padding-left:10px;
+}
+
 .tools{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -73,7 +102,7 @@ body{
   font-weight:bold;
   font-size:17px;
   text-decoration:none;
-  color:#2F6FA5; /* 水色に合う濃い青 */
+  color:#2F6FA5;
   box-shadow:0 2px 6px rgba(0,0,0,0.08);
   aspect-ratio:1/1;
   transition:0.15s ease;
@@ -83,7 +112,7 @@ body{
 .tool-card:hover{
   transform:translateY(-3px);
   box-shadow:0 4px 10px rgba(0,0,0,0.12);
-  background:#E8F5FF; /* hoverで淡い水色 */
+  background:#E8F5FF;
 }
 
 .tool-card span{
@@ -91,14 +120,12 @@ body{
   line-height:1.3;
 }
 
-/* PC 4列 */
 @media (min-width:768px){
   .tools{
     grid-template-columns:repeat(4,1fr);
   }
 }
 
-/* フッター */
 .site-footer{
   text-align:center;
   padding:20px;
@@ -134,11 +161,22 @@ body{
 <body>
 
 <header class="site-header">
-  <div class="title">0-TOOLs.JAPAN</div>
+  <h1>0-TOOLs</h1>
   <div class="subtitle">無料オンラインツール</div>
 </header>
 
-<div class="main">
+<main class="main">
+
+  <div class="lead">
+    <p>0-TOOLsは、日常のPC作業をすばやく効率化できる<strong>無料オンラインツール集</strong>です。PDF変換・圧縮、画像フォーマット変換、カラーコード変換など、さまざまなツールをブラウザだけで利用できます。</p>
+    <p>本サイトのすべてのツールは<strong>ブラウザ内で完結</strong>して処理されます。ファイルや入力データが外部サーバーに送信されることは一切なく、インストール・ユーザー登録も不要で、安心・安全にご利用いただけます。</p>
+    <ul>
+      <li>アップロード不要・登録不要で即利用可能</li>
+      <li>ファイルはお使いの端末内のみで処理（サーバー送信なし）</li>
+      <li>スマートフォン・タブレットにも対応</li>
+      <li>すべて無料でご利用いただけます</li>
+    </ul>
+  </div>
 
   <!-- 画像変換系 -->
   <h2 class="category-title">画像変換ツール</h2>
@@ -177,10 +215,11 @@ body{
     </a>
 
   </div>
-</div>
+
+</main>
 
 <footer class="site-footer">
-  <p>© 2026 0-TOOLs.JAPAN</p>
+  <p>© 2026 0-TOOLs</p>
   <nav class="footer-links">
     <a href="/blog/">ブログ</a>
     <a href="/guide/">使い方</a>
