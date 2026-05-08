@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRコード生成ツール｜URL・テキストを無料で即作成 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/qr-gen/">
+  <meta name="description" content="URLやテキストを入力するだけでQRコードを即生成。PNGでダウンロード可能。登録不要・完全無料・オフライン動作。スマホからも使いやすい設計。">
+  <meta property="og:title" content="QRコード生成ツール｜URL・テキストを無料で即作成 - 0-TOOLs">
+  <meta property="og:description" content="URLやテキストを入力するだけでQRコードを即生成。PNGダウンロード対応。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/qr-gen/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .qr-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      background: var(--clr-bg);
+      border-radius: var(--radius);
+      border: 2px dashed var(--clr-border);
+      margin-top: 16px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .qr-preview.has-qr {
+      border-style: solid;
+      border-color: var(--clr-primary);
+      background: #fff;
+    }
+    [data-theme="dark"] .qr-preview.has-qr { background: #fff; }
+    .qr-preview__placeholder {
+      font-size: 13px;
+      color: var(--clr-text-muted);
+      text-align: center;
+    }
+    .qr-preview canvas,
+    .qr-preview img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+    .qr-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-dl {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px;
+      background: var(--clr-primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-dl:hover { background: #2a8cc8; }
+    .size-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .size-btn {
+      flex: 1;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 2px solid var(--clr-border);
+      background: var(--clr-surface);
+      border-radius: 8px;
+      color: var(--clr-text-muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .size-btn.active {
+      border-color: var(--clr-primary);
+      color: var(--clr-primary);
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QRコード生成ツール",
+    "url": "https://0-tools.com/tools/qr-gen/",
+    "description": "URLやテキストを入力するだけでQRコードを即生成するツール",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0"},
+    "inLanguage": "ja"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},
+      {"@type":"ListItem","position":2,"name":"QRコード生成ツール","item":"https://0-tools.com/tools/qr-gen/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "QRコードに入れられるデータの種類は？",
+        "acceptedAnswer": {"@type": "Answer", "text": "URL・テキスト・電話番号・メールアドレスなど、文字として表現できるものはすべてQRコードに変換できます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "生成したQRコードは保存できますか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "はい。「PNG保存」ボタンでQRコード画像をダウンロードできます。ダウンロードした画像は印刷や資料への貼り付けに使用できます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "入力した内容はサーバーに送られますか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "いいえ。QRコードの生成はすべてお使いのブラウザ内で行われます。入力した内容が外部サーバーに送信されることは一切ありません。"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li>QRコード生成ツール</li>
+  </ol>
+</nav>
+
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+
+<main class="tool-main">
+  <h1>QRコード生成ツール</h1>
+  <p class="tool-desc">URLやテキストを入力するだけでQRコードを即生成。すべてブラウザ内で処理されるため、入力内容はサーバーに送信されません。</p>
+
+  <section class="tool-body" id="tool" aria-label="QRコード生成">
+
+    <div class="input-group">
+      <label for="input-qr">URLまたはテキスト</label>
+      <textarea id="input-qr" rows="3" placeholder="https://example.com" autofocus
+                aria-label="QRコードにするURLまたはテキスト"
+                style="min-height:80px;resize:vertical;"></textarea>
+    </div>
+
+    <!-- サイズ選択 -->
+    <div style="margin-bottom:8px;">
+      <label style="font-size:13px;font-weight:600;color:var(--clr-text-muted);display:block;margin-bottom:6px;">サイズ</label>
+      <div class="size-group" role="group" aria-label="QRコードのサイズを選択">
+        <button class="size-btn" data-size="128">小<br><span style="font-size:11px;font-weight:400;">128px</span></button>
+        <button class="size-btn active" data-size="256">中<br><span style="font-size:11px;font-weight:400;">256px</span></button>
+        <button class="size-btn" data-size="512">大<br><span style="font-size:11px;font-weight:400;">512px</span></button>
+      </div>
+    </div>
+
+    <!-- プレビュー -->
+    <div class="qr-preview" id="qr-preview" aria-label="QRコードプレビュー">
+      <div class="qr-preview__placeholder" id="qr-placeholder">
+        URLまたはテキストを入力すると<br>QRコードが表示されます
+      </div>
+      <div id="qr-container" style="display:none;background:#fff;padding:12px;border-radius:8px;"></div>
+    </div>
+
+    <!-- アクションボタン -->
+    <div class="qr-actions" id="qr-actions" style="display:none">
+      <button class="btn-dl" id="btn-download">
+        ⬇️ PNG保存
+      </button>
+      <button class="btn-copy" id="btn-copy-qr" style="flex:1" aria-label="テキストをクリップボードにコピー">
+        📋 テキストをコピー
+      </button>
+    </div>
+
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">QRコードに入れられるデータは？</button>
+      <div class="faq-a">URL・テキスト・電話番号・メールアドレスなど、文字として表現できるものはすべてQRコードに変換できます。日本語のテキストにも対応しています。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">生成したQRコードは保存できますか？</button>
+      <div class="faq-a">はい。「PNG保存」ボタンでQRコード画像をダウンロードできます。印刷や資料への貼り付けに使用できます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">入力した内容はサーバーに送られますか？</button>
+      <div class="faq-a">いいえ。QRコードの生成はすべてブラウザ内で処理されます。入力した内容が外部サーバーに送信されることは一切ありません。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">文字数の上限はありますか？</button>
+      <div class="faq-a">QRコードの仕様上、英数字は約4,296文字、日本語（漢字）は約1,817文字が上限です。URLなら通常の長さであれば問題なく生成できます。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/base64/">Base64<br>変換</a>
+      <a class="related-card" href="/tools/json-format/">JSON<br>整形</a>
+      <a class="related-card" href="/tools/word-count/">文字数<br>カウント</a>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<!-- qrcode.js (MIT License, no CDN) -->
+<script src="qrcode.min.js"></script>
+<script src="/shared/common.js" defer></script>
+<script>
+(function () {
+  const input     = document.getElementById('input-qr');
+  const container = document.getElementById('qr-container');
+  const preview   = document.getElementById('qr-preview');
+  const ph        = document.getElementById('qr-placeholder');
+  const actions   = document.getElementById('qr-actions');
+  const dlBtn     = document.getElementById('btn-download');
+  const copyBtn   = document.getElementById('btn-copy-qr');
+  let currentSize = 256;
+  let debounceTimer;
+  let qrInstance  = null;
+
+  document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSize = parseInt(btn.dataset.size, 10);
+      generate();
+    });
+  });
+
+  function generate() {
+    const text = input.value.trim();
+    if (!text) {
+      container.style.display = 'none';
+      ph.style.display = '';
+      preview.classList.remove('has-qr');
+      actions.style.display = 'none';
+      qrInstance = null;
+      return;
+    }
+    if (typeof QRCode === 'undefined') {
+      ph.textContent = 'QRコードライブラリを読み込み中...';
+      return;
+    }
+    try {
+      container.innerHTML = '';
+      qrInstance = new QRCode(container, {
+        text: text,
+        width: currentSize,
+        height: currentSize,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      container.style.display = 'block';
+      ph.style.display = 'none';
+      preview.classList.add('has-qr');
+      actions.style.display = 'flex';
+    } catch(e) {
+      ph.textContent = '生成できませんでした（テキストが長すぎる可能性があります）';
+      container.style.display = 'none';
+      preview.classList.remove('has-qr');
+      actions.style.display = 'none';
+    }
+  }
+
+  dlBtn.addEventListener('click', () => {
+    const canvas = container.querySelector('canvas');
+    const img    = container.querySelector('img');
+    let dataUrl;
+    if (canvas) {
+      dataUrl = canvas.toDataURL('image/png');
+    } else if (img) {
+      dataUrl = img.src;
+    } else return;
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'qrcode.png';
+    a.click();
+  });
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(generate, 300);
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (input.value.trim()) window.ZeroTools.copyText(input.value.trim());
+  });
+})();
+</script>
+</body>
+</html>

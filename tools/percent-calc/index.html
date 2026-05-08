@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パーセント計算ツール｜割引・増減率・比率を一発計算 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/percent-calc/">
+  <meta name="description" content="「1000円の30%はいくら？」「値引き後の価格は？」「増減率は？」など、日常のパーセント計算を4モードでカバー。入力するだけで即計算。">
+  <meta property="og:title" content="パーセント計算ツール｜割引・増減率・比率を一発計算 - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/percent-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .calc-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .calc-row input {
+      flex: 1;
+      min-width: 80px;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .calc-row input:focus {
+      outline: none;
+      border-color: var(--clr-primary);
+    }
+    .calc-op {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--clr-text-muted);
+      flex-shrink: 0;
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"パーセント計算ツール","url":"https://0-tools.com/tools/percent-calc/","description":"割引・比率・増減率などのパーセント計算ツール","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"パーセント計算ツール","item":"https://0-tools.com/tools/percent-calc/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"パーセントの出し方は？","acceptedAnswer":{"@type":"Answer","text":"A÷B×100=パーセント。例：30÷200×100=15%。このツールの「AはBの何%」タブで計算できます。"}},{"@type":"Question","name":"割引後の価格はどう計算する？","acceptedAnswer":{"@type":"Answer","text":"元の価格×(1−割引率/100)で計算します。例：1000円の30%引き=1000×0.7=700円。「割引計算」タブで入力するだけで計算できます。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>パーセント計算ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>パーセント計算ツール</h1>
+  <p class="tool-desc">4つのモードで日常のパーセント計算をカバー。数値を入力すると即座に計算されます。</p>
+  <section class="tool-body" id="tool">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="t1" role="tab">A×B%</button>
+      <button class="tab-btn" data-tab="t2" role="tab">何%?</button>
+      <button class="tab-btn" data-tab="t3" role="tab">割引</button>
+      <button class="tab-btn" data-tab="t4" role="tab">増減率</button>
+    </div>
+
+    <!-- A × B% -->
+    <div class="tab-panel active" data-panel="t1">
+      <p style="font-size:13px;color:var(--clr-text-muted);margin:0 0 12px">Aの B% はいくら？</p>
+      <div class="calc-row">
+        <input type="number" id="t1a" inputmode="decimal" placeholder="A">
+        <span class="calc-op">の</span>
+        <input type="number" id="t1b" inputmode="decimal" placeholder="B">
+        <span class="calc-op">% =</span>
+      </div>
+      <div class="result-card" id="t1-card"><div class="result-value" id="t1-val">—</div></div>
+      <div style="font-size:12px;color:var(--clr-text-muted);margin-top:8px" id="t1-formula"></div>
+    </div>
+
+    <!-- A は B の何% -->
+    <div class="tab-panel" data-panel="t2">
+      <p style="font-size:13px;color:var(--clr-text-muted);margin:0 0 12px">A は B の何%？</p>
+      <div class="calc-row">
+        <input type="number" id="t2a" inputmode="decimal" placeholder="A">
+        <span class="calc-op">は</span>
+        <input type="number" id="t2b" inputmode="decimal" placeholder="B">
+        <span class="calc-op">の</span>
+      </div>
+      <div class="result-card" id="t2-card"><div class="result-value" id="t2-val">—</div></div>
+      <div style="font-size:12px;color:var(--clr-text-muted);margin-top:8px" id="t2-formula"></div>
+    </div>
+
+    <!-- 割引計算 -->
+    <div class="tab-panel" data-panel="t3">
+      <p style="font-size:13px;color:var(--clr-text-muted);margin:0 0 12px">元の価格から割引後の価格を計算</p>
+      <div class="calc-row">
+        <input type="number" id="t3a" inputmode="decimal" placeholder="元の価格">
+        <span class="calc-op">円の</span>
+        <input type="number" id="t3b" inputmode="decimal" placeholder="割引率">
+        <span class="calc-op">%引き</span>
+      </div>
+      <div class="result-grid">
+        <div class="result-card" id="t3-card1">
+          <div class="result-label">割引後の価格</div>
+          <div class="result-value" id="t3-val1">—</div>
+          <div class="result-sub">円</div>
+        </div>
+        <div class="result-card" id="t3-card2">
+          <div class="result-label">割引額</div>
+          <div class="result-value" id="t3-val2">—</div>
+          <div class="result-sub">円</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--clr-text-muted);margin-top:8px" id="t3-formula"></div>
+    </div>
+
+    <!-- 増減率 -->
+    <div class="tab-panel" data-panel="t4">
+      <p style="font-size:13px;color:var(--clr-text-muted);margin:0 0 12px">AからBへの変化率（増減率）</p>
+      <div class="calc-row">
+        <input type="number" id="t4a" inputmode="decimal" placeholder="変化前(A)">
+        <span class="calc-op">→</span>
+        <input type="number" id="t4b" inputmode="decimal" placeholder="変化後(B)">
+      </div>
+      <div class="result-card" id="t4-card"><div class="result-value" id="t4-val">—</div></div>
+      <div style="font-size:12px;color:var(--clr-text-muted);margin-top:8px" id="t4-formula"></div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">パーセントの出し方を教えてください</button>
+      <div class="faq-a">A ÷ B × 100 = パーセントです。例：30 ÷ 200 × 100 = 15%。「AはBの何%」タブで入力するだけで自動計算されます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">割引後の価格の計算式は？</button>
+      <div class="faq-a">元の価格 × (1 − 割引率 ÷ 100) = 割引後の価格。例：1,000円の30%引き → 1,000 × 0.7 = 700円。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">増減率はどう計算しますか？</button>
+      <div class="faq-a">(変化後 − 変化前) ÷ 変化前 × 100 = 増減率(%)。例：100→120なら (120−100)÷100×100 = +20%。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/tax-calc/">消費税<br>計算</a>
+      <a class="related-card" href="/tools/tsubo-calc/">平米・坪<br>変換</a>
+      <a class="related-card" href="/tools/age-calc/">年齢<br>計算</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  function v(id){ return parseFloat(document.getElementById(id).value); }
+  function fmt(n){ return isNaN(n)||!isFinite(n)?null:Math.round(n*100)/100; }
+  function setVal(id, cardId, val, unit){
+    const el = document.getElementById(id);
+    const card = document.getElementById(cardId);
+    if(val===null){ el.textContent='—'; card.classList.remove('has-value'); return; }
+    el.textContent = val.toLocaleString('ja-JP') + (unit||'');
+    card.classList.add('has-value');
+  }
+
+  /* Tab 1 */
+  function calcT1(){
+    const a=v('t1a'), b=v('t1b');
+    const r=fmt(a*b/100);
+    setVal('t1-val','t1-card',r,'');
+    document.getElementById('t1-formula').textContent = r!==null ? `${a} × ${b}% = ${r}` : '';
+  }
+  ['t1a','t1b'].forEach(id=>document.getElementById(id).addEventListener('input',calcT1));
+
+  /* Tab 2 */
+  function calcT2(){
+    const a=v('t2a'), b=v('t2b');
+    const r=fmt(a/b*100);
+    setVal('t2-val','t2-card',r,'%');
+    document.getElementById('t2-formula').textContent = r!==null ? `${a} ÷ ${b} × 100 = ${r}%` : '';
+  }
+  ['t2a','t2b'].forEach(id=>document.getElementById(id).addEventListener('input',calcT2));
+
+  /* Tab 3 */
+  function calcT3(){
+    const a=v('t3a'), b=v('t3b');
+    const disc=fmt(a*b/100), after=fmt(a-a*b/100);
+    const card1=document.getElementById('t3-card1'), card2=document.getElementById('t3-card2');
+    const v1=document.getElementById('t3-val1'), v2=document.getElementById('t3-val2');
+    if(after===null){ v1.textContent=v2.textContent='—'; card1.classList.remove('has-value'); card2.classList.remove('has-value'); document.getElementById('t3-formula').textContent=''; return; }
+    v1.textContent=after.toLocaleString('ja-JP'); card1.classList.add('has-value');
+    v2.textContent=disc.toLocaleString('ja-JP'); card2.classList.add('has-value');
+    document.getElementById('t3-formula').textContent = `${a}円 × ${100-b}% = ${after}円（割引額 ${disc}円）`;
+  }
+  ['t3a','t3b'].forEach(id=>document.getElementById(id).addEventListener('input',calcT3));
+
+  /* Tab 4 */
+  function calcT4(){
+    const a=v('t4a'), b=v('t4b');
+    const r=fmt((b-a)/a*100);
+    setVal('t4-val','t4-card',r,'%');
+    const sign = r>0?'+':'';
+    document.getElementById('t4-formula').textContent = r!==null ? `(${b} − ${a}) ÷ ${a} × 100 = ${sign}${r}%` : '';
+  }
+  ['t4a','t4b'].forEach(id=>document.getElementById(id).addEventListener('input',calcT4));
+})();
+</script>
+</body>
+</html>

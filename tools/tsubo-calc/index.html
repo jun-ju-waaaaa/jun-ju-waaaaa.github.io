@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平米・坪変換ツール｜㎡⇔坪・畳・坪単価を即計算 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/tsubo-calc/">
+  <meta name="description" content="平方メートル（㎡）と坪・畳を相互変換。家賃から坪単価の計算も対応。不動産探しに役立つ無料の面積変換ツール。">
+  <meta property="og:title" content="平米・坪変換ツール｜㎡⇔坪・畳・坪単価を即計算 - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/tsubo-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .convert-arrow {
+      text-align: center;
+      font-size: 28px;
+      color: var(--clr-primary);
+      margin: 8px 0;
+      line-height: 1;
+    }
+    .unit-label {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--clr-text-muted);
+      padding: 12px 0;
+      text-align: center;
+    }
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .quick-table th {
+      background: var(--clr-primary);
+      color: #fff;
+      padding: 8px 10px;
+      text-align: right;
+    }
+    .quick-table th:first-child { text-align: left; }
+    .quick-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--clr-border);
+      text-align: right;
+      color: var(--clr-text);
+    }
+    .quick-table td:first-child { text-align: left; font-weight: 600; }
+    .quick-table tr:nth-child(even) td { background: var(--clr-bg); }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"平米・坪変換ツール","url":"https://0-tools.com/tools/tsubo-calc/","description":"平方メートル（㎡）と坪・畳を相互変換するツール","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"平米・坪変換ツール","item":"https://0-tools.com/tools/tsubo-calc/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1坪は何平米ですか？","acceptedAnswer":{"@type":"Answer","text":"1坪 = 約3.306㎡（正確には3.30578㎡）です。逆に1㎡ = 約0.3025坪です。"}},{"@type":"Question","name":"坪単価とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"坪単価とは1坪あたりの価格のことです。賃料の場合は月額賃料÷坪数で計算します。東京都心の商業エリアでは数万円〜数十万円／坪になります。"}},{"@type":"Question","name":"1畳は何平米ですか？","acceptedAnswer":{"@type":"Answer","text":"1畳 = 約1.653㎡（江戸間の場合）です。地域や畳の種類によって異なり、京間（1.82㎡）や中京間（1.66㎡）などがあります。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>平米・坪変換ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>平米・坪変換ツール</h1>
+  <p class="tool-desc">㎡（平方メートル）と坪・畳を相互変換。どちらかを入力すると即座に換算されます。</p>
+
+  <section class="tool-body" id="tool">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="conv" role="tab">㎡⇔坪変換</button>
+      <button class="tab-btn" data-tab="tanka" role="tab">坪単価計算</button>
+      <button class="tab-btn" data-tab="table" role="tab">早見表</button>
+    </div>
+
+    <!-- 変換タブ -->
+    <div class="tab-panel active" data-panel="conv">
+      <div class="input-group">
+        <label for="input-m2">平方メートル（㎡）</label>
+        <input type="number" id="input-m2" inputmode="decimal" min="0" placeholder="例：66.5">
+      </div>
+      <div class="convert-arrow">⇅</div>
+      <div class="input-group">
+        <label for="input-tsubo">坪</label>
+        <input type="number" id="input-tsubo" inputmode="decimal" min="0" placeholder="例：20">
+      </div>
+      <div class="result-grid" style="margin-top:16px">
+        <div class="result-card" id="card-tatami">
+          <div class="result-label">畳数（江戸間）</div>
+          <div class="result-value" id="val-tatami">—</div>
+          <div class="result-sub">畳</div>
+        </div>
+        <div class="result-card" id="card-tatami-k">
+          <div class="result-label">畳数（京間）</div>
+          <div class="result-value" id="val-tatami-k">—</div>
+          <div class="result-sub">畳</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 坪単価タブ -->
+    <div class="tab-panel" data-panel="tanka">
+      <div class="input-group">
+        <label for="input-rent">月額賃料または価格（円）</label>
+        <input type="number" id="input-rent" inputmode="decimal" placeholder="例：150000">
+      </div>
+      <div class="input-group">
+        <label for="input-area">面積</label>
+        <div style="display:flex;gap:8px">
+          <input type="number" id="input-area" inputmode="decimal" placeholder="例：50" style="flex:1">
+          <select id="area-unit" style="width:80px;padding:12px 8px;font-size:16px;border:2px solid var(--clr-border);border-radius:10px;background:var(--clr-bg);color:var(--clr-text)">
+            <option value="m2">㎡</option>
+            <option value="tsubo">坪</option>
+          </select>
+        </div>
+      </div>
+      <div class="result-grid" style="margin-top:12px">
+        <div class="result-card" id="card-tanka-t">
+          <div class="result-label">坪単価</div>
+          <div class="result-value" id="val-tanka-t">—</div>
+          <div class="result-sub">円/坪</div>
+        </div>
+        <div class="result-card" id="card-tanka-m">
+          <div class="result-label">㎡単価</div>
+          <div class="result-value" id="val-tanka-m">—</div>
+          <div class="result-sub">円/㎡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 早見表タブ -->
+    <div class="tab-panel" data-panel="table">
+      <table class="quick-table">
+        <thead><tr><th>㎡</th><th>坪</th><th>畳（江戸間）</th></tr></thead>
+        <tbody id="quick-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">1坪は何平米ですか？</button>
+      <div class="faq-a">1坪 = <strong>約3.306㎡</strong>（正確には3.30578㎡）です。逆に1㎡ = 約0.3025坪です。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">坪単価とは何ですか？</button>
+      <div class="faq-a">坪単価とは1坪（≒3.3㎡）あたりの価格のことです。賃料では「月額賃料 ÷ 坪数」で計算します。物件比較の際の指標として使われます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">1畳は何平米ですか？</button>
+      <div class="faq-a">地域によって異なります。江戸間（関東）：約1.548㎡、中京間：約1.653㎡、京間（関西）：約1.82㎡。このツールでは江戸間と京間の両方を表示します。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/percent-calc/">パーセント<br>計算</a>
+      <a class="related-card" href="/tools/tax-calc/">消費税<br>計算</a>
+      <a class="related-card" href="/tools/age-calc/">年齢<br>計算</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  const M2_PER_TSUBO = 3.30578;
+  const TATAMI_EDO   = 1.548;
+  const TATAMI_KYO   = 1.82;
+
+  const inM2    = document.getElementById('input-m2');
+  const inTsubo = document.getElementById('input-tsubo');
+  let updating  = false;
+
+  function round3(n){ return Math.round(n*1000)/1000; }
+  function fmt(n){ return n.toLocaleString('ja-JP',{maximumFractionDigits:2}); }
+
+  function updateFromM2(){
+    if(updating) return;
+    updating=true;
+    const m2 = parseFloat(inM2.value);
+    if(!isNaN(m2)&&m2>=0){
+      const tsubo = m2/M2_PER_TSUBO;
+      inTsubo.value = round3(tsubo);
+      setTatami(m2);
+    } else {
+      inTsubo.value='';
+      clearTatami();
+    }
+    updating=false;
+  }
+
+  function updateFromTsubo(){
+    if(updating) return;
+    updating=true;
+    const tsubo = parseFloat(inTsubo.value);
+    if(!isNaN(tsubo)&&tsubo>=0){
+      const m2 = tsubo*M2_PER_TSUBO;
+      inM2.value = round3(m2);
+      setTatami(m2);
+    } else {
+      inM2.value='';
+      clearTatami();
+    }
+    updating=false;
+  }
+
+  function setTatami(m2){
+    const edo = m2/TATAMI_EDO;
+    const kyo = m2/TATAMI_KYO;
+    document.getElementById('val-tatami').textContent   = fmt(edo);
+    document.getElementById('val-tatami-k').textContent = fmt(kyo);
+    document.getElementById('card-tatami').classList.add('has-value');
+    document.getElementById('card-tatami-k').classList.add('has-value');
+  }
+  function clearTatami(){
+    document.getElementById('val-tatami').textContent='—';
+    document.getElementById('val-tatami-k').textContent='—';
+    document.getElementById('card-tatami').classList.remove('has-value');
+    document.getElementById('card-tatami-k').classList.remove('has-value');
+  }
+
+  inM2.addEventListener('input', updateFromM2);
+  inTsubo.addEventListener('input', updateFromTsubo);
+
+  /* 坪単価 */
+  function calcTanka(){
+    const rent = parseFloat(document.getElementById('input-rent').value);
+    const area = parseFloat(document.getElementById('input-area').value);
+    const unit = document.getElementById('area-unit').value;
+    if(isNaN(rent)||isNaN(area)||area<=0){
+      document.getElementById('val-tanka-t').textContent='—';
+      document.getElementById('val-tanka-m').textContent='—';
+      document.getElementById('card-tanka-t').classList.remove('has-value');
+      document.getElementById('card-tanka-m').classList.remove('has-value');
+      return;
+    }
+    const m2    = unit==='m2' ? area : area*M2_PER_TSUBO;
+    const tsubo = m2/M2_PER_TSUBO;
+    const tankaT = Math.round(rent/tsubo);
+    const tankaM = Math.round(rent/m2);
+    document.getElementById('val-tanka-t').textContent = tankaT.toLocaleString('ja-JP');
+    document.getElementById('val-tanka-m').textContent = tankaM.toLocaleString('ja-JP');
+    document.getElementById('card-tanka-t').classList.add('has-value');
+    document.getElementById('card-tanka-m').classList.add('has-value');
+  }
+  ['input-rent','input-area','area-unit'].forEach(id=>document.getElementById(id).addEventListener('input',calcTanka));
+
+  /* 早見表 */
+  const tbody = document.getElementById('quick-tbody');
+  [5,10,15,20,25,30,35,40,45,50,55,60,65,66.05,70,80,90,100].forEach(m2=>{
+    const tsubo = m2/M2_PER_TSUBO;
+    const tatami = m2/TATAMI_EDO;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${m2}㎡</td><td>${(Math.round(tsubo*10)/10).toLocaleString('ja-JP')}坪</td><td>${(Math.round(tatami*10)/10).toLocaleString('ja-JP')}畳</td>`;
+    tbody.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

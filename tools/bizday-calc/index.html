@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>営業日計算ツール｜土日祝除いた〇営業日後の日付を計算 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/bizday-calc/">
+  <meta name="description" content="指定日から「5営業日後」「10営業日後」の日付を計算。2025〜2026年の日本の祝日データ内蔵でオフライン動作。土日・祝日を除いた営業日計算ツール。">
+  <meta property="og:title" content="営業日計算ツール｜土日祝除いた〇営業日後の日付を計算 - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/bizday-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .date-result-big {
+      background: var(--clr-bg);
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+      margin-top: 16px;
+      transition: border-color 0.2s;
+    }
+    .date-result-big.active { border-color: var(--clr-primary); }
+    .date-result-big__date {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--clr-primary-dark);
+      line-height: 1.2;
+    }
+    [data-theme="dark"] .date-result-big__date { color: var(--clr-primary); }
+    .date-result-big__sub {
+      font-size: 13px;
+      color: var(--clr-text-muted);
+      margin-top: 6px;
+    }
+    .holiday-note {
+      font-size: 12px;
+      color: var(--clr-error);
+      margin-top: 4px;
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"営業日計算ツール","url":"https://0-tools.com/tools/bizday-calc/","description":"土日・祝日を除いた営業日後の日付を計算するツール","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"営業日計算ツール","item":"https://0-tools.com/tools/bizday-calc/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"営業日とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"営業日とは土曜日・日曜日・祝日を除いた通常の業務日のことです。商取引や行政手続きでは「〇営業日以内」という表現がよく使われます。"}},{"@type":"Question","name":"祝日データはどこから取得していますか？","acceptedAnswer":{"@type":"Answer","text":"このツールには2025年〜2026年の日本の国民の祝日データが内蔵されています。インターネット接続なしでもオフラインで動作します。"}},{"@type":"Question","name":"開始日当日は営業日に含まれますか？","acceptedAnswer":{"@type":"Answer","text":"このツールでは開始日は含めずに計算します。例えば「1月1日から5営業日後」は1月1日を含めずに5営業日後の日付が表示されます。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>営業日計算ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>営業日計算ツール</h1>
+  <p class="tool-desc">土日・祝日を除いた「〇営業日後」の日付を計算。2025〜2026年の祝日データ内蔵でオフライン動作。</p>
+
+  <section class="tool-body" id="tool">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="forward" role="tab">〇営業日後</button>
+      <button class="tab-btn" data-tab="count" role="tab">営業日数を数える</button>
+    </div>
+
+    <!-- 〇営業日後 -->
+    <div class="tab-panel active" data-panel="forward">
+      <div class="input-group">
+        <label for="fwd-base">基準日</label>
+        <input type="date" id="fwd-base" aria-label="基準日を選択">
+      </div>
+      <div class="input-group">
+        <label for="fwd-days">営業日数</label>
+        <input type="number" id="fwd-days" value="5" min="1" max="365" inputmode="numeric">
+      </div>
+      <div class="date-result-big" id="fwd-result" aria-live="polite">
+        <div class="date-result-big__date" id="fwd-val">—</div>
+        <div class="date-result-big__sub" id="fwd-sub"></div>
+        <div class="holiday-note" id="fwd-holiday"></div>
+      </div>
+      <button class="btn-copy" id="fwd-copy" style="display:none;margin-top:10px" aria-label="日付をコピー">📋 日付をコピー</button>
+    </div>
+
+    <!-- 営業日数を数える -->
+    <div class="tab-panel" data-panel="count">
+      <div class="input-group">
+        <label for="cnt-start">開始日</label>
+        <input type="date" id="cnt-start" aria-label="開始日を選択">
+      </div>
+      <div class="input-group">
+        <label for="cnt-end">終了日</label>
+        <input type="date" id="cnt-end" aria-label="終了日を選択">
+      </div>
+      <div class="date-result-big" id="cnt-result" aria-live="polite">
+        <div class="date-result-big__date" id="cnt-val">—</div>
+        <div class="date-result-big__sub" id="cnt-sub"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">営業日とは何ですか？</button>
+      <div class="faq-a">土曜日・日曜日・祝日を除いた通常の業務日のことです。商取引や行政手続きで「〇営業日以内」という表現がよく使われます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">祝日データはどこから取得していますか？</button>
+      <div class="faq-a">このツールには<strong>2024年〜2026年の日本の国民の祝日データが内蔵</strong>されています。インターネット接続なしでもオフラインで動作します。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">開始日当日は営業日に含まれますか？</button>
+      <div class="faq-a">「〇営業日後」の計算では開始日を含めずに計算します。「営業日数を数える」では開始日・終了日の両方を含めます。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/time-calc/">時間<br>計算</a>
+      <a class="related-card" href="/tools/age-calc/">年齢<br>計算</a>
+      <a class="related-card" href="/-Day-Counter/">生後日数<br>カウンター</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  /* 日本の祝日 2024-2026 */
+  const HOLIDAYS = new Set([
+    '2024-01-01','2024-01-08','2024-02-11','2024-02-12','2024-02-23','2024-03-20',
+    '2024-04-29','2024-05-03','2024-05-04','2024-05-05','2024-05-06',
+    '2024-07-15','2024-08-11','2024-08-12','2024-09-16','2024-09-22','2024-09-23',
+    '2024-10-14','2024-11-03','2024-11-04','2024-11-23',
+    '2025-01-01','2025-01-13','2025-02-11','2025-02-23','2025-02-24','2025-03-20',
+    '2025-04-29','2025-05-03','2025-05-04','2025-05-05','2025-05-06',
+    '2025-07-21','2025-08-11','2025-09-15','2025-09-23','2025-10-13',
+    '2025-11-03','2025-11-23','2025-11-24',
+    '2026-01-01','2026-01-12','2026-02-11','2026-02-23','2026-03-20',
+    '2026-04-29','2026-05-03','2026-05-04','2026-05-05','2026-05-06',
+    '2026-07-20','2026-08-11','2026-09-21','2026-09-22','2026-09-23',
+    '2026-10-12','2026-11-03','2026-11-23'
+  ]);
+
+  const WEEKDAYS = ['日','月','火','水','木','金','土'];
+
+  function toStr(d){
+    const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function isHoliday(d){
+    return HOLIDAYS.has(toStr(d));
+  }
+
+  function isBizDay(d){
+    const w=d.getDay();
+    return w!==0&&w!==6&&!isHoliday(d);
+  }
+
+  function addBizDays(base, n){
+    const d=new Date(base);
+    let count=0;
+    while(count<n){
+      d.setDate(d.getDate()+1);
+      if(isBizDay(d)) count++;
+    }
+    return d;
+  }
+
+  function countBizDays(start, end){
+    let count=0;
+    const d=new Date(start);
+    while(d<=end){
+      if(isBizDay(d)) count++;
+      d.setDate(d.getDate()+1);
+    }
+    return count;
+  }
+
+  /* 今日をデフォルトに */
+  const today = new Date();
+  const todayStr = toStr(today);
+  document.getElementById('fwd-base').value = todayStr;
+  document.getElementById('cnt-start').value = todayStr;
+  const nextWeek = new Date(today);
+  nextWeek.setDate(today.getDate()+7);
+  document.getElementById('cnt-end').value = toStr(nextWeek);
+
+  function calcForward(){
+    const baseVal = document.getElementById('fwd-base').value;
+    const n = parseInt(document.getElementById('fwd-days').value)||0;
+    const resultEl = document.getElementById('fwd-result');
+    const valEl = document.getElementById('fwd-val');
+    const subEl = document.getElementById('fwd-sub');
+    const holEl = document.getElementById('fwd-holiday');
+    const copyBtn = document.getElementById('fwd-copy');
+    if(!baseVal||n<=0){ valEl.textContent='—'; subEl.textContent=''; holEl.textContent=''; resultEl.classList.remove('active'); copyBtn.style.display='none'; return; }
+
+    const base = new Date(baseVal+'T00:00:00');
+    const result = addBizDays(base, n);
+    const rs = toStr(result);
+    const w = WEEKDAYS[result.getDay()];
+    valEl.textContent = `${result.getFullYear()}年${result.getMonth()+1}月${result.getDate()}日（${w}）`;
+    subEl.textContent = `${n}営業日後`;
+    holEl.textContent = isHoliday(result) ? '※この日は祝日です' : '';
+    resultEl.classList.add('active');
+    copyBtn.style.display='flex';
+    copyBtn.onclick=()=>window.ZeroTools.copyText(`${result.getFullYear()}/${result.getMonth()+1}/${result.getDate()}`);
+  }
+
+  function calcCount(){
+    const startVal = document.getElementById('cnt-start').value;
+    const endVal   = document.getElementById('cnt-end').value;
+    const valEl    = document.getElementById('cnt-val');
+    const subEl    = document.getElementById('cnt-sub');
+    const resultEl = document.getElementById('cnt-result');
+    if(!startVal||!endVal){ valEl.textContent='—'; subEl.textContent=''; resultEl.classList.remove('active'); return; }
+    const start = new Date(startVal+'T00:00:00');
+    const end   = new Date(endVal+'T00:00:00');
+    if(end<start){ valEl.textContent='—'; subEl.textContent='終了日を開始日より後にしてください'; resultEl.classList.remove('active'); return; }
+    const count = countBizDays(start,end);
+    valEl.textContent = `${count} 営業日`;
+    const totalDays = Math.round((end-start)/86400000)+1;
+    subEl.textContent = `（${totalDays}日間のうち土日祝日を除く）`;
+    resultEl.classList.add('active');
+  }
+
+  ['fwd-base','fwd-days'].forEach(id=>document.getElementById(id).addEventListener('input',calcForward));
+  ['cnt-start','cnt-end'].forEach(id=>document.getElementById(id).addEventListener('input',calcCount));
+
+  calcForward();
+  calcCount();
+})();
+</script>
+</body>
+</html>

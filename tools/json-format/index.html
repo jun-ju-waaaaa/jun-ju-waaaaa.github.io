@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON整形ツール｜フォーマット・圧縮・バリデーション - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/json-format/">
+  <meta name="description" content="崩れたJSONを即整形・圧縮。構文エラーの行番号をハイライト表示。API開発・デバッグに最適な無料JSONフォーマッター。">
+  <meta property="og:title" content="JSON整形ツール｜フォーマット・圧縮・バリデーション - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/json-format/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .json-textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-family: 'Courier New', Consolas, monospace;
+      line-height: 1.6;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 10px;
+      resize: vertical;
+    }
+    .json-textarea:focus {
+      outline: none;
+      border-color: var(--clr-primary);
+    }
+    .json-output {
+      min-height: 200px;
+      white-space: pre;
+      overflow: auto;
+      border: 2px solid var(--clr-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-family: 'Courier New', Consolas, monospace;
+      line-height: 1.6;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      margin-top: 16px;
+    }
+    .json-output.has-content { border-color: var(--clr-primary); }
+    .indent-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--clr-text-muted);
+    }
+    .indent-row select {
+      padding: 6px 10px;
+      font-size: 13px;
+      border: 2px solid var(--clr-border);
+      border-radius: 8px;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+    }
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .action-row button { flex: 1; min-width: 100px; }
+    .stats-row {
+      font-size: 12px;
+      color: var(--clr-text-muted);
+      margin-top: 8px;
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"JSON整形ツール","url":"https://0-tools.com/tools/json-format/","description":"JSONのフォーマット・圧縮・バリデーションツール","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"JSON整形ツール","item":"https://0-tools.com/tools/json-format/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"JSONとは何ですか？","acceptedAnswer":{"@type":"Answer","text":"JSON（JavaScript Object Notation）はデータを表現するための軽量なテキスト形式です。WebAPIのレスポンスや設定ファイルなどで広く使われています。"}},{"@type":"Question","name":"JSONの整形と圧縮の違いは？","acceptedAnswer":{"@type":"Answer","text":"整形（フォーマット）はインデントや改行を追加して読みやすくすること。圧縮（minify）は余分な空白・改行を削除してデータサイズを小さくすること。APIの通信には圧縮形式が使われます。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>JSON整形ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>JSON整形ツール</h1>
+  <p class="tool-desc">JSONをフォーマット（整形）・圧縮・バリデーション。エラーの行番号も表示。API開発やデバッグに役立つ無料ツールです。</p>
+
+  <section class="tool-body" id="tool">
+    <div class="indent-row">
+      <label for="indent-size">インデント幅：</label>
+      <select id="indent-size">
+        <option value="2">2スペース</option>
+        <option value="4">4スペース</option>
+        <option value="tab">タブ</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="json-input">JSONを入力</label>
+      <textarea class="json-textarea" id="json-input" placeholder='{"name":"田中","age":30}'
+                aria-label="整形するJSONを入力" spellcheck="false" autofocus></textarea>
+    </div>
+
+    <div class="error-banner" id="json-error"></div>
+
+    <div class="action-row" style="margin-top:12px">
+      <button class="btn-primary" id="btn-format" style="flex:2">整形（フォーマット）</button>
+      <button class="btn-secondary" id="btn-minify">圧縮</button>
+      <button class="btn-secondary" id="btn-clear">クリア</button>
+    </div>
+
+    <div class="json-output" id="json-output" aria-live="polite" aria-label="整形結果"></div>
+    <div class="stats-row" id="json-stats"></div>
+
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-copy" id="btn-copy" aria-label="結果をコピー">📋 結果をコピー</button>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">JSONとは何ですか？</button>
+      <div class="faq-a">JSON（JavaScript Object Notation）はデータを表現するテキスト形式です。WebAPIのレスポンスや設定ファイルなどで広く使われています。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">整形と圧縮の違いは？</button>
+      <div class="faq-a"><strong>整形（フォーマット）</strong>はインデント・改行を追加して読みやすくすること。<strong>圧縮（minify）</strong>は余分な空白・改行を削除してデータサイズを小さくすること。APIの通信には圧縮形式が使われます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">エラーが表示されましたが、どう修正すればいいですか？</button>
+      <div class="faq-a">エラーメッセージに行番号が表示されます。よくある問題：①文字列がダブルクォート（"）で囲まれていない、②末尾にカンマが残っている、③括弧の対応が合っていない。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">入力したJSONはサーバーに送られますか？</button>
+      <div class="faq-a">いいえ。処理はすべてブラウザ内で行われます。機密情報が含まれるJSONも安心して使えます。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/base64/">Base64<br>変換</a>
+      <a class="related-card" href="/tools/word-count/">文字数<br>カウント</a>
+      <a class="related-card" href="/tools/qr-gen/">QRコード<br>生成</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  const inputEl  = document.getElementById('json-input');
+  const outputEl = document.getElementById('json-output');
+  const errorEl  = document.getElementById('json-error');
+  const statsEl  = document.getElementById('json-stats');
+
+  function getIndent(){
+    const v = document.getElementById('indent-size').value;
+    return v==='tab' ? '\t' : parseInt(v);
+  }
+
+  function showError(msg){
+    errorEl.textContent = msg;
+    errorEl.classList.add('show');
+    outputEl.textContent='';
+    outputEl.classList.remove('has-content');
+    statsEl.textContent='';
+  }
+
+  function showOutput(text){
+    errorEl.classList.remove('show');
+    outputEl.textContent = text;
+    outputEl.classList.add('has-content');
+    statsEl.textContent = `${text.length.toLocaleString()} 文字`;
+  }
+
+  function format(){
+    const raw = inputEl.value.trim();
+    if(!raw){ outputEl.textContent=''; outputEl.classList.remove('has-content'); errorEl.classList.remove('show'); statsEl.textContent=''; return; }
+    try {
+      const parsed = JSON.parse(raw);
+      showOutput(JSON.stringify(parsed, null, getIndent()));
+    } catch(e) {
+      /* エラー行番号を抽出 */
+      const match = e.message.match(/position (\d+)/);
+      if(match){
+        const pos = parseInt(match[1]);
+        const lines = raw.substring(0,pos).split('\n');
+        showError(`構文エラー（${lines.length}行目付近）: ${e.message}`);
+      } else {
+        showError(`構文エラー: ${e.message}`);
+      }
+    }
+  }
+
+  function minify(){
+    const raw = inputEl.value.trim();
+    if(!raw) return;
+    try {
+      const parsed = JSON.parse(raw);
+      showOutput(JSON.stringify(parsed));
+    } catch(e) {
+      showError(`構文エラー: ${e.message}`);
+    }
+  }
+
+  document.getElementById('btn-format').addEventListener('click', format);
+  document.getElementById('btn-minify').addEventListener('click', minify);
+  document.getElementById('btn-clear').addEventListener('click',()=>{
+    inputEl.value='';
+    outputEl.textContent='';
+    outputEl.classList.remove('has-content');
+    errorEl.classList.remove('show');
+    statsEl.textContent='';
+    inputEl.focus();
+  });
+  document.getElementById('btn-copy').addEventListener('click',()=>{
+    if(outputEl.textContent) window.ZeroTools.copyText(outputEl.textContent);
+  });
+
+  /* Ctrl+Enter で整形 */
+  inputEl.addEventListener('keydown', e=>{
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){ e.preventDefault(); format(); }
+  });
+})();
+</script>
+</body>
+</html>

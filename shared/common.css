@@ -1,0 +1,267 @@
+/* =============================================
+   0-TOOLs 共通スタイル
+   ============================================= */
+
+/* CSS変数 */
+:root {
+  --clr-primary: #3AA8E8;
+  --clr-primary-dark: #2F6FA5;
+  --clr-bg: #F5F9FF;
+  --clr-surface: #ffffff;
+  --clr-text: #1a1a1a;
+  --clr-text-muted: #555;
+  --clr-border: #e0eaf4;
+  --clr-shadow: rgba(0,0,0,0.08);
+  --clr-error: #d9534f;
+  --clr-success: #28a745;
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+          'Noto Sans JP', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-bg: #0f1117;
+    --clr-surface: #1e2230;
+    --clr-text: #e8eaf0;
+    --clr-text-muted: #9aa3b5;
+    --clr-border: #2d3348;
+    --clr-shadow: rgba(0,0,0,0.3);
+  }
+}
+
+[data-theme="dark"] {
+  --clr-bg: #0f1117;
+  --clr-surface: #1e2230;
+  --clr-text: #e8eaf0;
+  --clr-text-muted: #9aa3b5;
+  --clr-border: #2d3348;
+  --clr-shadow: rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] {
+  --clr-bg: #F5F9FF;
+  --clr-surface: #ffffff;
+  --clr-text: #1a1a1a;
+  --clr-text-muted: #555;
+  --clr-border: #e0eaf4;
+  --clr-shadow: rgba(0,0,0,0.08);
+}
+
+/* リセット */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  margin: 0;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* =============================================
+   ヘッダー
+   ============================================= */
+.site-header {
+  background: var(--clr-primary);
+  color: #fff;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.site-header__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+
+.site-header__logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-theme {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.btn-theme:hover { background: rgba(255,255,255,0.3); }
+
+/* =============================================
+   パンくず
+   ============================================= */
+.breadcrumb {
+  background: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 8px 16px;
+  font-size: 12px;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  color: var(--clr-text-muted);
+}
+
+.breadcrumb li + li::before {
+  content: '›';
+  margin-right: 4px;
+  color: var(--clr-text-muted);
+}
+
+.breadcrumb a {
+  color: var(--clr-primary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* =============================================
+   広告スロット（CLSゼロ保証）
+   ============================================= */
+.ad-slot {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ad-top    { min-height: 90px; }
+.ad-middle { min-height: 250px; margin: 24px 0; }
+.ad-bottom { min-height: 90px; margin-top: 24px; }
+
+/* =============================================
+   フッター
+   ============================================= */
+.site-footer {
+  background: var(--clr-surface);
+  border-top: 1px solid var(--clr-border);
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 13px;
+  color: var(--clr-text-muted);
+  margin-top: 48px;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 14px;
+  margin-bottom: 12px;
+}
+
+.site-footer__links a {
+  color: var(--clr-primary);
+  text-decoration: none;
+}
+
+.site-footer__links a:hover { text-decoration: underline; }
+
+/* =============================================
+   トースト通知
+   ============================================= */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 9999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =============================================
+   ツールカード（トップページ用）
+   ============================================= */
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .tools-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .tools-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.tool-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--clr-primary-dark);
+  box-shadow: 0 2px 6px var(--clr-shadow);
+  aspect-ratio: 1;
+  padding: 16px 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px var(--clr-shadow);
+}
+
+.tool-card__icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+}

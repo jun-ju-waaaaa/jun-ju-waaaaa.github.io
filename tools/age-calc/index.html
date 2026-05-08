@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>年齢計算ツール｜生年月日から今日の年齢・誕生日まで何日 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/age-calc/">
+  <meta name="description" content="生年月日を入力するだけで満年齢・誕生日まで何日・生まれてから何日を即計算。和暦・干支・星座にも対応した無料年齢計算ツール。">
+  <meta property="og:title" content="年齢計算ツール｜生年月日から今日の年齢・誕生日まで何日 - 0-TOOLs">
+  <meta property="og:description" content="生年月日を入力するだけで満年齢・誕生日まで何日・干支・星座を即表示。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/age-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .age-result {
+      text-align: center;
+      padding: 24px 16px;
+      background: var(--clr-bg);
+      border-radius: var(--radius);
+      border: 2px solid var(--clr-border);
+      margin-top: 16px;
+      transition: border-color 0.2s;
+    }
+    .age-result.active { border-color: var(--clr-primary); }
+    .age-result__main {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--clr-primary-dark);
+      line-height: 1;
+    }
+    [data-theme="dark"] .age-result__main { color: var(--clr-primary); }
+    .age-result__unit {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--clr-text-muted);
+      margin-left: 4px;
+    }
+    .age-result__sub {
+      font-size: 14px;
+      color: var(--clr-text-muted);
+      margin-top: 8px;
+      line-height: 1.8;
+    }
+    .age-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .age-chip {
+      background: var(--clr-surface);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 1px 4px var(--clr-shadow);
+    }
+    .age-chip__label {
+      font-size: 11px;
+      color: var(--clr-text-muted);
+      margin-bottom: 4px;
+    }
+    .age-chip__value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--clr-text);
+    }
+
+    /* 和暦セレクト */
+    .wareki-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .wareki-row select,
+    .wareki-row input {
+      padding: 12px 8px;
+      font-size: 15px;
+    }
+    .input-mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 2px solid var(--clr-border);
+      background: var(--clr-surface);
+      border-radius: 8px;
+      color: var(--clr-text-muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .mode-btn.active {
+      border-color: var(--clr-primary);
+      color: var(--clr-primary);
+      background: rgba(58,168,232,0.08);
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "年齢計算ツール",
+    "url": "https://0-tools.com/tools/age-calc/",
+    "description": "生年月日から満年齢・誕生日まで何日・干支・星座を計算するツール",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0"},
+    "inLanguage": "ja"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},
+      {"@type":"ListItem","position":2,"name":"年齢計算ツール","item":"https://0-tools.com/tools/age-calc/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "満年齢とはなんですか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "満年齢とは、誕生日を迎えるたびに1歳加算される数え方です。日本では法律上、誕生日の前日24時に年齢が加算されます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "和暦（昭和・平成・令和）で生年月日を入力できますか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "はい。「和暦入力」モードで元号・年・月・日を選択して計算できます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "誕生日が今日の場合、年齢はどうなりますか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "今日が誕生日の場合、誕生日まで0日と表示され、満年齢はすでに加算された後の年齢が表示されます。"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li>年齢計算ツール</li>
+  </ol>
+</nav>
+
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+
+<main class="tool-main">
+  <h1>年齢計算ツール</h1>
+  <p class="tool-desc">生年月日を入力するだけで満年齢・誕生日まであと何日・生まれてから何日かを即計算。和暦・干支・星座にも対応しています。</p>
+
+  <section class="tool-body" id="tool" aria-label="年齢計算">
+
+    <!-- 入力モード切替 -->
+    <div class="input-mode-toggle" role="group" aria-label="入力モード">
+      <button class="mode-btn active" id="mode-seireki" aria-pressed="true">西暦入力</button>
+      <button class="mode-btn" id="mode-wareki" aria-pressed="false">和暦入力</button>
+    </div>
+
+    <!-- 西暦入力 -->
+    <div id="panel-seireki">
+      <div class="input-group">
+        <label for="input-date">生年月日</label>
+        <input type="date" id="input-date" aria-label="生年月日を選択">
+      </div>
+    </div>
+
+    <!-- 和暦入力 -->
+    <div id="panel-wareki" style="display:none">
+      <div class="input-group">
+        <label>生年月日（和暦）</label>
+        <div class="wareki-row">
+          <select id="wareki-era" aria-label="元号">
+            <option value="reiwa">令和</option>
+            <option value="heisei">平成</option>
+            <option value="showa">昭和</option>
+            <option value="taisho">大正</option>
+            <option value="meiji">明治</option>
+          </select>
+          <input type="number" id="wareki-year" min="1" max="99" value="1"
+                 inputmode="numeric" aria-label="年" placeholder="年">
+          <input type="number" id="wareki-month" min="1" max="12" value=""
+                 inputmode="numeric" aria-label="月" placeholder="月">
+          <input type="number" id="wareki-day" min="1" max="31" value=""
+                 inputmode="numeric" aria-label="日" placeholder="日">
+        </div>
+      </div>
+    </div>
+
+    <!-- 基準日 -->
+    <div class="input-group">
+      <label for="input-base">基準日（今日）</label>
+      <input type="date" id="input-base" aria-label="基準日を選択">
+    </div>
+
+    <!-- 結果 -->
+    <div class="age-result" id="result" aria-live="polite">
+      <div class="age-result__main" id="val-age">—</div>
+      <div class="age-result__sub" id="val-sub">生年月日を入力してください</div>
+    </div>
+
+    <div class="age-grid" id="age-grid">
+      <div class="age-chip">
+        <div class="age-chip__label">誕生日まで</div>
+        <div class="age-chip__value" id="val-birthday">—</div>
+      </div>
+      <div class="age-chip">
+        <div class="age-chip__label">生まれてから</div>
+        <div class="age-chip__value" id="val-days">—</div>
+      </div>
+      <div class="age-chip">
+        <div class="age-chip__label">干支</div>
+        <div class="age-chip__value" id="val-eto">—</div>
+      </div>
+      <div class="age-chip">
+        <div class="age-chip__label">星座</div>
+        <div class="age-chip__value" id="val-seiza">—</div>
+      </div>
+    </div>
+
+    <button class="btn-copy" id="btn-copy" style="display:none" aria-label="年齢をコピー">
+      📋 年齢をコピー
+    </button>
+
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">満年齢とはなんですか？</button>
+      <div class="faq-a">誕生日を迎えるたびに1歳加算される年齢の数え方です。日本では法律上、誕生日の<strong>前日24時</strong>（＝誕生日当日の0時）に年齢が加算されます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">和暦で入力できますか？</button>
+      <div class="faq-a">はい。「和暦入力」ボタンで元号（令和・平成・昭和・大正・明治）、年・月・日を選択して計算できます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">誕生日が今日の場合は？</button>
+      <div class="faq-a">「誕生日まで 0日（今日！）」と表示されます。年齢はすでに今年の誕生日を迎えた後の満年齢で計算されます。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/bizday-calc/">営業日<br>計算</a>
+      <a class="related-card" href="/tools/time-calc/">時間<br>計算</a>
+      <a class="related-card" href="/-Day-Counter/">生後日数<br>カウンター</a>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="/shared/common.js" defer></script>
+<script>
+(function () {
+  const ETO   = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  const WAREKI = {
+    reiwa:  { start: 2019, offset: 2018 },
+    heisei: { start: 1989, offset: 1988 },
+    showa:  { start: 1926, offset: 1925 },
+    taisho: { start: 1912, offset: 1911 },
+    meiji:  { start: 1868, offset: 1867 }
+  };
+  const SEIZA = [
+    ['山羊座',1,1],['水瓶座',1,20],['魚座',2,19],['牡羊座',3,21],
+    ['牡牛座',4,20],['双子座',5,21],['蟹座',6,22],['獅子座',7,23],
+    ['乙女座',8,23],['天秤座',9,23],['蠍座',10,24],['射手座',11,23],['山羊座',12,22]
+  ];
+
+  function getSeiza(m, d) {
+    let name = '山羊座';
+    for (let i = 0; i < SEIZA.length; i++) {
+      if (m === SEIZA[i][1] && d >= SEIZA[i][2]) name = SEIZA[i][0];
+      else if (m > SEIZA[i][1]) name = SEIZA[i][0];
+    }
+    return name;
+  }
+
+  /* 今日をデフォルトにセット */
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  document.getElementById('input-base').value = todayStr;
+
+  /* 和暦→西暦変換 */
+  function warekiToSeireki() {
+    const era   = document.getElementById('wareki-era').value;
+    const y     = parseInt(document.getElementById('wareki-year').value, 10);
+    const m     = parseInt(document.getElementById('wareki-month').value, 10);
+    const d     = parseInt(document.getElementById('wareki-day').value, 10);
+    if (!y || !m || !d) return null;
+    const seireki = WAREKI[era].offset + y;
+    return new Date(seireki, m - 1, d);
+  }
+
+  function getBirthDate() {
+    if (document.getElementById('panel-seireki').style.display !== 'none') {
+      const v = document.getElementById('input-date').value;
+      return v ? new Date(v + 'T00:00:00') : null;
+    } else {
+      return warekiToSeireki();
+    }
+  }
+
+  function pad2(n) { return String(n).padStart(2, '0'); }
+
+  function calc() {
+    const birth = getBirthDate();
+    const baseVal = document.getElementById('input-base').value;
+    const base = baseVal ? new Date(baseVal + 'T00:00:00') : today;
+
+    const ageEl      = document.getElementById('val-age');
+    const subEl      = document.getElementById('val-sub');
+    const bdayEl     = document.getElementById('val-birthday');
+    const daysEl     = document.getElementById('val-days');
+    const etoEl      = document.getElementById('val-eto');
+    const seizaEl    = document.getElementById('val-seiza');
+    const resultEl   = document.getElementById('result');
+    const copyBtn    = document.getElementById('btn-copy');
+
+    if (!birth || isNaN(birth.getTime())) {
+      ageEl.innerHTML = '—';
+      subEl.textContent = '生年月日を入力してください';
+      bdayEl.textContent = daysEl.textContent = etoEl.textContent = seizaEl.textContent = '—';
+      resultEl.classList.remove('active');
+      copyBtn.style.display = 'none';
+      return;
+    }
+
+    /* 満年齢 */
+    let age = base.getFullYear() - birth.getFullYear();
+    const bm = birth.getMonth(), bd = birth.getDate();
+    if (base.getMonth() < bm || (base.getMonth() === bm && base.getDate() < bd)) age--;
+
+    /* 誕生日まで */
+    let nextBd = new Date(base.getFullYear(), bm, bd);
+    if (nextBd < base || nextBd.getTime() === base.getTime() - 86400000) {
+      nextBd = new Date(base.getFullYear() + 1, bm, bd);
+    }
+    const diffBd = Math.round((nextBd - base) / 86400000);
+
+    /* 生まれてから何日 */
+    const diffDays = Math.round((base - birth) / 86400000);
+
+    /* 干支 */
+    const eto = ETO[(birth.getFullYear() - 4) % 12];
+
+    /* 星座 */
+    const seiza = getSeiza(birth.getMonth() + 1, birth.getDate());
+
+    ageEl.innerHTML = `${age}<span class="age-result__unit">歳</span>`;
+    subEl.textContent = `${birth.getFullYear()}年${bm+1}月${bd}日生まれ`;
+    bdayEl.textContent = diffBd === 0 ? '今日！🎂' : `${diffBd}日後`;
+    daysEl.textContent = `${diffDays.toLocaleString()}日`;
+    etoEl.textContent  = eto;
+    seizaEl.textContent = seiza;
+    resultEl.classList.add('active');
+    copyBtn.style.display = 'flex';
+    copyBtn.onclick = () => window.ZeroTools.copyText(age + '歳');
+  }
+
+  /* モード切替 */
+  document.getElementById('mode-seireki').addEventListener('click', () => {
+    document.getElementById('panel-seireki').style.display = '';
+    document.getElementById('panel-wareki').style.display = 'none';
+    document.getElementById('mode-seireki').classList.add('active');
+    document.getElementById('mode-wareki').classList.remove('active');
+    document.getElementById('mode-seireki').setAttribute('aria-pressed', 'true');
+    document.getElementById('mode-wareki').setAttribute('aria-pressed', 'false');
+    calc();
+  });
+
+  document.getElementById('mode-wareki').addEventListener('click', () => {
+    document.getElementById('panel-seireki').style.display = 'none';
+    document.getElementById('panel-wareki').style.display = '';
+    document.getElementById('mode-wareki').classList.add('active');
+    document.getElementById('mode-seireki').classList.remove('active');
+    document.getElementById('mode-wareki').setAttribute('aria-pressed', 'true');
+    document.getElementById('mode-seireki').setAttribute('aria-pressed', 'false');
+    calc();
+  });
+
+  document.getElementById('input-date').addEventListener('change', calc);
+  document.getElementById('input-base').addEventListener('change', calc);
+  ['wareki-era','wareki-year','wareki-month','wareki-day'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+})();
+</script>
+</body>
+</html>

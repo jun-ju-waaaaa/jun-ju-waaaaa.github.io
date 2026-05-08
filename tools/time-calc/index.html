@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>時間計算ツール｜勤務時間・時給・残業代を即計算 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/time-calc/">
+  <meta name="description" content="開始・終了時刻から勤務時間・休憩を差し引いた実働時間を計算。時給計算・深夜割増（22〜5時×1.25）にも対応した無料ツール。">
+  <meta property="og:title" content="時間計算ツール｜勤務時間・時給・残業代を即計算 - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/time-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .time-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .time-row input[type="time"] {
+      padding: 12px 8px;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 10px;
+    }
+    .time-row input[type="time"]:focus {
+      outline: none;
+      border-color: var(--clr-primary);
+    }
+    .time-label {
+      font-size: 13px;
+      color: var(--clr-text-muted);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .total-bar {
+      background: var(--clr-primary);
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    .total-bar__label { font-size: 12px; opacity: 0.85; margin-bottom: 4px; }
+    .total-bar__value { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+    .total-bar__sub   { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: var(--clr-error);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+    .segment-item {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .segment-item input[type="time"] {
+      padding: 10px 6px;
+      font-size: 16px;
+      text-align: center;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 8px;
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"時間計算ツール","url":"https://0-tools.com/tools/time-calc/","description":"勤務時間・時給・残業代を計算するツール","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"時間計算ツール","item":"https://0-tools.com/tools/time-calc/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"深夜割増とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"労働基準法により、22時〜翌5時の労働には25%増しの賃金が必要です。時給×1.25で計算します。このツールで自動計算できます。"}},{"@type":"Question","name":"日をまたぐシフト（例:23時〜翌8時）は計算できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。終了時刻が開始時刻より早い場合は自動的に翌日とみなして計算します。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>時間計算ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>時間計算ツール</h1>
+  <p class="tool-desc">開始・終了時刻から実働時間を計算。休憩差し引き・時給計算・深夜割増にも対応。</p>
+
+  <section class="tool-body" id="tool">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="simple" role="tab">シンプル計算</button>
+      <button class="tab-btn" data-tab="hourly" role="tab">時給計算</button>
+      <button class="tab-btn" data-tab="multi" role="tab">複数区間</button>
+    </div>
+
+    <!-- シンプル計算 -->
+    <div class="tab-panel active" data-panel="simple">
+      <div class="time-row">
+        <div>
+          <div class="time-label">開始</div>
+          <input type="time" id="s-start" value="09:00">
+        </div>
+        <span style="font-size:20px;color:var(--clr-text-muted)">〜</span>
+        <div>
+          <div class="time-label">終了</div>
+          <input type="time" id="s-end" value="18:00">
+        </div>
+        <div></div>
+      </div>
+      <div class="input-group">
+        <label for="s-break">休憩時間（分）</label>
+        <input type="number" id="s-break" value="60" min="0" inputmode="numeric" placeholder="60">
+      </div>
+      <div class="total-bar" id="s-result" aria-live="polite">
+        <div class="total-bar__label">実働時間</div>
+        <div class="total-bar__value" id="s-val">—</div>
+        <div class="total-bar__sub" id="s-sub"></div>
+      </div>
+      <button class="btn-copy" id="s-copy" style="margin-top:10px;display:none" aria-label="実働時間をコピー">📋 コピー</button>
+    </div>
+
+    <!-- 時給計算 -->
+    <div class="tab-panel" data-panel="hourly">
+      <div class="time-row">
+        <div>
+          <div class="time-label">開始</div>
+          <input type="time" id="h-start" value="17:00">
+        </div>
+        <span style="font-size:20px;color:var(--clr-text-muted)">〜</span>
+        <div>
+          <div class="time-label">終了</div>
+          <input type="time" id="h-end" value="23:00">
+        </div>
+        <div></div>
+      </div>
+      <div class="input-group">
+        <label for="h-break">休憩時間（分）</label>
+        <input type="number" id="h-break" value="0" min="0" inputmode="numeric">
+      </div>
+      <div class="input-group">
+        <label for="h-wage">時給（円）</label>
+        <input type="number" id="h-wage" value="1050" min="0" inputmode="numeric" placeholder="例：1050">
+      </div>
+      <label style="font-size:13px;display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--clr-text-muted)">
+        <input type="checkbox" id="h-night" checked style="width:18px;height:18px">
+        深夜割増を適用（22:00〜05:00 は×1.25）
+      </label>
+      <div class="total-bar" aria-live="polite">
+        <div class="total-bar__label">給与（概算）</div>
+        <div class="total-bar__value" id="h-val">—</div>
+        <div class="total-bar__sub" id="h-sub"></div>
+      </div>
+    </div>
+
+    <!-- 複数区間 -->
+    <div class="tab-panel" data-panel="multi">
+      <div id="segments"></div>
+      <button class="btn-secondary" id="add-seg" style="margin-bottom:16px;width:100%">＋ 区間を追加</button>
+      <div class="input-group">
+        <label for="m-break">合計休憩時間（分）</label>
+        <input type="number" id="m-break" value="0" min="0" inputmode="numeric">
+      </div>
+      <div class="total-bar" aria-live="polite">
+        <div class="total-bar__label">合計実働時間</div>
+        <div class="total-bar__value" id="m-val">—</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">深夜割増とは何ですか？</button>
+      <div class="faq-a">労働基準法により、22時〜翌5時の労働には<strong>25%増し</strong>の賃金が必要です（時給×1.25）。このツールで自動計算できます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">日をまたぐシフトは計算できますか？</button>
+      <div class="faq-a">はい。終了時刻が開始時刻より早い場合は自動的に翌日とみなして計算します（例：23:00〜翌8:00）。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">時間の計算が合わない場合は？</button>
+      <div class="faq-a">休憩時間の入力を確認してください。また、深夜割増の計算は概算です（分単位で切り捨て）。正確な給与計算は必ず雇用契約書・給与明細でご確認ください。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/bizday-calc/">営業日<br>計算</a>
+      <a class="related-card" href="/tools/age-calc/">年齢<br>計算</a>
+      <a class="related-card" href="/tools/percent-calc/">パーセント<br>計算</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  function toMin(timeStr){
+    const [h,m] = timeStr.split(':').map(Number);
+    return h*60+m;
+  }
+  function calcDiff(start, end){
+    let diff = toMin(end)-toMin(start);
+    if(diff<=0) diff+=1440;
+    return diff;
+  }
+  function fmtHM(mins){
+    const h=Math.floor(mins/60), m=mins%60;
+    return `${h}時間${m>0?m+'分':''}`;
+  }
+
+  /* --- シンプル --- */
+  function calcSimple(){
+    const start = document.getElementById('s-start').value;
+    const end   = document.getElementById('s-end').value;
+    const brk   = parseInt(document.getElementById('s-break').value)||0;
+    if(!start||!end){ document.getElementById('s-val').textContent='—'; return; }
+    const total = Math.max(0, calcDiff(start,end)-brk);
+    const h=Math.floor(total/60), m=total%60;
+    document.getElementById('s-val').textContent = `${h}:${String(m).padStart(2,'0')}`;
+    document.getElementById('s-sub').textContent = fmtHM(total);
+    document.getElementById('s-copy').style.display='flex';
+    document.getElementById('s-copy').onclick=()=>window.ZeroTools.copyText(fmtHM(total));
+  }
+  ['s-start','s-end','s-break'].forEach(id=>document.getElementById(id).addEventListener('input',calcSimple));
+  calcSimple();
+
+  /* --- 時給 --- */
+  function calcHourly(){
+    const start = document.getElementById('h-start').value;
+    const end   = document.getElementById('h-end').value;
+    const brk   = parseInt(document.getElementById('h-break').value)||0;
+    const wage  = parseInt(document.getElementById('h-wage').value)||0;
+    const night = document.getElementById('h-night').checked;
+    if(!start||!end||!wage){ document.getElementById('h-val').textContent='—'; return; }
+
+    const totalMins = Math.max(0, calcDiff(start,end)-brk);
+    let pay = 0;
+
+    if(!night){
+      pay = wage * totalMins/60;
+    } else {
+      const startM = toMin(start);
+      const endM   = startM + totalMins + brk;
+      let normalMins=0, nightMins=0;
+      for(let i=0;i<totalMins;i++){
+        const t=((startM+brk+i)%1440+1440)%1440;
+        if(t>=22*60||t<5*60) nightMins++; else normalMins++;
+      }
+      pay = wage*(normalMins/60) + wage*1.25*(nightMins/60);
+    }
+
+    document.getElementById('h-val').textContent = `¥${Math.floor(pay).toLocaleString('ja-JP')}`;
+    document.getElementById('h-sub').textContent = fmtHM(totalMins)+'（概算）';
+  }
+  ['h-start','h-end','h-break','h-wage','h-night'].forEach(id=>document.getElementById(id).addEventListener('input',calcHourly));
+  document.getElementById('h-night').addEventListener('change',calcHourly);
+  calcHourly();
+
+  /* --- 複数区間 --- */
+  let segCount=0;
+  function addSegment(){
+    segCount++;
+    const div=document.createElement('div');
+    div.className='segment-item';
+    div.dataset.id=segCount;
+    div.innerHTML=`
+      <input type="time" class="seg-start" value="09:00">
+      <span style="font-size:18px;color:var(--clr-text-muted)">〜</span>
+      <input type="time" class="seg-end" value="18:00">
+      <span style="font-size:13px;color:var(--clr-text-muted)">×1</span>
+      <button class="remove-btn" aria-label="削除">×</button>`;
+    div.querySelector('.remove-btn').addEventListener('click',()=>{div.remove();calcMulti();});
+    div.querySelectorAll('input').forEach(el=>el.addEventListener('input',calcMulti));
+    document.getElementById('segments').appendChild(div);
+    calcMulti();
+  }
+  document.getElementById('add-seg').addEventListener('click',addSegment);
+  document.getElementById('m-break').addEventListener('input',calcMulti);
+
+  function calcMulti(){
+    let total=0;
+    document.querySelectorAll('.segment-item').forEach(row=>{
+      const s=row.querySelector('.seg-start').value;
+      const e=row.querySelector('.seg-end').value;
+      if(s&&e) total+=calcDiff(s,e);
+    });
+    const brk=parseInt(document.getElementById('m-break').value)||0;
+    total=Math.max(0,total-brk);
+    const h=Math.floor(total/60),m=total%60;
+    document.getElementById('m-val').textContent = total>0?`${h}:${String(m).padStart(2,'0')}`:'—';
+  }
+
+  addSegment();
+})();
+</script>
+</body>
+</html>

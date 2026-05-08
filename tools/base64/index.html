@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64変換ツール｜エンコード・デコードを即変換（日本語対応） - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/base64/">
+  <meta name="description" content="テキストをBase64エンコード・デコード。日本語（UTF-8）・URLセーフ形式対応。ブラウザ内処理でサーバー送信なし。無料・登録不要。">
+  <meta property="og:title" content="Base64変換ツール｜エンコード・デコードを即変換（日本語対応） - 0-TOOLs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/base64/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <style>
+    .swap-btn {
+      display: block;
+      margin: 8px auto;
+      background: none;
+      border: 2px solid var(--clr-border);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--clr-primary);
+      transition: background 0.15s;
+    }
+    .swap-btn:hover { background: var(--clr-bg); }
+    .output-area {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 10px;
+      resize: vertical;
+      word-break: break-all;
+    }
+    .url-safe-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--clr-text-muted);
+    }
+    .url-safe-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Base64変換ツール","url":"https://0-tools.com/tools/base64/","description":"テキストをBase64エンコード・デコードするツール（日本語対応）","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0"},"inLanguage":"ja"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},{"@type":"ListItem","position":2,"name":"Base64変換ツール","item":"https://0-tools.com/tools/base64/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Base64とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"Base64はバイナリデータを64種類のASCII文字（A-Z, a-z, 0-9, +, /）で表現するエンコード方式です。メールやHTMLのdata URI、APIのトークンなどで広く使われています。"}},{"@type":"Question","name":"日本語をBase64に変換できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。このツールはUTF-8エンコードで日本語に対応しています。日本語テキストをそのまま入力してBase64に変換できます。"}},{"@type":"Question","name":"URLセーフ形式とは何ですか？","acceptedAnswer":{"@type":"Answer","text":"通常のBase64で使われる+と/をURLで使えない文字のため、それぞれ-と_に置き換えた形式です。WebAPIのトークンやURLパラメータに使用されます。"}}]}
+  </script>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol><li><a href="/">ホーム</a></li><li>Base64変換ツール</li></ol>
+</nav>
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+<main class="tool-main">
+  <h1>Base64変換ツール</h1>
+  <p class="tool-desc">テキストをBase64エンコード・デコード。日本語（UTF-8）対応。⇄ボタンで方向を反転できます。</p>
+
+  <section class="tool-body" id="tool">
+    <div class="toggle-group" role="group" aria-label="変換モード">
+      <button class="toggle-btn active" id="mode-enc" aria-pressed="true">テキスト → Base64</button>
+      <button class="toggle-btn" id="mode-dec" aria-pressed="false">Base64 → テキスト</button>
+    </div>
+
+    <div class="input-group">
+      <label for="input-text" id="label-input">入力テキスト</label>
+      <textarea id="input-text" rows="4" placeholder="変換するテキストを入力…"
+                aria-label="変換するテキスト" autofocus></textarea>
+    </div>
+
+    <button class="swap-btn" id="btn-swap" title="入出力を入れ替える" aria-label="入出力を入れ替える">⇄</button>
+
+    <div class="input-group">
+      <label id="label-output">Base64結果</label>
+      <textarea class="output-area" id="output-text" readonly
+                placeholder="結果がここに表示されます"
+                aria-label="変換結果" aria-live="polite"></textarea>
+    </div>
+
+    <div class="url-safe-row">
+      <input type="checkbox" id="url-safe" aria-label="URLセーフ形式">
+      <label for="url-safe">URLセーフ形式（+→- / /→_）</label>
+    </div>
+
+    <div class="error-banner" id="error-banner">デコードに失敗しました。Base64形式のテキストを入力してください。</div>
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn-copy" id="btn-copy" aria-label="結果をコピー">📋 結果をコピー</button>
+      <button class="btn-secondary" id="btn-clear">クリア</button>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">Base64とは何ですか？</button>
+      <div class="faq-a">Base64はバイナリデータを64種類のASCII文字で表現するエンコード方式です。メールの添付ファイルやHTMLのdata URI、WebAPIのトークンなどで広く使われています。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">日本語をBase64に変換できますか？</button>
+      <div class="faq-a">はい。このツールはUTF-8エンコードで日本語に対応しています。競合ツールで文字化けする場合でも、このツールなら正確に変換できます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">URLセーフ形式とは？</button>
+      <div class="faq-a">通常のBase64で使われる<code>+</code>と<code>/</code>をURLで安全な<code>-</code>と<code>_</code>に置き換えた形式です。WebAPIのトークンやURLパラメータに使います。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">入力内容はサーバーに送られますか？</button>
+      <div class="faq-a">いいえ。変換処理はすべてブラウザ内で行われます。入力したテキストが外部に送信されることは一切ありません。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/json-format/">JSON<br>整形</a>
+      <a class="related-card" href="/tools/word-count/">文字数<br>カウント</a>
+      <a class="related-card" href="/tools/qr-gen/">QRコード<br>生成</a>
+    </div>
+  </section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/shared/common.js" defer></script>
+<script>
+(function(){
+  let mode = 'encode';
+  const inputEl  = document.getElementById('input-text');
+  const outputEl = document.getElementById('output-text');
+  const urlSafe  = document.getElementById('url-safe');
+  const errBanner= document.getElementById('error-banner');
+  const labelIn  = document.getElementById('label-input');
+  const labelOut = document.getElementById('label-output');
+
+  /* UTF-8対応 encode */
+  function encodeBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    let b64 = btoa(binary);
+    if(urlSafe.checked) b64 = b64.replace(/\+/g,'-').replace(/\//g,'_');
+    return b64;
+  }
+
+  /* UTF-8対応 decode */
+  function decodeBase64(str) {
+    let b64 = str.trim();
+    if(urlSafe.checked) b64 = b64.replace(/-/g,'+').replace(/_/g,'/');
+    /* padding */
+    const pad = b64.length % 4;
+    if(pad) b64 += '='.repeat(4-pad);
+    const binary = atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  function convert() {
+    const text = inputEl.value;
+    errBanner.classList.remove('show');
+    if(!text){ outputEl.value=''; return; }
+    try {
+      if(mode==='encode'){
+        outputEl.value = encodeBase64(text);
+      } else {
+        outputEl.value = decodeBase64(text);
+      }
+    } catch(e) {
+      outputEl.value = '';
+      if(mode==='decode') errBanner.classList.add('show');
+    }
+  }
+
+  inputEl.addEventListener('input', convert);
+  urlSafe.addEventListener('change', convert);
+
+  function setMode(m) {
+    mode = m;
+    if(m==='encode'){
+      document.getElementById('mode-enc').classList.add('active');
+      document.getElementById('mode-enc').setAttribute('aria-pressed','true');
+      document.getElementById('mode-dec').classList.remove('active');
+      document.getElementById('mode-dec').setAttribute('aria-pressed','false');
+      labelIn.textContent  = '入力テキスト';
+      labelOut.textContent = 'Base64結果';
+      inputEl.placeholder  = '変換するテキストを入力…';
+    } else {
+      document.getElementById('mode-dec').classList.add('active');
+      document.getElementById('mode-dec').setAttribute('aria-pressed','true');
+      document.getElementById('mode-enc').classList.remove('active');
+      document.getElementById('mode-enc').setAttribute('aria-pressed','false');
+      labelIn.textContent  = 'Base64テキスト';
+      labelOut.textContent = 'デコード結果';
+      inputEl.placeholder  = 'Base64のテキストを入力…';
+    }
+    convert();
+  }
+
+  document.getElementById('mode-enc').addEventListener('click',()=>setMode('encode'));
+  document.getElementById('mode-dec').addEventListener('click',()=>setMode('decode'));
+
+  document.getElementById('btn-swap').addEventListener('click',()=>{
+    const tmp = inputEl.value;
+    inputEl.value = outputEl.value;
+    setMode(mode==='encode'?'decode':'encode');
+    if(!inputEl.value) inputEl.value = tmp;
+    convert();
+  });
+
+  document.getElementById('btn-copy').addEventListener('click',()=>{
+    if(outputEl.value) window.ZeroTools.copyText(outputEl.value);
+  });
+  document.getElementById('btn-clear').addEventListener('click',()=>{
+    inputEl.value=''; outputEl.value='';
+    errBanner.classList.remove('show');
+    inputEl.focus();
+  });
+})();
+</script>
+</body>
+</html>

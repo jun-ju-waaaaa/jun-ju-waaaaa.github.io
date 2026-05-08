@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消費税計算ツール｜税込・税抜・逆算を即計算 - 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/tools/tax-calc/">
+  <meta name="description" content="税率8%・10%に対応。税込価格から税抜を逆算、税抜から税込を計算。消費税額だけの確認も。軽減税率・インボイス対応の無料計算ツール。">
+  <meta property="og:title" content="消費税計算ツール｜税込・税抜・逆算を即計算 - 0-TOOLs">
+  <meta property="og:description" content="税率8%・10%に対応した消費税計算ツール。税込・税抜・逆算をワンタップで切替。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/tools/tax-calc/">
+  <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preload" href="/shared/common.css" as="style">
+  <link rel="stylesheet" href="/shared/common.css">
+  <link rel="stylesheet" href="/shared/tool.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "消費税計算ツール",
+    "url": "https://0-tools.com/tools/tax-calc/",
+    "description": "税率8%・10%に対応した消費税の税込・税抜・逆算計算ツール",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0"},
+    "inLanguage": "ja"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},
+      {"@type":"ListItem","position":2,"name":"消費税計算ツール","item":"https://0-tools.com/tools/tax-calc/"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "消費税の税率は何%ですか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "標準税率は10%です。食品・飲料品（酒類・外食を除く）と定期購読の新聞は軽減税率8%が適用されます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "税込価格から税抜価格に逆算する方法は？",
+        "acceptedAnswer": {"@type": "Answer", "text": "税率10%の場合：税抜 = 税込 ÷ 1.1。税率8%の場合：税抜 = 税込 ÷ 1.08。このツールの「税込→税抜」タブで即計算できます。"}
+      },
+      {
+        "@type": "Question",
+        "name": "消費税はいくらかだけ確認できますか？",
+        "acceptedAnswer": {"@type": "Answer", "text": "はい。計算結果に「消費税額」も表示しています。税抜価格×税率で算出されます。"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li>消費税計算ツール</li>
+  </ol>
+</nav>
+
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+
+<main class="tool-main">
+  <h1>消費税計算ツール</h1>
+  <p class="tool-desc">税率8%・10%に対応。税込⇔税抜の相互変換と消費税額を即計算。入力するたびにリアルタイムで更新されます。</p>
+
+  <section class="tool-body" id="tool" aria-label="消費税計算">
+
+    <!-- 税率切替 -->
+    <div class="toggle-group" role="group" aria-label="税率選択">
+      <button class="toggle-btn active" id="btn10" data-rate="10" aria-pressed="true">消費税 10%</button>
+      <button class="toggle-btn" id="btn8" data-rate="8" aria-pressed="false">軽減税率 8%</button>
+    </div>
+
+    <!-- タブ -->
+    <div class="tabs" role="tablist" aria-label="計算モード">
+      <button class="tab-btn active" data-tab="ex2in" role="tab" aria-selected="true">税抜→税込</button>
+      <button class="tab-btn" data-tab="in2ex" role="tab" aria-selected="false">税込→税抜</button>
+    </div>
+
+    <!-- 税抜→税込 -->
+    <div class="tab-panel active" data-panel="ex2in">
+      <div class="input-group">
+        <label for="input-excl">税抜価格（円）</label>
+        <input type="number" id="input-excl" inputmode="decimal" min="0" step="1"
+               placeholder="例：1000" aria-label="税抜価格を入力">
+      </div>
+      <div class="result-grid">
+        <div class="result-card" id="card-incl">
+          <div class="result-label">税込価格</div>
+          <div class="result-value" id="val-incl">—</div>
+          <div class="result-sub">円</div>
+        </div>
+        <div class="result-card" id="card-tax1">
+          <div class="result-label">消費税額</div>
+          <div class="result-value" id="val-tax1">—</div>
+          <div class="result-sub">円</div>
+        </div>
+      </div>
+      <div id="formula1" class="result-sub" style="margin-top:10px;font-size:12px;color:var(--clr-text-muted)"></div>
+      <button class="btn-copy" id="copy-incl" style="display:none" aria-label="税込価格をコピー">
+        📋 税込価格をコピー
+      </button>
+    </div>
+
+    <!-- 税込→税抜 -->
+    <div class="tab-panel" data-panel="in2ex">
+      <div class="input-group">
+        <label for="input-incl">税込価格（円）</label>
+        <input type="number" id="input-incl" inputmode="decimal" min="0" step="1"
+               placeholder="例：1100" aria-label="税込価格を入力">
+      </div>
+      <div class="result-grid">
+        <div class="result-card" id="card-excl">
+          <div class="result-label">税抜価格</div>
+          <div class="result-value" id="val-excl">—</div>
+          <div class="result-sub">円</div>
+        </div>
+        <div class="result-card" id="card-tax2">
+          <div class="result-label">消費税額</div>
+          <div class="result-value" id="val-tax2">—</div>
+          <div class="result-sub">円</div>
+        </div>
+      </div>
+      <div id="formula2" class="result-sub" style="margin-top:10px;font-size:12px;color:var(--clr-text-muted)"></div>
+      <button class="btn-copy" id="copy-excl" style="display:none" aria-label="税抜価格をコピー">
+        📋 税抜価格をコピー
+      </button>
+    </div>
+
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">消費税の税率は何%ですか？</button>
+      <div class="faq-a">標準税率は<strong>10%</strong>です。食品・飲料品（酒類・外食を除く）と定期購読の新聞には<strong>軽減税率8%</strong>が適用されます。このツールの税率ボタンで切り替えできます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">税込価格から税抜に逆算する計算式は？</button>
+      <div class="faq-a">税率10%の場合：税抜価格 = 税込価格 ÷ 1.1<br>税率8%の場合：税抜価格 = 税込価格 ÷ 1.08<br>「税込→税抜」タブで入力すれば自動計算されます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">消費税額だけ確認することはできますか？</button>
+      <div class="faq-a">できます。計算結果の右側に「消費税額」が表示されます。税抜価格に税率を掛けた金額です（端数は切り捨て）。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">端数の計算方法は？</button>
+      <div class="faq-a">消費税の端数処理に法的な定めはなく、事業者が任意に決定できます。このツールでは一般的に多く使われる<strong>切り捨て</strong>で計算しています。</div>
+    </div>
+  </section>
+
+  <!-- 関連ツール -->
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/percent-calc/">パーセント<br>計算</a>
+      <a class="related-card" href="/tools/tsubo-calc/">平米・坪<br>変換</a>
+      <a class="related-card" href="/tools/age-calc/">年齢<br>計算</a>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="/shared/common.js" defer></script>
+<script>
+(function () {
+  let rate = 10;
+
+  const inputExcl = document.getElementById('input-excl');
+  const inputIncl = document.getElementById('input-incl');
+
+  /* 税率ボタン */
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.toggle-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      rate = parseInt(btn.dataset.rate, 10);
+      calcExcl2Incl();
+      calcIncl2Excl();
+    });
+  });
+
+  function fmt(n) {
+    return Math.floor(n).toLocaleString('ja-JP');
+  }
+
+  function setResult(valueEl, cardEl, text) {
+    valueEl.textContent = text;
+    cardEl.classList.toggle('has-value', text !== '—');
+  }
+
+  /* 税抜→税込 */
+  function calcExcl2Incl() {
+    const v = parseFloat(inputExcl.value);
+    const inclEl = document.getElementById('val-incl');
+    const taxEl  = document.getElementById('val-tax1');
+    const card1  = document.getElementById('card-incl');
+    const card2  = document.getElementById('card-tax1');
+    const formula = document.getElementById('formula1');
+    const copyBtn = document.getElementById('copy-incl');
+
+    if (isNaN(v) || inputExcl.value === '') {
+      setResult(inclEl, card1, '—');
+      setResult(taxEl,  card2, '—');
+      formula.textContent = '';
+      copyBtn.style.display = 'none';
+      return;
+    }
+    const tax  = Math.floor(v * rate / 100);
+    const incl = v + tax;
+    setResult(inclEl, card1, fmt(incl));
+    setResult(taxEl,  card2, fmt(tax));
+    formula.textContent = `${fmt(v)} × ${rate}% = ${fmt(tax)}円 → 税込 ${fmt(incl)}円`;
+    copyBtn.style.display = 'flex';
+    copyBtn.onclick = () => window.ZeroTools.copyText(fmt(incl) + '円');
+  }
+
+  /* 税込→税抜 */
+  function calcIncl2Excl() {
+    const v = parseFloat(inputIncl.value);
+    const exclEl = document.getElementById('val-excl');
+    const taxEl  = document.getElementById('val-tax2');
+    const card1  = document.getElementById('card-excl');
+    const card2  = document.getElementById('card-tax2');
+    const formula = document.getElementById('formula2');
+    const copyBtn = document.getElementById('copy-excl');
+
+    if (isNaN(v) || inputIncl.value === '') {
+      setResult(exclEl, card1, '—');
+      setResult(taxEl,  card2, '—');
+      formula.textContent = '';
+      copyBtn.style.display = 'none';
+      return;
+    }
+    const excl = Math.floor(v / (1 + rate / 100));
+    const tax  = v - excl;
+    setResult(exclEl, card1, fmt(excl));
+    setResult(taxEl,  card2, fmt(tax));
+    formula.textContent = `${fmt(v)} ÷ ${1 + rate / 100} = 税抜 ${fmt(excl)}円（消費税 ${fmt(tax)}円）`;
+    copyBtn.style.display = 'flex';
+    copyBtn.onclick = () => window.ZeroTools.copyText(fmt(excl) + '円');
+  }
+
+  inputExcl.addEventListener('input', calcExcl2Incl);
+  inputIncl.addEventListener('input', calcIncl2Excl);
+})();
+</script>
+</body>
+</html>
