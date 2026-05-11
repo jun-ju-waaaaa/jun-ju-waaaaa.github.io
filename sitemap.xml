@@ -4,6 +4,7 @@
   <!-- トップページ -->
   <url>
     <loc>https://0-tools.com/</loc>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -73,26 +74,31 @@
   <!-- 既存ツールページ -->
   <url>
     <loc>https://0-tools.com/tools/pdf/pdf-to-jpeg/</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/tools/pdf/pdf-compress/</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/tools/img-converter/</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/tools/collar/collar-converter/</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/-Day-Counter/</loc>
+    <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -127,6 +133,7 @@
   <!-- ブログ -->
   <url>
     <loc>https://0-tools.com/blog/</loc>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

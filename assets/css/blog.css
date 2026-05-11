@@ -52,6 +52,26 @@
   .blog-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
+/* Blog intro section */
+.blog-intro {
+  background: #f0f8ff;
+  border-left: 4px solid var(--accent, #3AA8E8);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+}
+
+.blog-intro p {
+  margin: 0 0 10px;
+}
+
+.blog-intro p:last-child {
+  margin-bottom: 0;
+}
+
 /* Blog card */
 .blog-card {
   background: var(--surface);
