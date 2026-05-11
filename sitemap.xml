@@ -103,6 +103,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://0-tools.com/tools/size-converter/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://0-tools.com/-Day-Counter/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -151,6 +157,12 @@
   </url>
 
   <!-- ブログ記事 — 記事追加時にここへ追記 -->
+  <url>
+    <loc>https://0-tools.com/blog/size-converter-guide/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://0-tools.com/blog/birth-day-counter-guide/</loc>
     <lastmod>2026-05-07</lastmod>
