@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>サイトマップ | 0-TOOLs</title>
+  <link rel="canonical" href="https://0-tools.com/sitemap/">
+  <meta name="description" content="0-TOOLsのサイトマップです。無料ツール・ブログ記事・各種ページへのリンクを一覧でご確認いただけます。">
+  <meta property="og:title" content="サイトマップ | 0-TOOLs">
+  <meta property="og:description" content="0-TOOLsの全ページ一覧。無料ツール・ブログ・サポートページへのリンクをまとめています。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0-tools.com/sitemap/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://0-tools.com/"},
+      {"@type": "ListItem", "position": 2, "name": "サイトマップ", "item": "https://0-tools.com/sitemap/"}
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/page.css">
+  <style>
+    .sitemap-section {
+      margin-bottom: 36px;
+    }
+    .sitemap-section h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-dark, #2890d0);
+      border-left: 4px solid var(--accent, #3AA8E8);
+      padding-left: 10px;
+      margin-bottom: 14px;
+    }
+    .sitemap-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 0;
+    }
+    @media (min-width: 560px) {
+      .sitemap-list { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 860px) {
+      .sitemap-list { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .sitemap-list li a {
+      display: block;
+      padding: 10px 14px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--accent, #3AA8E8);
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .sitemap-list li a:hover {
+      background: var(--accent-light, #e0f2fe);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .sitemap-list li a span {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted, #64748b);
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="site-brand">0-TOOLs</a>
+    <a href="/" class="header-home">← ツール一覧</a>
+  </header>
+
+  <main class="page-main">
+    <div class="page-container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">ホーム</a>
+        <span class="breadcrumb-sep">›</span>
+        <span aria-current="page">サイトマップ</span>
+      </nav>
+
+      <div class="page-header">
+        <h1 class="page-title">サイトマップ</h1>
+        <p class="page-lead">0-TOOLsの全ページ一覧です。目的のページへ直接アクセスできます。</p>
+      </div>
+
+      <!-- 計算ツール -->
+      <section class="sitemap-section">
+        <h2>計算ツール</h2>
+        <ul class="sitemap-list">
+          <li><a href="/tools/tax-calc/">消費税計算ツール<span>税込・税抜・逆算を即計算</span></a></li>
+          <li><a href="/tools/percent-calc/">パーセント計算ツール<span>割引・増減率・比率を一発計算</span></a></li>
+          <li><a href="/tools/age-calc/">年齢計算ツール<span>生年月日から満年齢・誕生日まで何日</span></a></li>
+          <li><a href="/tools/time-calc/">時間計算ツール<span>勤務時間・時給・残業代を即計算</span></a></li>
+          <li><a href="/tools/bizday-calc/">営業日計算ツール<span>土日祝を除いた〇営業日後の日付</span></a></li>
+          <li><a href="/tools/tsubo-calc/">平米・坪変換ツール<span>㎡⇔坪・畳・坪単価を即計算</span></a></li>
+        </ul>
+      </section>
+
+      <!-- テキスト・開発ツール -->
+      <section class="sitemap-section">
+        <h2>テキスト・開発ツール</h2>
+        <ul class="sitemap-list">
+          <li><a href="/tools/word-count/">文字数カウントツール<span>スペース・改行・バイト数も即集計</span></a></li>
+          <li><a href="/tools/qr-gen/">QRコード生成ツール<span>URL・テキストを無料で即作成</span></a></li>
+          <li><a href="/tools/json-format/">JSON整形ツール<span>フォーマット・圧縮・バリデーション</span></a></li>
+          <li><a href="/tools/base64/">Base64変換ツール<span>エンコード・デコードを即変換</span></a></li>
+        </ul>
+      </section>
+
+      <!-- 画像・PDFツール -->
+      <section class="sitemap-section">
+        <h2>画像・PDFツール</h2>
+        <ul class="sitemap-list">
+          <li><a href="/tools/pdf/pdf-to-jpeg/">PDF→JPEG変換ツール<span>JPEG・PNG・WebP対応・無料</span></a></li>
+          <li><a href="/tools/pdf/pdf-compress/">PDF圧縮ツール<span>無料・安全・高速のPDF圧縮</span></a></li>
+          <li><a href="/tools/img-converter/">画像フォーマット変換ツール<span>PNG・WebP・JPEG・GIF・ICO対応</span></a></li>
+        </ul>
+      </section>
+
+      <!-- 制作・便利ツール -->
+      <section class="sitemap-section">
+        <h2>制作・便利ツール</h2>
+        <ul class="sitemap-list">
+          <li><a href="/tools/collar/collar-converter/">カラーコンバーター<span>HEX・RGB・HSL・RGBA対応</span></a></li>
+          <li><a href="/-Day-Counter/">生後日数カウンター<span>赤ちゃんの週数・月齢・日齢を計算</span></a></li>
+        </ul>
+      </section>
+
+      <!-- ブログ -->
+      <section class="sitemap-section">
+        <h2>ブログ</h2>
+        <ul class="sitemap-list">
+          <li><a href="/blog/">ブログ一覧<span>使い方ガイド・Web制作Tipsを発信</span></a></li>
+          <li><a href="/blog/tax-calc-guide/">消費税計算の使い方【8%・10%対応】<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/percent-calc-guide/">パーセント計算ツールの使い方<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/age-calc-guide/">年齢計算ツールの使い方<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/time-calc-guide/">勤務時間・時給・残業代の計算方法<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/bizday-calc-guide/">〇営業日後の日付を計算する方法<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/tsubo-calc-guide/">平米と坪を変換する方法<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/word-count-guide/">文字数をリアルタイムで確認する方法<span>Web制作</span></a></li>
+          <li><a href="/blog/qr-gen-guide/">URLをQRコードに変換する方法<span>使い方ガイド</span></a></li>
+          <li><a href="/blog/json-format-guide/">JSONを整形・圧縮・バリデーションする方法<span>Web制作</span></a></li>
+          <li><a href="/blog/base64-guide/">Base64エンコード・デコードの使い方<span>Web制作</span></a></li>
+          <li><a href="/blog/pdf-to-jpeg-guide/">PDFをJPEGに変換する方法<span>PDF活用</span></a></li>
+          <li><a href="/blog/pdf-compress-tips/">PDFを無料で圧縮する方法とコツ<span>PDF活用</span></a></li>
+          <li><a href="/blog/webp-convert-guide/">画像をWebPに変換する方法<span>画像変換</span></a></li>
+          <li><a href="/blog/color-converter-guide/">カラーコードを変換する方法<span>Web制作</span></a></li>
+          <li><a href="/blog/birth-day-counter-guide/">赤ちゃんの生後日数・週数・月齢を計算する方法<span>使い方ガイド</span></a></li>
+        </ul>
+      </section>
+
+      <!-- サポートページ -->
+      <section class="sitemap-section">
+        <h2>サポート・その他</h2>
+        <ul class="sitemap-list">
+          <li><a href="/guide/">使い方ガイド<span>各ツールの操作手順</span></a></li>
+          <li><a href="/faq/">よくある質問（FAQ）<span>安全性・使い方の疑問を解決</span></a></li>
+          <li><a href="/about/">運営者情報<span>サイト運営に関する情報</span></a></li>
+          <li><a href="/contact/">お問い合わせ<span>ご意見・不具合報告</span></a></li>
+          <li><a href="/privacy/">プライバシーポリシー<span>個人情報・Cookie の取り扱い</span></a></li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 0-TOOLs</p>
+    <nav class="footer-nav">
+      <a href="/">ツール一覧</a>
+      <a href="/blog/">ブログ</a>
+      <a href="/guide/">使い方</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/about/">運営者情報</a>
+      <a href="/contact/">お問い合わせ</a>
+      <a href="/privacy/">プライバシーポリシー・免責事項</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

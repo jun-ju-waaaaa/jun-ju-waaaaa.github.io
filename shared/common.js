@@ -50,7 +50,9 @@
     if (!el) return;
     el.innerHTML = `
       <nav class="site-footer__links">
+        <a href="/">ツール一覧</a>
         <a href="/blog/">ブログ</a>
+        <a href="/sitemap/">サイトマップ</a>
         <a href="/guide/">使い方</a>
         <a href="/faq/">FAQ</a>
         <a href="/about/">運営者情報</a>
