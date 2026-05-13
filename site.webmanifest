@@ -1,0 +1,11 @@
+{
+  "name": "0-TOOLs",
+  "short_name": "0-TOOLs",
+  "icons": [
+    { "src": "/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#3AA8E8",
+  "background_color": "#F5F9FF",
+  "display": "browser"
+}
