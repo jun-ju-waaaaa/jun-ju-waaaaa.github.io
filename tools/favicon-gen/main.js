@@ -10,6 +10,7 @@ let mode = 'text';
 let uploadedImage = null;
 let generatedBlobs = null;
 let individualBlobUrls = [];
+let textOffsetX = 0, textOffsetY = 0;
 
 // --- DOM refs ---
 const modeText  = document.getElementById('mode-text');
@@ -156,9 +157,10 @@ function drawToCanvas(canvas, size) {
     ctx.font = `700 ${fontSize}px ${fontFamily}`;
     ctx.fillStyle = fg;
     ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    // Slight vertical adjustment for optical centering
-    ctx.fillText(text, size / 2, size / 2 + fontSize * 0.04);
+    ctx.textBaseline = 'alphabetic';
+    const metrics = ctx.measureText(text);
+    const textY = size / 2 + (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) / 2;
+    ctx.fillText(text, size / 2 + size * textOffsetX, textY + size * textOffsetY);
 
   } else if (mode === 'image' && uploadedImage) {
     const img = uploadedImage;
@@ -216,12 +218,68 @@ function updatePreview() {
     item.appendChild(lbl);
     previewSizes.appendChild(item);
   });
+  const dc = document.getElementById('drag-canvas');
+  if (dc) drawToCanvas(dc, dc.width);
   generatedBlobs = null;
   dlSection.style.display = 'none';
 }
 
 // Kick off initial preview
 updatePreview();
+
+// --- ドラッグで位置調整 ---
+(function () {
+  const dc = document.getElementById('drag-canvas');
+  const resetBtn = document.getElementById('btn-reset-pos');
+  if (!dc || !resetBtn) return;
+  let active = false, sx = 0, sy = 0, sox = 0, soy = 0, previewTimer;
+
+  dc.addEventListener('pointerdown', e => {
+    active = true;
+    dc.setPointerCapture(e.pointerId);
+    sx = e.clientX; sy = e.clientY;
+    sox = textOffsetX; soy = textOffsetY;
+    dc.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  dc.addEventListener('pointermove', e => {
+    if (!active) return;
+    const rect = dc.getBoundingClientRect();
+    const dx = (e.clientX - sx) * (dc.width / rect.width) / dc.width;
+    const dy = (e.clientY - sy) * (dc.height / rect.height) / dc.height;
+    textOffsetX = Math.max(-0.45, Math.min(0.45, sox + dx));
+    textOffsetY = Math.max(-0.45, Math.min(0.45, soy + dy));
+    drawToCanvas(dc, dc.width);
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(() => {
+      previewSizes.querySelectorAll('canvas').forEach(cv => drawToCanvas(cv, cv.width));
+    }, 40);
+    e.preventDefault();
+  });
+
+  dc.addEventListener('pointerup', () => {
+    if (!active) return;
+    active = false;
+    dc.classList.remove('dragging');
+    generatedBlobs = null;
+    dlSection.style.display = 'none';
+    previewSizes.querySelectorAll('canvas').forEach(cv => drawToCanvas(cv, cv.width));
+  });
+
+  dc.addEventListener('pointercancel', () => {
+    active = false;
+    dc.classList.remove('dragging');
+  });
+
+  resetBtn.addEventListener('click', () => {
+    textOffsetX = 0;
+    textOffsetY = 0;
+    generatedBlobs = null;
+    dlSection.style.display = 'none';
+    updatePreview();
+  });
+})();
 
 // --- Generate all sizes ---
 function getCanvasBlob(canvas, type, quality) {

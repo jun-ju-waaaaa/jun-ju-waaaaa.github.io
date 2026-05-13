@@ -157,6 +157,17 @@
           <button class="opt-btn" data-font="mono">等幅</button>
         </div>
       </div>
+
+      <!-- テキスト位置（ドラッグで移動） -->
+      <div class="input-group">
+        <label>位置（ドラッグで移動）</label>
+        <div class="drag-canvas-wrap">
+          <canvas id="drag-canvas" width="200" height="200"
+                  aria-label="テキストをドラッグして位置を調整"
+                  style="touch-action:none;"></canvas>
+        </div>
+        <button class="opt-btn" id="btn-reset-pos" type="button" style="width:100%;margin-top:8px;">↩ 中央にリセット</button>
+      </div>
     </div>
 
     <!-- 画像パネル -->

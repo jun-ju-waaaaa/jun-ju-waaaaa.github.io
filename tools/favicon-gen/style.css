@@ -319,6 +319,25 @@
 .btn-dl-single:hover { background: #f0faf0; }
 [data-theme="dark"] .btn-dl-single:hover { background: #0d2b14; }
 
+/* ドラッグキャンバス */
+.drag-canvas-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+#drag-canvas {
+  display: block;
+  border-radius: 10px;
+  border: 2px solid var(--clr-border);
+  cursor: grab;
+  transition: border-color 0.15s;
+  max-width: 100%;
+}
+#drag-canvas.dragging {
+  border-color: var(--clr-primary);
+  cursor: grabbing;
+}
+
 /* プライバシーバッジ */
 .privacy-badge {
   display: flex;
