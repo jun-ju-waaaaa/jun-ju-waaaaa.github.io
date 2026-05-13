@@ -32,7 +32,9 @@
 - `<link rel="canonical">` 正規URL
 - OG tags（og:title / og:description / og:type="website" / og:url / og:image）
 - `<meta name="twitter:card" content="summary">`
-- JSON-LD: **WebApplication + BreadcrumbList**（必須）+ FAQPage（推奨）
+- JSON-LD: **WebApplication + BreadcrumbList + FAQPage + HowTo**（すべて必須）
+  - FAQPage: ツールに関するQ&Aを3〜5件（セキュリティ・使い方・形式の違いなど）
+  - HowTo: ツールの操作手順を3ステップ程度（totalTime: "PT1M"）
 
 #### Google AdSense 申請対応
 - `<meta name="google-adsense-account" content="ca-pub-6769343629657319">` を全ページに入れる
@@ -73,6 +75,7 @@
 - title / description / canonical / OG / Twitter Card
 - article:published_time / article:modified_time
 - JSON-LD: **Article + BreadcrumbList + FAQPage**（3種）
+- Article JSON-LD に `speakable` を追加: `{"@type":"SpeakableSpecification","cssSelector":[".article-title",".article-body"]}`
 - パンくずリスト（ホーム > ブログ > 記事名）
 - 記事ヘッダー（カテゴリバッジ・タイトル・日付・読了時間・著者）
 - 目次（toc）
