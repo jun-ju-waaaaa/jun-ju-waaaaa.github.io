@@ -9,6 +9,7 @@ const PREVIEW_SIZES = [16, 32, 64, 128, 192];
 let mode = 'text';
 let uploadedImage = null;
 let generatedBlobs = null;
+let individualBlobUrls = [];
 
 // --- DOM refs ---
 const modeText  = document.getElementById('mode-text');
@@ -190,6 +191,12 @@ function roundRect(ctx, x, y, w, h, r) {
 
 // --- Live preview update ---
 function updatePreview() {
+  // 前回生成の blob URL を解放
+  individualBlobUrls.forEach(u => URL.revokeObjectURL(u));
+  individualBlobUrls = [];
+  const indivDl = document.getElementById('individual-dl');
+  if (indivDl) { indivDl.innerHTML = '<p class="individual-dl-label">▼ ファイルを個別にダウンロード</p>'; indivDl.style.display = 'none'; }
+
   previewSizes.innerHTML = '';
   PREVIEW_SIZES.forEach(size => {
     const item = document.createElement('div');
@@ -289,9 +296,53 @@ async function buildIco(entries) {
   return new Blob([buf], { type: 'image/x-icon' });
 }
 
+// --- ファイルダウンロードトリガー（DOM追加方式・Android/iOS対応） ---
+function triggerDownload(url, filename) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); }, 100);
+}
+
 // --- Show download section ---
 function showDownload() {
   dlSection.style.display = '';
+
+  // 個別ダウンロードリンクを生成
+  const indivDl = document.getElementById('individual-dl');
+  if (indivDl && generatedBlobs) {
+    const files = [
+      { name: 'favicon.ico',                blob: generatedBlobs.ico,        label: 'favicon.ico（16/32/48px）' },
+      { name: 'favicon-16x16.png',          blob: generatedBlobs.pngs[16],   label: 'favicon-16x16.png' },
+      { name: 'favicon-32x32.png',          blob: generatedBlobs.pngs[32],   label: 'favicon-32x32.png' },
+      { name: 'favicon-48x48.png',          blob: generatedBlobs.pngs[48],   label: 'favicon-48x48.png' },
+      { name: 'favicon-64x64.png',          blob: generatedBlobs.pngs[64],   label: 'favicon-64x64.png' },
+      { name: 'favicon-128x128.png',        blob: generatedBlobs.pngs[128],  label: 'favicon-128x128.png' },
+      { name: 'apple-touch-icon.png',       blob: generatedBlobs.pngs[180],  label: 'apple-touch-icon.png（180px）' },
+      { name: 'android-chrome-192x192.png', blob: generatedBlobs.pngs[192],  label: 'android-chrome-192x192.png' },
+      { name: 'android-chrome-512x512.png', blob: generatedBlobs.pngs[512],  label: 'android-chrome-512x512.png' },
+    ];
+    indivDl.innerHTML = '<p class="individual-dl-label">▼ ファイルを個別にダウンロード</p>';
+    files.forEach(f => {
+      const url = URL.createObjectURL(f.blob);
+      individualBlobUrls.push(url);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = f.name;
+      a.className = 'btn-dl-single';
+      a.textContent = '⬇ ' + f.label;
+      indivDl.appendChild(a);
+    });
+
+    // スマホ・iOS では個別DLを表示
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS || window.innerWidth < 640) {
+      indivDl.style.display = '';
+    }
+  }
 
   // HTML code snippet
   const code = `<link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -355,10 +406,7 @@ btnDlZip.addEventListener('click', async () => {
 
     const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'favicon-package.zip';
-    a.click();
+    triggerDownload(url, 'favicon-package.zip');
     setTimeout(() => URL.revokeObjectURL(url), 30000);
 
     btnDlZip.textContent = '✅ ダウンロード完了';
