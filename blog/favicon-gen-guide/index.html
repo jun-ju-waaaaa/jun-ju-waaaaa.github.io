@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6LH1TXVP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6LH1TXVP8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ファビコン（favicon）の作り方と設定方法【無料ツールで簡単作成】 - 0-TOOLs</title>
+<link rel="canonical" href="https://0-tools.com/blog/favicon-gen-guide/">
+<meta name="description" content="ファビコン（favicon）の作り方・サイズ・設定方法を解説。ICO・PNG・Apple Touch Iconを無料ブラウザツールで一括作成しZIPダウンロードする手順をステップごとに紹介します。">
+<meta property="og:title" content="ファビコン（favicon）の作り方と設定方法【無料ツールで簡単作成】 - 0-TOOLs">
+<meta property="og:description" content="ファビコンの作り方・サイズ・設定方法を解説。ICO・PNG・Apple Touch Iconを無料ブラウザツールで一括作成してZIPダウンロードする手順を紹介します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://0-tools.com/blog/favicon-gen-guide/">
+<meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+<meta property="article:published_time" content="2026-05-13">
+<meta property="article:modified_time" content="2026-05-13">
+<meta name="twitter:card" content="summary">
+<meta name="google-adsense-account" content="ca-pub-6769343629657319">
+<meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
+<link rel="stylesheet" href="/page.css">
+<link rel="stylesheet" href="/assets/css/blog.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ファビコン（favicon）の作り方と設定方法【無料ツールで簡単作成】",
+  "description": "ファビコンの作り方・サイズ・設定方法を解説。ICO・PNG・Apple Touch Iconを無料ブラウザツールで一括作成してZIPダウンロードする手順を紹介します。",
+  "url": "https://0-tools.com/blog/favicon-gen-guide/",
+  "datePublished": "2026-05-13",
+  "dateModified": "2026-05-13",
+  "author": {"@type": "Organization", "name": "0-TOOLs"},
+  "publisher": {"@type": "Organization", "name": "0-TOOLs", "url": "https://0-tools.com"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},
+    {"@type":"ListItem","position":2,"name":"ブログ","item":"https://0-tools.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"ファビコンの作り方と設定方法","item":"https://0-tools.com/blog/favicon-gen-guide/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "faviconはICOとPNGどちらが良いですか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "現代のサイトではPNGが推奨されます。ただしIE11以前の古いブラウザ対応のためfavicon.icoも合わせて配置するのがベストプラクティスです。linkタグの記述順序でモダンブラウザはPNGを優先します。"}
+    },
+    {
+      "@type": "Question",
+      "name": "favicon.icoはルートに置かないといけませんか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "favicon.icoはWebサーバーのルートディレクトリ（/）に置くのが慣習です。一部のブラウザやツールがlinkタグなしでも/favicon.icoを自動的に取得しようとするためです。PNGはlinkタグで任意のパスを指定できます。"}
+    },
+    {
+      "@type": "Question",
+      "name": "Apple Touch Iconとは何ですか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "iPhoneやiPadでWebサイトをホーム画面に追加したときに表示されるアイコンです。apple-touch-icon.png（180×180px）をルートに配置し、<link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png'>をheadに記述します。"}
+    },
+    {
+      "@type": "Question",
+      "name": "site.webmanifestは必要ですか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "PWA（Progressive Web App）やAndroid端末でサイトをホーム画面に追加したときのアイコン・テーマカラーを設定するファイルです。必須ではありませんが、Androidユーザー体験向上とSEOに有効です。"}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="site-brand">0-TOOLs</a>
+  <a href="/" class="header-home">← ツール一覧</a>
+</header>
+
+<main class="page-main">
+<div style="padding: 32px 16px 64px;">
+<div class="blog-container">
+
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <a href="/">ホーム</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="/blog/">ブログ</a>
+    <span class="breadcrumb-sep">/</span>
+    <span aria-current="page">ファビコンの作り方と設定方法</span>
+  </nav>
+
+  <header class="article-header">
+    <span class="article-category" data-category="web">Web制作</span>
+    <h1 class="article-title">ファビコン（favicon）の作り方と設定方法【無料ツールで簡単作成】</h1>
+    <div class="article-meta">
+      <span>2026年5月13日</span>
+      <span>読了5分</span>
+      <span>著者: 0-TOOLs編集部</span>
+    </div>
+  </header>
+
+  <!-- 目次 -->
+  <nav class="toc" aria-label="目次">
+    <div class="toc-title">目次</div>
+    <ol class="toc-list">
+      <li><a href="#what-is-favicon">ファビコンとは</a></li>
+      <li><a href="#sizes">必要なファビコンのサイズ一覧</a></li>
+      <li><a href="#how-to-create">無料ツールで作成する手順</a></li>
+      <li><a href="#how-to-install">HTMLへの設置方法</a></li>
+      <li><a href="#tips">きれいなファビコンを作るコツ</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <!-- 本文 -->
+  <div class="article-body">
+
+    <p>Webサイトを作ったとき、ブラウザのタブに表示される小さなアイコン（ファビコン）を設定していますか？ファビコンはサイトの顔とも言える重要な要素です。この記事では、ファビコンの基礎知識から無料ツールを使った作成・設置方法まで、ステップごとにわかりやすく解説します。</p>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="what-is-favicon">ファビコンとは</h2>
+    <p>ファビコン（favicon）とは、ブラウザのタブ・アドレスバー・ブックマーク・スマートフォンのホーム画面などに表示されるアイコン画像です。</p>
+    <p>名前は「<strong>fav</strong>orites <strong>icon</strong>」に由来しており、Internet Explorerでブックマーク（お気に入り）に追加したときに表示されたアイコンがその起源です。現在はあらゆるブラウザ・デバイスでサポートされており、SEOや離脱率にも間接的に影響します。</p>
+
+    <div class="point-box">
+      <strong>ファビコンの役割</strong>
+      <ul>
+        <li>ブラウザのタブで自サイトを識別しやすくする</li>
+        <li>ブックマーク・ホーム画面でのブランド認知を高める</li>
+        <li>プロフェッショナルな印象を与える</li>
+      </ul>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="sizes">必要なファビコンのサイズ一覧</h2>
+    <p>ファビコンには複数のサイズが必要です。用途によって使い分けられます。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ファイル名</th>
+            <th>サイズ</th>
+            <th>用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>favicon.ico</td><td>16/32/48px（ICO）</td><td>ブラウザタブ・ブックマーク（全般）</td></tr>
+          <tr><td>favicon-16x16.png</td><td>16×16px</td><td>ブラウザタブ（小）</td></tr>
+          <tr><td>favicon-32x32.png</td><td>32×32px</td><td>ブラウザタブ（標準）</td></tr>
+          <tr><td>apple-touch-icon.png</td><td>180×180px</td><td>iOS ホーム画面アイコン</td></tr>
+          <tr><td>android-chrome-192x192.png</td><td>192×192px</td><td>Android ホーム画面アイコン</td></tr>
+          <tr><td>android-chrome-512x512.png</td><td>512×512px</td><td>Android スプラッシュ画面</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>これらを1つずつ手作りするのは大変ですが、<strong>0-TOOLsのファビコン作成ツール</strong>なら一括生成してZIPダウンロードできます。</p>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <p class="cta-title">ファビコン作成ツール — 無料で今すぐ試せます</p>
+      <p class="cta-desc">テキスト・画像からICO/PNGを一括生成。データはサーバーに送信されません。</p>
+      <a href="/tools/favicon-gen/" class="cta-btn">ファビコンを作成する →</a>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="how-to-create">無料ツールで作成する手順</h2>
+
+    <h3>ステップ1 — モードを選択する</h3>
+    <p>ツールには2つのモードがあります。</p>
+    <ul>
+      <li><strong>テキストから作成</strong>：サイト名の頭文字など1〜2文字を入力し、背景色・文字色・形状・フォントを設定してオリジナルのアイコンを作成します。</li>
+      <li><strong>画像から作成</strong>：既存のロゴ画像（PNG/JPG/SVGなど）をアップロードして各サイズに変換します。</li>
+    </ul>
+
+    <h3>ステップ2 — デザインを調整する（テキストモード）</h3>
+    <p>テキストモードでは以下の設定が可能です。</p>
+    <ul>
+      <li><strong>文字</strong>：1〜2文字まで。サイト名の頭文字やロゴ文字が一般的です。</li>
+      <li><strong>背景色 / 文字色</strong>：カラーピッカーで自由に選択。ブランドカラーに合わせましょう。</li>
+      <li><strong>形状</strong>：四角・角丸・円の3種類。角丸や円はiOSアイコンらしい印象になります。</li>
+      <li><strong>フォント</strong>：ゴシック・明朝・等幅の3種類。</li>
+    </ul>
+
+    <h3>ステップ3 — 生成してダウンロード</h3>
+    <p>「ファビコンを生成する」ボタンをクリックすると、全サイズのPNG・ICOファイルが生成されます。「ZIPをダウンロード」で以下がまとめてダウンロードされます。</p>
+    <ul>
+      <li>favicon.ico（16/32/48pxを内包）</li>
+      <li>favicon-16x16.png / favicon-32x32.png / favicon-48x48.png</li>
+      <li>favicon-64x64.png / favicon-128x128.png</li>
+      <li>apple-touch-icon.png（180px）</li>
+      <li>android-chrome-192x192.png / android-chrome-512x512.png</li>
+      <li>site.webmanifest</li>
+      <li>head-code.html（HTMLの埋め込みコード）</li>
+    </ul>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="how-to-install">HTMLへの設置方法</h2>
+    <p>ZIPを解凍したら、すべてのファイルをサイトの<strong>ルートディレクトリ</strong>（index.htmlと同じ場所）に配置します。その後、以下のコードを<code>&lt;head&gt;</code>タグ内に追加します。</p>
+
+    <pre class="code-block"><code>&lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
+&lt;link rel="manifest" href="/site.webmanifest"&gt;</code></pre>
+
+    <p>このコードはZIPに含まれる<code>head-code.html</code>にも入っています。ツール上の「HTMLコードをコピー」ボタンでワンクリックでコピーすることもできます。</p>
+
+    <div class="point-box">
+      <strong>設置後の確認方法</strong>
+      <ul>
+        <li>ブラウザでサイトを開き、タブにアイコンが表示されるか確認</li>
+        <li>スマートフォンでホーム画面に追加してアイコンを確認</li>
+        <li>キャッシュが残っている場合は Ctrl+Shift+R（強制リロード）で更新</li>
+      </ul>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="tips">きれいなファビコンを作るコツ</h2>
+
+    <h3>シンプルなデザインにする</h3>
+    <p>ファビコンは最小16×16pxという非常に小さなサイズで表示されます。複雑なデザインは潰れてしまうため、文字1〜2文字やシンプルなシンボルマークが最適です。</p>
+
+    <h3>コントラストを高くする</h3>
+    <p>背景色と文字色のコントラスト比を高めると、小さなサイズでも視認性が上がります。例えば白背景に濃い青文字、または濃い緑背景に白文字などです。</p>
+
+    <h3>正方形の画像を使う</h3>
+    <p>画像モードを使う場合、縦横比が1:1（正方形）の画像が最もきれいに仕上がります。非正方形の場合は余白ができます。</p>
+
+    <h3>高解像度の画像を入力する</h3>
+    <p>512px以上の画像をアップロードするとダウンサンプリング時に品質が保たれます。</p>
+
+    <!-- -------------------------------------------------------- -->
+    <h2 id="faq">よくある質問</h2>
+
+    <div class="faq-list">
+      <div class="faq-item-blog">
+        <div class="faq-q-blog">faviconはICOとPNGどちらが良い？</div>
+        <div class="faq-a-blog">現代のサイトではPNGが推奨されます。ただしIE11以前の古いブラウザ対応のためfavicon.icoも合わせて配置するのがベストプラクティスです。linkタグの記述順序でモダンブラウザはPNGを優先します。</div>
+      </div>
+      <div class="faq-item-blog">
+        <div class="faq-q-blog">favicon.icoはルートに置かないといけませんか？</div>
+        <div class="faq-a-blog">favicon.icoはWebサーバーのルートディレクトリ（/）に置くのが慣習です。一部のブラウザやツールがlinkタグなしでも/favicon.icoを自動取得しようとするためです。PNGはlinkタグで任意のパスを指定できます。</div>
+      </div>
+      <div class="faq-item-blog">
+        <div class="faq-q-blog">Apple Touch Iconとは何ですか？</div>
+        <div class="faq-a-blog">iPhoneやiPadでWebサイトをホーム画面に追加したときに表示されるアイコンです。apple-touch-icon.png（180×180px）をルートに配置し、&lt;link rel="apple-touch-icon"&gt;をheadに記述します。</div>
+      </div>
+      <div class="faq-item-blog">
+        <div class="faq-q-blog">site.webmanifestは必要ですか？</div>
+        <div class="faq-a-blog">PWAやAndroid端末でサイトをホーム画面に追加したときのアイコン・テーマカラーを設定するファイルです。必須ではありませんが、Androidユーザー体験向上のために配置を推奨します。</div>
+      </div>
+    </div>
+
+    <!-- まとめ -->
+    <h2>まとめ</h2>
+    <p>ファビコンはサイトのブランドを示す小さくても重要な要素です。必要なサイズをすべて揃えるのは手間がかかりますが、0-TOOLsのファビコン作成ツールを使えばテキスト入力や画像アップロードだけで一括生成・ZIPダウンロードができます。</p>
+    <p>すべての処理はブラウザ内で完結するため、画像データがサーバーに送信される心配もありません。ぜひお気軽にお試しください。</p>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <p class="cta-title">ファビコン作成ツールを今すぐ試す</p>
+      <p class="cta-desc">テキスト・画像からICO/PNG/Apple Touch Iconを一括生成。完全無料・登録不要。</p>
+      <a href="/tools/favicon-gen/" class="cta-btn">ファビコンを作成する →</a>
+    </div>
+
+    <!-- シェアボタン -->
+    <div class="share-section">
+      <a href="https://twitter.com/intent/tweet?text=ファビコン（favicon）の作り方と設定方法【無料ツールで簡単作成】&url=https://0-tools.com/blog/favicon-gen-guide/"
+         class="share-btn share-x" target="_blank" rel="noopener noreferrer">𝕏 でシェア</a>
+    </div>
+
+  </div>
+
+  <!-- 関連コンテンツ -->
+  <section class="related-section" aria-labelledby="related-heading">
+    <h2 id="related-heading" class="related-heading">関連ツール・記事</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/favicon-gen/">
+        <div class="related-card-icon">🎨</div>
+        <div class="related-card-body">
+          <div class="related-card-title">ファビコン作成ツール</div>
+          <div class="related-card-desc">テキスト・画像からfaviconを無料生成</div>
+        </div>
+      </a>
+      <a class="related-card" href="/tools/collar/collar-converter/">
+        <div class="related-card-icon">🎨</div>
+        <div class="related-card-body">
+          <div class="related-card-title">カラーコンバーター</div>
+          <div class="related-card-desc">HEX・RGB・HSLを相互変換</div>
+        </div>
+      </a>
+      <a class="related-card" href="/blog/webp-convert-guide/">
+        <div class="related-card-icon">🖼️</div>
+        <div class="related-card-body">
+          <div class="related-card-title">画像をWebPに変換する方法</div>
+          <div class="related-card-desc">ページ表示速度をWebPで最適化</div>
+        </div>
+      </a>
+      <a class="related-card" href="/blog/qr-gen-guide/">
+        <div class="related-card-icon">📱</div>
+        <div class="related-card-body">
+          <div class="related-card-title">QRコードの作り方</div>
+          <div class="related-card-desc">URLをQRコードに変換する方法</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+</div>
+</main>
+
+<footer class="page-footer">
+  <nav class="footer-nav">
+    <a href="/">ホーム</a>
+    <a href="/blog/">ブログ</a>
+    <a href="/tools/favicon-gen/">ファビコン作成</a>
+    <a href="/tools/collar/collar-converter/">カラーコンバーター</a>
+    <a href="/guide/">使い方</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/privacy/">プライバシーポリシー</a>
+  </nav>
+  <p class="footer-copy">© 2026 0-TOOLs</p>
+</footer>
+
+</body>
+</html>

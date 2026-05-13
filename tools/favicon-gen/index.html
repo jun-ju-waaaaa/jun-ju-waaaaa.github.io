@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6LH1TXVP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6LH1TXVP8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ファビコン作成ツール｜テキスト・画像からfavicon無料生成 - 0-TOOLs</title>
+<link rel="canonical" href="https://0-tools.com/tools/favicon-gen/">
+<meta name="description" content="テキストや画像からfavicon（ファビコン）を無料で作成。ICO・PNG・Apple Touch Iconを一括生成してZIPでダウンロード。インストール不要・完全無料・データはサーバー送信なし。">
+<meta property="og:title" content="ファビコン作成ツール｜テキスト・画像からfavicon無料生成 - 0-TOOLs">
+<meta property="og:description" content="テキストや画像からfavicon（ファビコン）を無料で作成。ICO・PNG・Apple Touch Iconを一括生成してZIPダウンロード。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0-tools.com/tools/favicon-gen/">
+<meta property="og:image" content="https://0-tools.com/shared/og-default.png">
+<meta name="twitter:card" content="summary">
+<meta name="google-adsense-account" content="ca-pub-6769343629657319">
+<meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
+<link rel="preload" href="/shared/common.css" as="style">
+<link rel="stylesheet" href="/shared/common.css">
+<link rel="stylesheet" href="/shared/tool.css">
+<link rel="stylesheet" href="style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ファビコン作成ツール",
+  "url": "https://0-tools.com/tools/favicon-gen/",
+  "description": "テキストや画像からfavicon（ファビコン）を無料で作成するブラウザツール",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0"},
+  "inLanguage": "ja"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"ホーム","item":"https://0-tools.com/"},
+    {"@type":"ListItem","position":2,"name":"ファビコン作成ツール","item":"https://0-tools.com/tools/favicon-gen/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ファビコンとは何ですか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "ファビコン（favicon）はブラウザのタブやブックマークに表示される小さなアイコンです。サイトの識別に使われ、ユーザーが複数のタブを開いているときに自分のサイトを見つけやすくします。"}
+    },
+    {
+      "@type": "Question",
+      "name": "生成されるファイルは何ですか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "favicon.ico（16/32/48px）、PNG各サイズ（16/32/48/64/128px）、apple-touch-icon.png（180px）、android-chrome-192x192.png、android-chrome-512x512.png、site.webmanifest、HTMLコードスニペットがZIPファイルに含まれます。"}
+    },
+    {
+      "@type": "Question",
+      "name": "アップロードした画像はサーバーに送られますか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "いいえ。すべての処理はお使いのブラウザ内で完結しています。画像データが外部サーバーに送信されることは一切ありません。"}
+    },
+    {
+      "@type": "Question",
+      "name": "どの形式の画像をアップロードできますか？",
+      "acceptedAnswer": {"@type": "Answer", "text": "PNG、JPG、GIF、WebP、SVGなど、ブラウザが対応している画像形式であればすべて使用できます。正方形の画像を使うと最もきれいに仕上がります。"}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li>ファビコン作成ツール</li>
+  </ol>
+</nav>
+
+<div class="ad-slot ad-top" aria-hidden="true"></div>
+
+<main class="tool-main">
+  <h1>ファビコン作成ツール</h1>
+  <p class="tool-desc">テキストまたは画像からファビコン（favicon）を無料で作成。ICO・PNG各サイズ・Apple Touch Iconを一括生成してZIPでダウンロードできます。</p>
+
+  <section class="tool-body" id="tool" aria-label="ファビコン作成">
+
+    <!-- モード選択タブ -->
+    <div class="mode-tabs" role="tablist">
+      <button class="mode-tab active" id="mode-text" role="tab" aria-selected="true" aria-controls="panel-text">
+        🔤 テキストから作成
+      </button>
+      <button class="mode-tab" id="mode-image" role="tab" aria-selected="false" aria-controls="panel-image">
+        🖼️ 画像から作成
+      </button>
+    </div>
+
+    <!-- テキストパネル -->
+    <div id="panel-text" role="tabpanel">
+      <div class="input-group">
+        <label for="favicon-text">文字（1〜2文字）</label>
+        <input type="text" id="favicon-text" class="text-input-large"
+               value="A" maxlength="2" placeholder="A"
+               aria-label="ファビコンに表示する文字（1〜2文字）">
+      </div>
+
+      <div class="color-grid">
+        <div>
+          <div class="input-group" style="margin-bottom:0;">
+            <label>背景色</label>
+          </div>
+          <div class="color-picker-wrap">
+            <input type="color" id="bg-color" value="#3AA8E8" aria-label="背景色を選択">
+            <span>背景</span>
+            <span class="color-value" id="bg-value">#3AA8E8</span>
+          </div>
+        </div>
+        <div>
+          <div class="input-group" style="margin-bottom:0;">
+            <label>文字色</label>
+          </div>
+          <div class="color-picker-wrap">
+            <input type="color" id="fg-color" value="#ffffff" aria-label="文字色を選択">
+            <span>文字</span>
+            <span class="color-value" id="fg-value">#ffffff</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>形状</label>
+        <div class="option-row" id="shape-group" role="group" aria-label="形状を選択">
+          <button class="opt-btn" data-shape="square">■ 四角</button>
+          <button class="opt-btn active" data-shape="rounded">▢ 角丸</button>
+          <button class="opt-btn" data-shape="circle">● 円</button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>フォント</label>
+        <div class="option-row" id="font-group" role="group" aria-label="フォントを選択">
+          <button class="opt-btn active" data-font="sans">ゴシック</button>
+          <button class="opt-btn" data-font="serif">明朝</button>
+          <button class="opt-btn" data-font="mono">等幅</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 画像パネル -->
+    <div id="panel-image" style="display:none" role="tabpanel">
+      <div class="upload-zone" id="upload-zone" role="button" tabindex="0"
+           aria-label="画像ファイルをドロップまたはクリックして選択">
+        <input type="file" id="file-input" accept="image/*">
+        <div class="upload-icon">🖼️</div>
+        <div class="upload-text">画像をドロップ、またはクリックして選択</div>
+        <div class="upload-sub">PNG / JPG / GIF / WebP / SVG 対応</div>
+      </div>
+      <p id="upload-status" style="font-size:13px;color:var(--clr-text-muted);margin-top:8px;min-height:20px;"></p>
+    </div>
+
+    <!-- リアルタイムプレビュー -->
+    <div class="preview-section">
+      <div class="preview-label">プレビュー</div>
+      <div class="preview-sizes" id="preview-sizes"></div>
+    </div>
+
+    <!-- 生成ボタン -->
+    <button class="btn-generate" id="btn-generate" type="button">
+      ⚡ ファビコンを生成する
+    </button>
+
+    <!-- ダウンロードセクション -->
+    <div class="dl-section" id="dl-section">
+      <h3>✅ 生成完了 — ZIPに含まれるファイル</h3>
+      <div class="dl-files">
+        <div class="dl-file-item">📄 favicon.ico（16 / 32 / 48px）</div>
+        <div class="dl-file-item">🖼️ favicon-16x16.png</div>
+        <div class="dl-file-item">🖼️ favicon-32x32.png</div>
+        <div class="dl-file-item">🖼️ favicon-48x48.png</div>
+        <div class="dl-file-item">🖼️ favicon-64x64.png</div>
+        <div class="dl-file-item">🖼️ favicon-128x128.png</div>
+        <div class="dl-file-item">🍎 apple-touch-icon.png（180px）</div>
+        <div class="dl-file-item">🤖 android-chrome-192x192.png</div>
+        <div class="dl-file-item">🤖 android-chrome-512x512.png</div>
+        <div class="dl-file-item">📋 site.webmanifest</div>
+        <div class="dl-file-item">💻 head-code.html（埋め込みコード）</div>
+      </div>
+
+      <button class="btn-dl-zip" id="btn-dl-zip" type="button">
+        ⬇️ ZIPをダウンロード
+      </button>
+
+      <div style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:600;color:var(--clr-text-muted);margin-bottom:4px;">&lt;head&gt; に貼り付けるHTMLコード</div>
+        <pre class="code-block" id="code-block"></pre>
+        <button class="btn-copy-code" id="btn-copy-code" type="button">📋 HTMLコードをコピー</button>
+      </div>
+    </div>
+
+    <div class="privacy-badge">
+      🔒 ファイルは端末外に送信されません — すべてブラウザ内で処理
+    </div>
+
+  </section>
+
+  <div class="ad-slot ad-middle" aria-hidden="true"></div>
+
+  <!-- このツールについて -->
+  <section class="tool-about" aria-labelledby="about-title">
+    <details>
+      <summary id="about-title">このツールについて</summary>
+      <div class="tool-about__body">
+        <h3>仕組み</h3>
+        <p>HTML5 Canvas APIを使ってブラウザ内でファビコン画像を生成します。テキストモードでは指定した文字・色・形状をCanvasに描画し、各サイズのPNGに変換します。画像モードではアップロードされた画像をCanvasでリサイズして各サイズのPNGに変換します。ICOファイルは複数のPNG画像をまとめたICO形式に変換して生成します。</p>
+        <h3>なぜ無料なのか</h3>
+        <p>0-TOOLsはGoogle AdSenseの広告収益で運営されています。ツール自体は完全無料でご利用いただけます。</p>
+        <h3>安全性について</h3>
+        <p>アップロードした画像・生成したファビコンデータはすべてお使いのブラウザ内で処理されます。外部サーバーへの送信は一切行いません。</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある質問</h2>
+    <div class="faq-item">
+      <button class="faq-q">ファビコンとは何ですか？</button>
+      <div class="faq-a">ファビコン（favicon）はブラウザのタブやブックマークに表示される小さなアイコンです。サイトの識別に使われ、ユーザーが複数のタブを開いているときに自分のサイトを見つけやすくします。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">ZIPに含まれるファイルの使い方は？</button>
+      <div class="faq-a">ZIPを解凍してサイトのルートディレクトリにすべてのファイルを配置し、head-code.htmlのコードを&lt;head&gt;タグ内に貼り付けてください。これでPC・スマホ・Androidのすべての環境に対応できます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">どんな画像を使うとよいですか？</button>
+      <div class="faq-a">正方形で512px以上の画像が最適です。シンプルでコントラストが高いデザインが小さいサイズでも視認性が高くなります。背景が透明なPNGを使うと、テキストのみを強調したデザインが作れます。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">アップロードした画像はサーバーに送られますか？</button>
+      <div class="faq-a">いいえ。すべての処理はブラウザ内で完結しています。画像データが外部サーバーに送信されることは一切ありません。</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Apple Touch Iconとは何ですか？</button>
+      <div class="faq-a">iPhoneやiPadでサイトをホーム画面に追加したときに表示されるアイコンです（180×180px）。生成されるapple-touch-icon.pngがこれに該当します。</div>
+    </div>
+  </section>
+
+  <section class="related-tools" aria-labelledby="related-title">
+    <h2 id="related-title">関連ツール</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/tools/collar/collar-converter/">カラー<br>コンバーター</a>
+      <a class="related-card" href="/tools/img-converter/">画像<br>変換</a>
+      <a class="related-card" href="/tools/qr-gen/">QRコード<br>生成</a>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<!-- JSZip (MIT License) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/shared/common.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
