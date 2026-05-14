@@ -860,11 +860,29 @@ function mcDragEnd(key){
   if(!mc.rangeEnd) mc.rangeEnd=mc.rangeStart;
   renderMiniCal();
 }
+function updateMiniCalClasses(){
+  const wrapId=mcMode==='reschedule'?'miniCalWrapR':mcMode==='multiplan'?'miniCalWrapMP':'miniCalWrap';
+  const labelId=mcMode==='reschedule'?'rangeLabelR':mcMode==='multiplan'?'rangeLabelMP':'rangeLabel';
+  const wrap=document.getElementById(wrapId);
+  if(!wrap) return;
+  const rs=mc.rangeStart, re=mc.rangeEnd;
+  const lo=rs&&re?(rs<re?rs:re):rs;
+  const hi=rs&&re?(rs>re?rs:re):rs;
+  wrap.querySelectorAll('.mc-cell').forEach(cell=>{
+    const key=cell.dataset.key;
+    if(!key) return;
+    cell.classList.toggle('mc-in',!!(lo&&hi&&key>=lo&&key<=hi));
+    cell.classList.toggle('mc-lo',key===lo);
+    cell.classList.toggle('mc-hi',!!(key===hi&&hi!==lo));
+  });
+  updateRangeLabel(labelId);
+}
 function mcTouchMove(e){
   if(!mc.dragging) return;
+  e.preventDefault();
   const t=e.touches[0];
   const el=document.elementFromPoint(t.clientX,t.clientY);
-  if(el&&el.dataset.key){ mc.rangeEnd=el.dataset.key; renderMiniCal(); }
+  if(el&&el.dataset.key){ mc.rangeEnd=el.dataset.key; updateMiniCalClasses(); }
 }
 
 function updateRangeLabel(labelId){
