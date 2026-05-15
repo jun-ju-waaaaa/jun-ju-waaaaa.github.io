@@ -225,7 +225,7 @@ function renderDetail(){
               ${hasNote?`<div class="entry-note" id="note-text-rec-${i}">📝 ${r.note}</div>`:''}
               <div id="memo-rec-${i}" style="display:none;margin-top:6px;">
                 <input type="text" id="memo-input-rec-${i}" placeholder="メモを追記…"
-                  style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:12px;background:var(--cream);outline:none;"
+                  style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);outline:none;touch-action:manipulation;"
                   onkeydown="if(event.key==='Enter')saveNote('record',${i},this.value,false)">
                 <div style="display:flex;gap:4px;margin-top:4px;">
                   <button onclick="saveNote('record',${i},document.getElementById('memo-input-rec-${i}').value,false)"
@@ -234,7 +234,7 @@ function renderDetail(){
               </div>
               <div id="edit-rec-${i}" style="display:none;margin-top:6px;">
                 <input type="text" id="edit-input-rec-${i}" value="${noteSafe}" placeholder="メモを編集…"
-                  style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:12px;background:var(--cream);outline:none;"
+                  style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);outline:none;touch-action:manipulation;"
                   onkeydown="if(event.key==='Enter')saveNote('record',${i},this.value,true)">
                 <div style="display:flex;gap:4px;margin-top:4px;">
                   <button onclick="saveNote('record',${i},document.getElementById('edit-input-rec-${i}').value,true)"
@@ -290,7 +290,7 @@ function renderDetail(){
             </div>
             <div id="memo-plan-${i}" style="display:none;margin-top:8px;">
               <input type="text" id="memo-input-plan-${i}" value="${memoVal}" placeholder="メモを入力…"
-                style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:12px;background:var(--cream);outline:none;"
+                style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);outline:none;touch-action:manipulation;"
                 onkeydown="if(event.key==='Enter')saveNote('plan',${i},this.value,true)">
               <button onclick="saveNote('plan',${i},document.getElementById('memo-input-plan-${i}').value,true)"
                 style="margin-top:4px;width:100%;padding:7px;border-radius:8px;border:none;background:var(--honey2);color:#4A3000;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation;">保存</button>
@@ -1086,6 +1086,15 @@ function renderStatsDetail(key,sets,range){
 // ── EXPORT / IMPORT ──────────────────────────────────────────────
 function isIOS(){
   return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+// iOS Safari: キーボード閉じた後にズームをリセット
+if(isIOS()){
+  document.addEventListener('focusout', function(){
+    setTimeout(function(){
+      window.scrollTo(window.scrollX, window.scrollY);
+    }, 100);
+  });
 }
 
 function exportData(){
