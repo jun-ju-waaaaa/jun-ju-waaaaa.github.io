@@ -46,6 +46,42 @@ STAGE_CONFIG.forEach(({key})=>{
 });
 let ALL_FOODS=STAGE_CONFIG.flatMap(({key})=>Object.values(STAGE_FOODS[key]).flat());
 
+// ── FOOD WARNINGS ─────────────────────────────────────────────────
+const FOOD_WARNINGS = [
+  {
+    keywords: ['はちみつ', 'ハチミツ', '蜂蜜', 'honey'],
+    badge: '⛔ 1歳未満NG',
+    color: '#DC2626',
+    bg: '#FEF2F2',
+    detail: '乳児ボツリヌス症のリスクがあります。1歳を過ぎるまで与えないでください。（厚労省ガイド）'
+  },
+  {
+    keywords: ['牛乳', '生乳'],
+    badge: '⚠️ 飲用は1歳から',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    detail: '料理への使用はOKですが、飲用として与えるのは1歳以降が目安です。（鉄欠乏性貧血予防）'
+  },
+  {
+    keywords: ['イオン飲料', 'スポーツドリンク', 'ポカリ', 'アクエリ'],
+    badge: '⚠️ 原則不要',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    detail: '授乳期・離乳期を通じて基本的に摂取の必要はありません。（厚労省ガイド）'
+  },
+  {
+    keywords: ['生卵', '卵かけ', 'TKG'],
+    badge: '⚠️ 加熱が必要',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    detail: '離乳食では必ず加熱して与えてください。固ゆで卵黄は7〜8ヶ月から。'
+  }
+];
+function getFoodWarning(name){
+  if(!name) return null;
+  return FOOD_WARNINGS.find(w=>w.keywords.some(k=>name.includes(k)))||null;
+}
+
 // ── STATE ──────────────────────────────────────────────────────────
 let S = {
   babyName:'', babyBirth:'',
@@ -82,16 +118,41 @@ function getBabyMonths(){
 function saveBaby(){
   S.babyName  = document.getElementById('babyName').value;
   S.babyBirth = document.getElementById('babyBirth').value;
-  save(); updateAgeBadge();
+  save(); updateAgeBadge(); renderAgeBanner();
   if(curView==='foods') renderFoodMaster();
 }
+function getStageInfo(months){
+  if(months===null) return null;
+  if(months<5)  return {key:'nursing',  label:'👶 授乳期',               sub:'離乳食はまだ早い時期です', meals:null};
+  if(months<7)  return {key:'gokkon',   label:'🌱 離乳初期｜ゴックン期',  sub:'生後5〜6ヶ月',           meals:'1回食'};
+  if(months<9)  return {key:'mogumogu', label:'🥄 離乳中期｜モグモグ期',  sub:'生後7〜8ヶ月',           meals:'2回食'};
+  if(months<12) return {key:'kamikami', label:'🦷 離乳後期｜カミカミ期',  sub:'生後9〜11ヶ月',          meals:'3回食'};
+  if(months<19) return {key:'pakupaku', label:'🍚 離乳完了期｜パクパク期', sub:'生後12〜18ヶ月',         meals:'3回食'};
+  return               {key:'toddler',  label:'🍽️ 幼児食期',             sub:'生後19ヶ月〜',            meals:null};
+}
+
 function updateAgeBadge(){
   const b=document.getElementById('ageBadge');
   const months=getBabyMonths();
-  if(months===null){ b.style.display='none'; return; }
-  const stage=months<7?'🌸ゴックン期':months<9?'🌿モグモグ期':months<12?'🍎カミカミ期':'🍚パクパク期';
+  const info=getStageInfo(months);
+  if(!info){ b.style.display='none'; return; }
   b.style.display='block';
-  b.textContent=`生後${months}ヶ月 ${stage}`;
+  const mealsText=info.meals?` ／ ${info.meals}`:'';
+  b.textContent=`生後${months}ヶ月 ${info.label}${mealsText}`;
+}
+
+function renderAgeBanner(){
+  const el=document.getElementById('ageBanner');
+  if(!el) return;
+  const months=getBabyMonths();
+  if(months===null||months>=5){ el.innerHTML=''; return; }
+  el.innerHTML=`<div class="age-info-banner">
+    <div class="aib-icon">👶</div>
+    <div>
+      <div class="aib-title">まだ離乳食を始めない時期です</div>
+      <div class="aib-text">厚生労働省のガイドラインでは、離乳食の開始は<strong>生後5〜6ヶ月</strong>が目安です。首がすわり、支えれば座れるようになってから始めましょう。</div>
+    </div>
+  </div>`;
 }
 
 // ── CALENDAR ──────────────────────────────────────────────────────
@@ -103,6 +164,7 @@ function changeMonth(d){
 }
 
 function renderCalendar(){
+  renderAgeBanner();
   document.getElementById('monthTitle').textContent=`${curYear}年${curMonth+1}月`;
 
   const firstDay = new Date(curYear,curMonth,1).getDay();
@@ -479,9 +541,11 @@ function addToCustomFoodsIfNew(name){
 
 function addEntry(type){
   if(!selDate) return;
+  let isFirstTime=false;
   if(type==='record'){
     const food=(document.getElementById('recInput')||{}).value||'';
     if(!food.trim()) return;
+    isFirstTime=!Object.values(S.records).some(arr=>arr.some(r=>r.food===food.trim()));
     addToCustomFoodsIfNew(food.trim());
     if(!S.records[selDate]) S.records[selDate]=[];
     const amount=newStatus==='done'?getLastAmount(food.trim()):0;
@@ -490,11 +554,26 @@ function addEntry(type){
   } else {
     const food=(document.getElementById('planInput')||{}).value||'';
     if(!food.trim()) return;
+    isFirstTime=!Object.values(S.records).some(arr=>arr.some(r=>r.food===food.trim()));
     addToCustomFoodsIfNew(food.trim());
     if(!S.plans[selDate]) S.plans[selDate]=[];
     S.plans[selDate].push({food:food.trim(),note:''});
   }
   save(); renderCalendar(); renderDetail();
+  if(isFirstTime) injectFirstTimeBanner();
+}
+
+function injectFirstTimeBanner(){
+  const body=document.getElementById('detailBody');
+  if(!body) return;
+  const div=document.createElement('div');
+  div.style.cssText='background:#F0FDF4;border:1px solid #BBF7D0;border-left:3px solid #16A34A;border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:#166534;line-height:1.7;';
+  div.innerHTML=`<div style="font-size:13px;font-weight:700;margin-bottom:5px;">🌱 初めての食材のポイント</div>
+    <div>・少量（離乳食用スプーン1さじ）から始めましょう</div>
+    <div>・午前中に試すと、体調変化があっても受診しやすいです</div>
+    <div>・新しい食材は1種類ずつ追加してください</div>
+    <div style="font-size:11px;margin-top:5px;opacity:.7;">（厚生労働省 授乳・離乳の支援ガイド 2019年版）</div>`;
+  body.insertBefore(div,body.firstChild);
 }
 
 function setAmount(idx,val){
@@ -581,7 +660,9 @@ function renderFoodMaster(){
       wrap.style.cssText='display:inline-flex;align-items:center;gap:2px;';
       const btn=document.createElement('button');
       btn.className=`food-chip ${cls}`;
-      btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}`;
+      const warn_c=getFoodWarning(f);
+      const warnBadge_c=warn_c?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_c.bg};color:${warn_c.color};font-weight:700;">${warn_c.badge}</span>`:'';
+      btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_c}`;
       btn.onclick=foodSelectMode?()=>toggleFoodSelect(f):()=>openFoodModal(f);
       const delBtn=document.createElement('button');
       delBtn.style.cssText='width:20px;height:20px;border-radius:50%;border:1.5px solid #EDD8CC;background:var(--white);color:#B07070;font-size:11px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;';
@@ -647,7 +728,9 @@ function renderFoodMaster(){
         const icon=isSel?'☑':({done:'✅',ng:'⚠️',none:'○'}[st]||'○');
         const btn=document.createElement('button');
         btn.className=`food-chip ${cls}`;
-        btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}`;
+        const warn_s=getFoodWarning(f);
+        const warnBadge_s=warn_s?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_s.bg};color:${warn_s.color};font-weight:700;">${warn_s.badge}</span>`:'';
+        btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_s}`;
         btn.onclick=foodSelectMode?()=>toggleFoodSelect(f):()=>openFoodModal(f);
         chips.appendChild(btn);
       });
@@ -659,6 +742,18 @@ function renderFoodMaster(){
   });
 }
 function filterFoods(){ renderFoodMaster(); }
+
+function checkCustomFoodWarning(){
+  const inp=document.getElementById('customFoodInput');
+  const warnEl=document.getElementById('customFoodWarning');
+  if(!inp||!warnEl) return;
+  const warn=getFoodWarning(inp.value.trim());
+  if(!warn||!inp.value.trim()){warnEl.innerHTML='';return;}
+  warnEl.innerHTML=`<div style="background:${warn.bg};border:1px solid ${warn.color}44;border-left:3px solid ${warn.color};border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:8px;line-height:1.65;">
+    <span style="font-weight:700;color:${warn.color};">${warn.badge}</span>
+    <span style="color:#374151;margin-left:6px;">${warn.detail}</span>
+  </div>`;
+}
 
 function addCustomFood(){
   const inp=document.getElementById('customFoodInput');
@@ -739,7 +834,20 @@ function openFoodModal(food){
   Object.entries(S.records).forEach(([d,arr])=>{ arr.forEach(r=>{ if(r.food===food) recDates.push({d,status:r.status,note:r.note}); }); });
   recDates.sort((a,b)=>b.d.localeCompare(a.d));
   document.getElementById('modalFoodName').textContent=food;
-  let html='';
+  const warn=getFoodWarning(food);
+  let html=warn?`<div style="background:${warn.bg};border:1px solid ${warn.color}44;border-left:3px solid ${warn.color};border-radius:8px;padding:10px 12px;margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;color:${warn.color};margin-bottom:4px;">${warn.badge}</div>
+    <div style="font-size:12px;color:#374151;line-height:1.65;">${warn.detail}</div>
+  </div>`:'';
+  if(recDates.length===0){
+    html+=`<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-left:3px solid #16A34A;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#166534;line-height:1.7;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:5px;">🌱 初めての食材のポイント</div>
+      <div>・少量（離乳食用スプーン1さじ）から始めましょう</div>
+      <div>・午前中に試すと、体調変化があっても受診しやすいです</div>
+      <div>・新しい食材は1種類ずつ追加してください</div>
+      <div style="font-size:11px;margin-top:5px;opacity:.7;">（厚生労働省 授乳・離乳の支援ガイド 2019年版）</div>
+    </div>`;
+  }
   if(recDates.length){
     html+=`<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px;">📋 記録履歴</div>`;
     html+=recDates.map(r=>{
