@@ -97,6 +97,7 @@ let activeTab = 'plan';
 let curView   = 'cal';
 let foodSelectMode = true;
 let selectedFoods  = new Set();
+let firstTimePendingFood = null;
 
 function load(){
   try{ const s=localStorage.getItem('bfc-v1'); if(s) S={...S,...JSON.parse(s)}; }catch(e){}
@@ -663,12 +664,20 @@ function renderFoodMaster(){
       const warn_c=getFoodWarning(f);
       const warnBadge_c=warn_c?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_c.bg};color:${warn_c.color};font-weight:700;">${warn_c.badge}</span>`:'';
       btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_c}`;
-      btn.onclick=foodSelectMode?()=>toggleFoodSelect(f):()=>openFoodModal(f);
+      btn.onclick=()=>{
+        const hasEntry=Object.values(S.records).some(arr=>arr.some(r=>r.food===f))||Object.values(S.plans).some(arr=>arr.some(p=>p.food===f));
+        if(!hasEntry) openFirstTimeBriefModal(f); else toggleFoodSelect(f);
+      };
+      const infoBtn_c=document.createElement('button');
+      infoBtn_c.style.cssText='width:20px;height:20px;border-radius:50%;border:1.5px solid #B0D0E8;background:var(--white);color:#3AA8E8;font-size:10px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;';
+      infoBtn_c.textContent='…';
+      infoBtn_c.onclick=(e)=>{e.stopPropagation();openFoodModal(f);};
       const delBtn=document.createElement('button');
       delBtn.style.cssText='width:20px;height:20px;border-radius:50%;border:1.5px solid #EDD8CC;background:var(--white);color:#B07070;font-size:11px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;';
       delBtn.textContent='×';
       delBtn.onclick=(e)=>{e.stopPropagation();removeCustomFood(f);};
       wrap.appendChild(btn);
+      wrap.appendChild(infoBtn_c);
       wrap.appendChild(delBtn);
       chips.appendChild(wrap);
     });
@@ -726,13 +735,24 @@ function renderFoodMaster(){
         const isSel=selectedFoods.has(f);
         const cls=isSel?'chip-selected':({done:'chip-done',ng:'chip-ng',none:'chip-none'}[st]||'chip-none');
         const icon=isSel?'☑':({done:'✅',ng:'⚠️',none:'○'}[st]||'○');
+        const chipWrap=document.createElement('span');
+        chipWrap.style.cssText='display:inline-flex;align-items:center;gap:2px;';
         const btn=document.createElement('button');
         btn.className=`food-chip ${cls}`;
         const warn_s=getFoodWarning(f);
         const warnBadge_s=warn_s?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_s.bg};color:${warn_s.color};font-weight:700;">${warn_s.badge}</span>`:'';
         btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_s}`;
-        btn.onclick=foodSelectMode?()=>toggleFoodSelect(f):()=>openFoodModal(f);
-        chips.appendChild(btn);
+        btn.onclick=()=>{
+          const hasEntry=Object.values(S.records).some(arr=>arr.some(r=>r.food===f))||Object.values(S.plans).some(arr=>arr.some(p=>p.food===f));
+          if(!hasEntry) openFoodModal(f); else toggleFoodSelect(f);
+        };
+        const infoBtn_s=document.createElement('button');
+        infoBtn_s.style.cssText='width:20px;height:20px;border-radius:50%;border:1.5px solid #B0D0E8;background:var(--white);color:#3AA8E8;font-size:10px;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;';
+        infoBtn_s.textContent='…';
+        infoBtn_s.onclick=(e)=>{e.stopPropagation();openFoodModal(f);};
+        chipWrap.appendChild(btn);
+        chipWrap.appendChild(infoBtn_s);
+        chips.appendChild(chipWrap);
       });
       catEl.appendChild(chips);
       catsWrap.appendChild(catEl);
@@ -1060,6 +1080,35 @@ function jumpToDate(food,tab){
 function closeModal(){
   document.getElementById('foodModal').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
+  if(firstTimePendingFood){
+    const f=firstTimePendingFood;
+    firstTimePendingFood=null;
+    toggleFoodSelect(f);
+  }
+}
+
+function openFirstTimeBriefModal(food){
+  firstTimePendingFood=food;
+  document.getElementById('modalFoodName').textContent=food;
+  const warn=getFoodWarning(food);
+  let html=warn?`<div style="background:${warn.bg};border:1px solid ${warn.color}44;border-left:3px solid ${warn.color};border-radius:8px;padding:10px 12px;margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;color:${warn.color};margin-bottom:4px;">${warn.badge}</div>
+    <div style="font-size:12px;color:#374151;line-height:1.65;">${warn.detail}</div>
+  </div>`:'';
+  html+=`<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-left:3px solid #16A34A;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#166534;line-height:1.7;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:5px;">🌱 初めての食材のポイント</div>
+    <div>・少量（離乳食用スプーン1さじ）から始めましょう</div>
+    <div>・午前中に試すと、体調変化があっても受診しやすいです</div>
+    <div>・新しい食材は1種類ずつ追加してください</div>
+    <div style="font-size:11px;margin-top:5px;opacity:.7;">（厚生労働省 授乳・離乳の支援ガイド 2019年版）</div>
+  </div>`;
+  html+=`<div style="background:var(--honey);border-radius:var(--rs);padding:10px 14px;font-size:12px;color:#7A5800;text-align:center;line-height:1.6;">
+    ✕ を閉じると、複数選択に追加されます<br>
+    <span style="font-size:11px;opacity:.8;">選択後にまとめて予定日を設定できます</span>
+  </div>`;
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('foodModal').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
 }
 
 // ── STATS VIEW ────────────────────────────────────────────────────
