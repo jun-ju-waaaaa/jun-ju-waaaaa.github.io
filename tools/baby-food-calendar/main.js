@@ -213,6 +213,7 @@ let curView   = 'cal';
 let foodSelectMode = true;
 let selectedFoods  = new Set();
 let firstTimePendingFood = null;
+let copiedFoods = [];
 
 function load(){
   try{ const s=localStorage.getItem('bfc-v1'); if(s) S={...S,...JSON.parse(s)}; }catch(e){}
@@ -372,7 +373,8 @@ function renderDetail(){
 
   if(activeTab==='record'){
     const recs=S.records[selDate]||[];
-    let html=`
+    let html='';
+    html+=`
       <div class="add-row">
         <input class="food-search" id="recInput" placeholder="食材を入力（例：にんじん）" oninput="showSuggest('rec')" autocomplete="off">
         <button class="add-btn record" onclick="addEntry('record')">＋記録</button>
@@ -433,13 +435,20 @@ function renderDetail(){
       });
       html+='</div>';
     }
+    const doneFoods=recs.filter(r=>r.status==='done').map(r=>r.food);
+    if(copiedFoods.length>0){
+      html+=buildPasteBanner();
+    } else if(doneFoods.length>0){
+      html+=`<button onclick="copyDayFoods()" style="width:100%;margin-top:10px;padding:10px;border-radius:var(--rs);border:1.5px solid var(--honey2);background:var(--white);color:#7A5800;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation;">📋 この日の食材をコピー（${doneFoods.length}品目）</button>`;
+    }
     body.innerHTML=html;
     setNewStatus('done');
     bindSwipe();
   } else {
     // PLAN TAB
     const plans=S.plans[selDate]||[];
-    let html=`
+    let html='';
+    html+=`
       <div class="add-row">
         <input class="food-search" id="planInput" placeholder="食材を入力（例：白身魚）" oninput="showSuggest('plan')" autocomplete="off">
         <button class="add-btn plan" onclick="addEntry('plan')">＋予定</button>
@@ -925,6 +934,67 @@ function clearFoodSelect(){
   document.getElementById('foodSelectBar').classList.remove('show');
   renderFoodMaster();
 }
+
+// ── COPY / PASTE ───────────────────────────────────────────────────
+function buildPasteBanner(){
+  const tags=copiedFoods.map(f=>
+    `<span style="display:inline-flex;padding:2px 8px;background:var(--honey);border-radius:99px;font-size:11px;font-weight:500;color:#7A5800;">${esc(f)}</span>`
+  ).join('');
+  return `<div style="background:#FFFBEB;border:1.5px solid var(--honey2);border-radius:var(--rs);padding:10px 12px;margin-top:10px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div style="font-size:12px;font-weight:700;color:#7A5800;">📋 コピー済み（${copiedFoods.length}品目）</div>
+      <button onclick="clearCopiedFoods()" style="font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--honey2);background:var(--white);color:var(--text2);cursor:pointer;touch-action:manipulation;">クリア</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px;">${tags}</div>
+    <button onclick="openPasteModal()" style="width:100%;padding:9px;border-radius:var(--rs);border:none;background:var(--honey2);color:#4A3000;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation;">📋 予定にペースト</button>
+  </div>`;
+}
+function copyDayFoods(){
+  if(!selDate) return;
+  const recs=S.records[selDate]||[];
+  copiedFoods=recs.filter(r=>r.status==='done').map(r=>r.food);
+  if(!copiedFoods.length){ showToast('⚠️ コピーできる記録（食べた）がありません',true); return; }
+  renderDetail();
+  showToast(`📋 ${copiedFoods.length}品目をコピーしました`);
+}
+function clearCopiedFoods(){
+  copiedFoods=[];
+  renderDetail();
+}
+function openPasteModal(){
+  if(!copiedFoods.length) return;
+  const listEl=document.getElementById('pasteFoodList');
+  listEl.innerHTML=copiedFoods.map(f=>
+    `<span style="display:inline-flex;align-items:center;padding:4px 10px;background:var(--honey);border-radius:99px;font-size:12px;font-weight:500;color:#7A5800;">${esc(f)}</span>`
+  ).join('');
+  mc.year=new Date().getFullYear(); mc.month=new Date().getMonth();
+  mc.rangeStart=selDate||today(); mc.rangeEnd=null; mc.dragging=false;
+  mcMode='paste';
+  renderMiniCal();
+  document.getElementById('pasteModal').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closePasteModal(){
+  document.getElementById('pasteModal').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  mcMode='modal';
+}
+function confirmPaste(){
+  const dates=getSelectedDates();
+  if(!dates.length){ showToast('⚠️ 日付を選んでください',true); return; }
+  dates.forEach(dateVal=>{
+    if(!S.plans[dateVal]) S.plans[dateVal]=[];
+    copiedFoods.forEach(food=>{
+      if(!S.plans[dateVal].some(p=>p.food===food))
+        S.plans[dateVal].push({food,note:''});
+    });
+  });
+  save(); renderCalendar();
+  const suffix=dates.length>1?`（${dates.length}日分）`:'';
+  showToast(`📋 ${copiedFoods.length}品目を予定にペーストしました${suffix}`);
+  closePasteModal();
+}
+
 function openMultiPlanModal(){
   if(!selectedFoods.size) return;
   const listEl=document.getElementById('multiPlanFoodList');
@@ -1032,8 +1102,8 @@ function initMiniCal(){
 }
 
 function renderMiniCal(){
-  const wrapId=mcMode==='reschedule'?'miniCalWrapR':mcMode==='multiplan'?'miniCalWrapMP':'miniCalWrap';
-  const labelId=mcMode==='reschedule'?'rangeLabelR':mcMode==='multiplan'?'rangeLabelMP':'rangeLabel';
+  const wrapId=mcMode==='reschedule'?'miniCalWrapR':mcMode==='multiplan'?'miniCalWrapMP':mcMode==='paste'?'miniCalWrapPaste':'miniCalWrap';
+  const labelId=mcMode==='reschedule'?'rangeLabelR':mcMode==='multiplan'?'rangeLabelMP':mcMode==='paste'?'rangeLabelPaste':'rangeLabel';
   const wrap=document.getElementById(wrapId);
   if(!wrap) return;
 
@@ -1119,8 +1189,8 @@ function mcDragEnd(key){
   renderMiniCal();
 }
 function updateMiniCalClasses(){
-  const wrapId=mcMode==='reschedule'?'miniCalWrapR':mcMode==='multiplan'?'miniCalWrapMP':'miniCalWrap';
-  const labelId=mcMode==='reschedule'?'rangeLabelR':mcMode==='multiplan'?'rangeLabelMP':'rangeLabel';
+  const wrapId=mcMode==='reschedule'?'miniCalWrapR':mcMode==='multiplan'?'miniCalWrapMP':mcMode==='paste'?'miniCalWrapPaste':'miniCalWrap';
+  const labelId=mcMode==='reschedule'?'rangeLabelR':mcMode==='multiplan'?'rangeLabelMP':mcMode==='paste'?'rangeLabelPaste':'rangeLabel';
   const wrap=document.getElementById(wrapId);
   if(!wrap) return;
   const rs=mc.rangeStart, re=mc.rangeEnd;

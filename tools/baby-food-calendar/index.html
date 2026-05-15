@@ -289,6 +289,22 @@
   </div>
 </div>
 
+<!-- PASTE MODAL -->
+<div class="modal" id="pasteModal">
+  <div class="modal-hdr">
+    <h3>📋 予定にペースト</h3>
+    <button class="close-btn" onclick="closePasteModal()">✕</button>
+  </div>
+  <div>
+    <div id="pasteFoodList" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;"></div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">追加する日付をタップ・ドラッグして選択</div>
+    <div id="miniCalWrapPaste"></div>
+    <div id="rangeLabelPaste" style="text-align:center;font-size:12px;font-weight:700;color:var(--lav2);min-height:20px;margin:6px 0 10px;"></div>
+    <button onclick="confirmPaste()"
+      style="width:100%;padding:12px;border-radius:var(--rs);border:none;background:var(--honey2);color:#4A3000;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation;">この日に予定追加</button>
+  </div>
+</div>
+
 <!-- VIEW: STATS -->
 <div id="view-stats" class="view">
   <div style="padding:14px;" id="statsView"></div>
