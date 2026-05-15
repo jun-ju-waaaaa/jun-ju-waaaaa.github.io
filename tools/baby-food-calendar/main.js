@@ -468,11 +468,21 @@ function getLastAmount(food){
   return 0;
 }
 
+function addToCustomFoodsIfNew(name){
+  if(ALL_FOODS.includes(name)) return;
+  if(!S.customFoods) S.customFoods=[];
+  if(!S.customFoods.includes(name)){
+    S.customFoods.push(name);
+    rebuildAllFoods();
+  }
+}
+
 function addEntry(type){
   if(!selDate) return;
   if(type==='record'){
     const food=(document.getElementById('recInput')||{}).value||'';
     if(!food.trim()) return;
+    addToCustomFoodsIfNew(food.trim());
     if(!S.records[selDate]) S.records[selDate]=[];
     const amount=newStatus==='done'?getLastAmount(food.trim()):0;
     S.records[selDate].push({food:food.trim(),status:newStatus,note:'',amount});
@@ -480,6 +490,7 @@ function addEntry(type){
   } else {
     const food=(document.getElementById('planInput')||{}).value||'';
     if(!food.trim()) return;
+    addToCustomFoodsIfNew(food.trim());
     if(!S.plans[selDate]) S.plans[selDate]=[];
     S.plans[selDate].push({food:food.trim(),note:''});
   }
