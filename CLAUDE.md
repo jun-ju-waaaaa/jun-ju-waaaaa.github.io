@@ -36,6 +36,27 @@
   - FAQPage: ツールに関するQ&Aを3〜5件（セキュリティ・使い方・形式の違いなど）
   - HowTo: ツールの操作手順を3ステップ程度（totalTime: "PT1M"）
 
+#### セキュリティ
+
+- **XSS対策**: ユーザー入力・外部データを `innerHTML` に展開する場合は必ず `esc()` でエスケープする。`textContent` への代入はエスケープ不要。
+  ```js
+  function esc(s){
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  ```
+- **`onclick` 属性にユーザー値を直接展開しない**: インラインイベントハンドラに変数を埋め込む代わりに `addEventListener` + クロージャで渡す。
+- **インポート入力の検証**: 外部JSONをインポートする場合、各フィールドを型・長さ・値域でフィルタリングしてから `S` に反映する。
+  - 配列要素: `typeof f === 'string' && f.length > 0 && f.length <= 50`
+  - 日付文字列: `/^\d{4}-\d{2}-\d{2}$/.test(d)` などで形式確認
+- **`localStorage` への保存前に型を確認**: 想定外の型がストアに書き込まれないよう、保存ロジックは型ガードを通す。
+- **ツール完成後に以下を自己チェックすること**:
+  - [ ] `innerHTML` を使っている箇所すべてに `esc()` が適用されているか
+  - [ ] `onclick` 属性にユーザー由来の文字列が含まれていないか
+  - [ ] インポート処理に型・長さバリデーションがあるか
+  - [ ] `eval` / `new Function` / `document.write` を使っていないか
+
 #### Google AdSense 申請対応
 - `<meta name="google-adsense-account" content="ca-pub-6769343629657319">` を全ページに入れる
 - `<meta name="google-site-verification">` を既存ページからコピー
