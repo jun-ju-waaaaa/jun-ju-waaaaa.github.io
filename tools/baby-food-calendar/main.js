@@ -1,3 +1,12 @@
+function esc(s){
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
 // ── FOOD MASTER DATA ──────────────────────────────────────────────
 const STAGE_CONFIG = [
   { key:'gokkon',   label:'ゴックン期', icon:'🌸', months:5,  range:'生後5〜6ヶ月',  bg:'var(--peach)', color:'#8B4B4B' },
@@ -219,8 +228,12 @@ function today(){ const n=new Date(); return dk(n.getFullYear(),n.getMonth(),n.g
 // ── BABY ──────────────────────────────────────────────────────────
 function getBabyMonths(){
   if(!S.babyBirth) return null;
-  const birth=new Date(S.babyBirth), now=new Date();
-  return (now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth());
+  const birth = new Date(S.babyBirth);
+  const now   = new Date();
+  let months = (now.getFullYear()-birth.getFullYear())*12
+              +(now.getMonth()-birth.getMonth());
+  if(now.getDate() < birth.getDate()) months--;
+  return Math.max(0, months);
 }
 function saveBaby(){
   S.babyName  = document.getElementById('babyName').value;
@@ -384,14 +397,14 @@ function renderDetail(){
           <div class="entry-item ${r.status}" data-swipe-type="rec" data-swipe-idx="${i}">
             <span class="entry-status">${icon}</span>
             <div style="flex:1;min-width:0;">
-              <div class="entry-name">${r.food}</div>
+              <div class="entry-name">${esc(r.food)}</div>
               ${r.status==='done'?`<div class="amt-ctrl">
                 <input type="number" class="amt-input" min="0" step="5" data-idx="${i}"
                   value="${r.amount||''}" placeholder="0"
                   onchange="setAmount(${i},this.value)">
                 <span class="amt-unit">g</span>
               </div>`:''}
-              ${hasNote?`<div class="entry-note" id="note-text-rec-${i}">📝 ${r.note}</div>`:''}
+              ${hasNote?`<div class="entry-note" id="note-text-rec-${i}">📝 ${esc(r.note)}</div>`:''}
               <div id="memo-rec-${i}" style="display:none;margin-top:6px;">
                 <input type="text" id="memo-input-rec-${i}" placeholder="メモを追記…"
                   style="width:100%;padding:5px 8px;border:1.5px solid #EDD8CC;border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);outline:none;touch-action:manipulation;"
@@ -445,8 +458,8 @@ function renderDetail(){
             <div class="plan-top">
               <span class="entry-status">📅</span>
               <div class="plan-name-wrap">
-                <div class="entry-name">${p.food}</div>
-                ${p.note?`<div class="entry-note">📝 ${p.note}</div>`:''}
+                <div class="entry-name">${esc(p.food)}</div>
+                ${p.note?`<div class="entry-note">📝 ${esc(p.note)}</div>`:''}
               </div>
             </div>
             <div class="plan-actions">
@@ -769,7 +782,7 @@ function renderFoodMaster(){
       btn.className=`food-chip ${cls}`;
       const warn_c=getFoodWarning(f);
       const warnBadge_c=warn_c?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_c.bg};color:${warn_c.color};font-weight:700;">${warn_c.badge}</span>`:'';
-      btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_c}`;
+      btn.innerHTML=`${icon} ${esc(f)}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_c}`;
       btn.onclick=()=>{
         const hasEntry=Object.values(S.records).some(arr=>arr.some(r=>r.food===f))||Object.values(S.plans).some(arr=>arr.some(p=>p.food===f));
         if(!hasEntry) openFirstTimeBriefModal(f); else toggleFoodSelect(f);
@@ -845,7 +858,7 @@ function renderFoodMaster(){
         btn.className=`food-chip ${cls}`;
         const warn_s=getFoodWarning(f);
         const warnBadge_s=warn_s?` <span style="font-size:9px;padding:1px 4px;border-radius:3px;background:${warn_s.bg};color:${warn_s.color};font-weight:700;">${warn_s.badge}</span>`:'';
-        btn.innerHTML=`${icon} ${f}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_s}`;
+        btn.innerHTML=`${icon} ${esc(f)}${fs&&fs.count>1?` <span style="font-size:9px;opacity:.7">×${fs.count}</span>`:''}${warnBadge_s}`;
         btn.onclick=()=>{
           const hasEntry=Object.values(S.records).some(arr=>arr.some(r=>r.food===f))||Object.values(S.plans).some(arr=>arr.some(p=>p.food===f));
           if(!hasEntry) openFirstTimeBriefModal(f); else toggleFoodSelect(f);
@@ -916,7 +929,7 @@ function openMultiPlanModal(){
   if(!selectedFoods.size) return;
   const listEl=document.getElementById('multiPlanFoodList');
   listEl.innerHTML=[...selectedFoods].map(f=>
-    `<span style="display:inline-flex;align-items:center;padding:4px 10px;background:var(--honey);border-radius:99px;font-size:12px;font-weight:500;color:#7A5800;">${f}</span>`
+    `<span style="display:inline-flex;align-items:center;padding:4px 10px;background:var(--honey);border-radius:99px;font-size:12px;font-weight:500;color:#7A5800;">${esc(f)}</span>`
   ).join('');
   mc.year=new Date().getFullYear(); mc.month=new Date().getMonth();
   mc.rangeStart=today(); mc.rangeEnd=null; mc.dragging=false;
@@ -975,7 +988,7 @@ function openFoodModal(food){
       return `<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--rs);margin-bottom:5px;background:${bg};">
         <span>${icon}</span>
         <span style="font-size:13px;flex:1;">${r.d.replace(/^(\d+)-(\d+)-(\d+)$/,'$2/$3')}</span>
-        ${r.note?`<span style="font-size:11px;color:var(--text2);">${r.note}</span>`:''}
+        ${r.note?`<span style="font-size:11px;color:var(--text2);">${esc(r.note)}</span>`:''}
       </div>`;
     }).join('');
   }
@@ -1338,7 +1351,7 @@ function renderStatsDetail(key,sets,range){
       background:${cfg.chipBg};border-radius:99px;font-size:13px;font-weight:500;
       color:${cfg.chipColor};margin:3px;cursor:pointer;min-height:44px;touch-action:manipulation;"
       onclick="openFoodModal('${f.replace(/'/g,"\\'")}')">
-      ${icon} ${f}${extra}
+      ${icon} ${esc(f)}${extra}
     </div>`;
   });
   det.innerHTML=`
