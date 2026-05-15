@@ -629,7 +629,7 @@ function showSuggest(type){
   list.innerHTML=matches.map(f=>{
     const cat=FOOD_CAT[f]||'';
     return `<div class="suggest-item" onclick="selectSuggest('${type}','${f.replace(/'/g,"\\'")}')">
-      ${f}<span class="suggest-cat">${cat}</span></div>`;
+      ${esc(f)}<span class="suggest-cat">${esc(cat)}</span></div>`;
   }).join('');
   list.classList.add('open');
 }
@@ -993,16 +993,15 @@ function openFoodModal(food){
     }).join('');
   }
   if(curView !== 'stats'){
-    const foodSafe=food.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     html+=`
       <div style="margin-top:${recDates.length?'14px':'0'};background:var(--cream);border-radius:var(--rs);padding:12px 14px;">
         <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;">📆 日付を選んで追加（ドラッグで範囲選択）</div>
         <div id="miniCalWrap"></div>
         <div id="rangeLabel" style="text-align:center;font-size:12px;font-weight:700;color:var(--lav2);min-height:20px;margin:6px 0 8px;"></div>
         <div style="display:flex;gap:6px;">
-          <button onclick="jumpToDate('${foodSafe}','plan')"
+          <button id="modal-plan-btn"
             style="flex:1;padding:10px;border-radius:var(--rs);border:none;background:var(--honey2);color:#4A3000;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;">📅 予定に追加</button>
-          <button onclick="jumpToDate('${foodSafe}','record')"
+          <button id="modal-rec-btn"
             style="flex:1;padding:10px;border-radius:var(--rs);border:none;background:var(--mint2);color:var(--white);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;">✅ 記録に追加</button>
         </div>
       </div>`;
@@ -1010,7 +1009,13 @@ function openFoodModal(food){
   document.getElementById('modalBody').innerHTML=html;
   document.getElementById('foodModal').classList.add('open');
   document.getElementById('overlay').classList.add('open');
-  if(curView !== 'stats') initMiniCal();
+  if(curView !== 'stats'){
+    initMiniCal();
+    const planBtn = document.getElementById('modal-plan-btn');
+    const recBtn  = document.getElementById('modal-rec-btn');
+    if(planBtn) planBtn.addEventListener('click', () => jumpToDate(food, 'plan'));
+    if(recBtn)  recBtn.addEventListener('click',  () => jumpToDate(food, 'record'));
+  }
 }
 
 // ── MINI CALENDAR (range select) ──────────────────────────────────
