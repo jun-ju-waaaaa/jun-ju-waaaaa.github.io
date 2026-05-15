@@ -19,10 +19,10 @@ const STAGE_FOODS = {
     '果物':           ['もも','なし','ぶどう','メロン'],
     '魚介':           ['鮭','まぐろ','鱈','しらす（塩抜き）'],
     '肉類':           ['鶏ひき肉'],
-    '大豆・卵・乳製品':['豆腐（木綿）','納豆','卵黄','卵白','ヨーグルト','きな粉'],
+    '大豆・卵・乳製品':['豆腐（木綿）','納豆','卵白','ヨーグルト','きな粉'],
   },
   kamikami: {
-    '穀物・炭水化物': ['軟飯','オートミール','パスタ','そうめん'],
+    '穀物・炭水化物': ['軟飯','オートミール','パスタ'],
     '野菜':           ['オクラ','アスパラ','れんこん','セロリ','ビーツ','ひじき','わかめ','枝豆'],
     '果物':           ['いちご','キウイ','バナナ'],
     '魚介':           ['しじみ','あさり','あじ','ツナ缶（食塩無添加）'],
@@ -75,7 +75,7 @@ const FOOD_WARNINGS = [
     badge: '⚠️ 加熱が必要',
     color: '#D97706',
     bg: '#FFFBEB',
-    detail: '離乳食では必ず加熱して与えてください。固ゆで卵黄は7〜8ヶ月から。'
+    detail: '離乳食では必ず加熱して与えてください。固ゆで卵黄は5〜6ヶ月から。'
   },
   {
     keywords: ['しらす'],
@@ -127,7 +127,7 @@ const FOOD_WARNINGS = [
     detail: '2023年より特定原材料（義務表示8品目）に追加されました。アナフィラキシーのリスクがあります。'
   },
   {
-    keywords: ['卵黄', '全卵', '鶏卵'],
+    keywords: ['卵黄', '全卵', '鶏卵', '卵白'],
     badge: '⚠️ 加熱・固ゆで必須',
     color: '#D97706',
     bg: '#FFFBEB',
@@ -155,7 +155,7 @@ const FOOD_WARNINGS = [
     detail: '推奨表示品目です。ラテックスアレルギーとの交差反応があります。初回は少量から午前中に試してください。'
   },
   {
-    keywords: ['納豆', '大豆'],
+    keywords: ['納豆', '大豆', '豆乳', 'きな粉'],
     badge: '⚠️ アレルギー注意',
     color: '#D97706',
     bg: '#FFFBEB',
@@ -174,6 +174,13 @@ const FOOD_WARNINGS = [
     color: '#DC2626',
     bg: '#FEF2F2',
     detail: '2026年4月より特定原材料（義務表示）に追加されました。アナフィラキシーのリスクがあります。初めて与える際は少量から午前中に試してください。'
+  },
+  {
+    keywords: ['アボカド'],
+    badge: '⚠️ 脂質注意',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    detail: '脂質が多く消化に負担がかかります。少量から始めてください。ラテックスアレルギーとの交差反応の報告もあります。'
   }
 ];
 function getFoodWarning(name){
@@ -786,6 +793,9 @@ function renderFoodMaster(){
     const nextMonths=STAGE_CONFIG[si+1]?.months;
     const isCurrent=!isLocked&&babyMonths!==null&&(nextMonths===undefined||babyMonths<nextMonths);
     const remaining=isLocked?stage.months-babyMonths:0;
+
+    // 生年月日入力済みの場合、未到達ステージは非表示
+    if(isLocked&&babyMonths!==null) return;
 
     // 検索フィルター：このステージに一致する食材がなければスキップ
     const stageFoodsAll=Object.values(STAGE_FOODS[stage.key]).flat();
