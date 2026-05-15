@@ -1518,7 +1518,7 @@ function exportData(){
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('💾 エクスポートしました');
+  showToast('💾 保存しました');
 }
 
 function showIOSExportGuide(file){
@@ -1530,7 +1530,7 @@ function showIOSExportGuide(file){
       <div class="ios-guide-steps">
         <div class="ios-guide-step">
           <span class="ios-guide-num">1</span>
-          <span>「エクスポートする」をタップすると<br>共有シートが開きます</span>
+          <span>「保存する」をタップすると<br>共有シートが開きます</span>
         </div>
         <div class="ios-guide-step">
           <span class="ios-guide-num">2</span>
@@ -1541,7 +1541,7 @@ function showIOSExportGuide(file){
           <span>iCloud Drive などを選んで<br>「保存」をタップ</span>
         </div>
       </div>
-      <button class="ios-guide-btn-go" id="ios-guide-go">📤 エクスポートする</button>
+      <button class="ios-guide-btn-go" id="ios-guide-go">📤 保存する</button>
       <button class="ios-guide-btn-cancel" id="ios-guide-cancel">キャンセル</button>
     </div>
   `;
@@ -1550,8 +1550,8 @@ function showIOSExportGuide(file){
   document.getElementById('ios-guide-go').addEventListener('click', () => {
     overlay.remove();
     navigator.share({files:[file], title:'離乳食バックアップ'})
-      .then(()  => showToast('💾 エクスポートしました'))
-      .catch(err => { if(err.name !== 'AbortError') showToast('エクスポートに失敗しました', true); });
+      .then(()  => showToast('💾 保存しました'))
+      .catch(err => { if(err.name !== 'AbortError') showToast('保存に失敗しました', true); });
   });
   document.getElementById('ios-guide-cancel').addEventListener('click', () => overlay.remove());
 }

@@ -217,15 +217,15 @@
     <p class="data-section-desc">スマホの買い替え・キャッシュクリア・履歴削除でデータが消える前に、バックアップを保存しておきましょう。</p>
     <div class="data-btns">
       <button class="data-btn export" onclick="exportData()">
-        📤 エクスポート<span>JSONファイルで保存</span>
+        📤 保存<span>JSONファイルで保存</span>
       </button>
       <button class="data-btn import" onclick="triggerImport()">
-        📥 インポート<span>バックアップを読み込む</span>
+        📥 復元<span>バックアップを読み込む</span>
       </button>
     </div>
     <input type="file" id="importInput" accept=".json,application/json" style="display:none" onchange="importData(event)">
     <p class="data-section-ios">📱 iOSの場合はシートが開くので「ファイルに保存」をタップしてください</p>
-    <p class="data-section-note">※ インポートすると現在のデータは上書きされます</p>
+    <p class="data-section-note">※ 復元すると現在のデータは上書きされます</p>
   </div>
 
   <!-- ABOUT SECTION -->
@@ -238,7 +238,7 @@
       <p>離乳食カレンダーは、赤ちゃんの食材記録・予定管理をブラウザだけで行えるツールです。入力したデータはすべてお使いの端末（localStorage）に保存され、外部サーバーへ送信されることは一切ありません。</p>
       <p><strong>なぜ無料で使えるの？</strong><br>本サービスはGoogle AdSenseの広告収入により運営しています。ユーザー登録・課金は一切不要です。</p>
       <p><strong>安全性について</strong><br>食材名・記録内容はすべてお使いのブラウザ内にのみ保存されます。個人情報をサーバーで管理することはありません。</p>
-      <p><strong>スマホ買い替え・機種変更の場合</strong><br>上の「エクスポート」ボタンでJSONファイルを保存し、新しいスマホで同ページを開いて「インポート」することで記録を引き継げます。</p>
+      <p><strong>スマホ買い替え・機種変更の場合</strong><br>上の「保存する」ボタンでJSONファイルを保存し、新しいスマホで同ページを開いて「復元する」ことで記録を引き継げます。</p>
     </div>
   </details>
 
@@ -329,17 +329,17 @@
     <p style="font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.6;">スマホの買い替え・キャッシュクリア・履歴削除でデータが消えることがあります。定期的にバックアップを保存しておきましょう。</p>
 
     <div class="save-card">
-      <div class="save-card-title">📤 エクスポート（バックアップ保存）</div>
+      <div class="save-card-title">📤 保存（バックアップ）</div>
       <p class="save-card-desc">記録データをJSONファイルとしてダウンロードします。機種変更前・節目ごとに保存するのがおすすめです。</p>
       <p class="save-ios-note">📱 iOSの場合はシートが開くので「ファイルに保存」をタップしてください</p>
-      <button class="save-btn export-btn" onclick="exportData()">📤 エクスポートする</button>
+      <button class="save-btn export-btn" onclick="exportData()">📤 保存する</button>
     </div>
 
     <div class="save-card">
-      <div class="save-card-title">📥 インポート（バックアップ読み込み）</div>
+      <div class="save-card-title">📥 復元（バックアップ読み込み）</div>
       <p class="save-card-desc">保存済みのJSONバックアップファイルを読み込みます。新しいスマホや別の端末でデータを引き継ぐときに使います。</p>
-      <p class="save-warn-note">⚠️ インポートすると現在のデータは上書きされます</p>
-      <button class="save-btn import-btn" onclick="triggerImport()">📥 インポートする</button>
+      <p class="save-warn-note">⚠️ 復元すると現在のデータは上書きされます</p>
+      <button class="save-btn import-btn" onclick="triggerImport()">📥 復元する</button>
     </div>
 
     <div class="privacy-badge" style="margin-top:4px;">🔒 データは端末内にのみ保存されます</div>
