@@ -125,6 +125,13 @@
 6. sitemap.xml 更新（ツール + ブログ記事）
 7. sitemap/index.html 更新（ツール + ブログ記事）
 
+> **IndexNow は自動化済み**
+> `main` ブランチへ push すると GitHub Actions が自動的に:
+> - 変更された HTML URL を IndexNow API (Bing・Yandex) へ送信
+> - `sitemap.xml` を再生成してコミット
+>
+> 手動送信は不要。詳細は [README-INDEXNOW.md](README-INDEXNOW.md) を参照。
+
 ---
 
 ## サイト固有の設定値

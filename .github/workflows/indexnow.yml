@@ -1,0 +1,85 @@
+name: IndexNow Submit & Sitemap Update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'sitemap.xml'
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Detect changed HTML files
+        id: detect
+        run: |
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+
+          # Skip if this push was made by the bot (avoids infinite loop)
+          COMMITTER_EMAIL=$(git log -1 --format="%ae" "$AFTER")
+          if [[ "$COMMITTER_EMAIL" == *"github-actions[bot]"* ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Skipping: triggered by bot commit"
+            exit 0
+          fi
+
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            # First push to branch — submit all HTML files
+            FILES=$(find . -name "*.html" \
+              -not -path "./.git/*" \
+              -not -name "sample*.html" \
+              -not -path "*/sample*" \
+              | sed 's|^\./||' | tr '\n' ',')
+          else
+            FILES=$(git diff --name-only "$BEFORE" "$AFTER" -- "*.html" \
+              | grep -v "sample" \
+              | tr '\n' ',' || true)
+          fi
+
+          echo "changed_files=$FILES" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "Changed HTML files: $FILES"
+
+      - name: Set up Python
+        if: steps.detect.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate sitemap.xml
+        if: steps.detect.outputs.skip == 'false'
+        run: python3 scripts/generate_sitemap.py
+
+      - name: Commit updated sitemap
+        if: steps.detect.outputs.skip == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Sitemap unchanged — no commit needed"
+          else
+            git commit -m "chore: update sitemap.xml [skip ci]"
+            git push
+            echo "Sitemap updated and pushed"
+          fi
+
+      - name: Submit to IndexNow
+        if: >
+          steps.detect.outputs.skip == 'false' &&
+          steps.detect.outputs.changed_files != ''
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          CHANGED_FILES: ${{ steps.detect.outputs.changed_files }}
+        run: python3 scripts/submit_indexnow.py
