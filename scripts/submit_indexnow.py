@@ -5,13 +5,17 @@ Submit changed page URLs to IndexNow API.
 Reads INDEXNOW_KEY and CHANGED_FILES from environment variables.
 CHANGED_FILES is a comma-separated list of repo-relative HTML paths,
 set by the GitHub Actions workflow.
+
+--all : submit every URL in sitemap.xml (one-time bulk submission)
 """
 
 import json
 import os
 import subprocess
+import sys
 import urllib.error
 import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 BASE_URL = "https://0-tools.com"
@@ -94,9 +98,21 @@ def post_indexnow(endpoint: str, payload: dict, timeout: int = 30) -> None:
         print(f"  {endpoint}: ERROR — {e}")
 
 
+def all_urls_from_sitemap() -> list[str]:
+    sitemap = REPO_ROOT / "sitemap.xml"
+    tree = ET.parse(sitemap)
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    return [loc.text.strip() for loc in tree.findall(".//sm:loc", ns) if loc.text]
+
+
 def main() -> None:
     key = get_key()
-    urls = build_url_list()
+
+    if "--all" in sys.argv:
+        urls = all_urls_from_sitemap()
+        print(f"Mode: bulk (all URLs from sitemap.xml)")
+    else:
+        urls = build_url_list()
 
     if not urls:
         print("No eligible HTML URLs to submit. Nothing to do.")
