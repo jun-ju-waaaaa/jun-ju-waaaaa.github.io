@@ -48,65 +48,82 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- ✅ 構造化データ: WebApplication schema -->
+  <!-- 構造化データ: WebApplication + BreadcrumbList + FAQPage + HowTo -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "赤ちゃん 生後週数・月齢・日齢 計算カレンダー",
-    "url": "https://0-tools.com/tools/baby-day-counter/",
-    "applicationCategory": "HealthApplication",
-    "operatingSystem": "All",
-    "description": "赤ちゃんの生年月日から生後週数・月齢・日齢を自動で計算する無料ツール。スマホ対応で育児をサポートします。",
-    "offers": { "@type": "Offer", "price": "0" }
-  }
-  </script>
-
-  <!-- ✅ 構造化データ: FAQPage schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": "生後週数（週齢）の数え方は？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "生まれた日を0日目として、7日ごとに1週齢が増えます。生後7日目から生後1週、14日目から生後2週となります。"
-        }
+        "@type": "WebApplication",
+        "name": "赤ちゃん 生後週数・月齢・日齢 計算カレンダー",
+        "url": "https://0-tools.com/tools/baby-day-counter/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All",
+        "description": "赤ちゃんの生年月日から生後週数・月齢・日齢を自動で計算する無料ツール。スマホ対応で育児をサポートします。",
+        "offers": { "@type": "Offer", "price": "0" },
+        "publisher": { "@type": "Organization", "name": "0-TOOLs", "url": "https://0-tools.com" }
       },
       {
-        "@type": "Question",
-        "name": "「初日を含める」と「初日を含めない」の違いは？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "「初日を含める」は生まれた日を1日目として数え、「初日を含めない」は生まれた日を0日目として翌日を1日目とします。一般的には初日を含めない数え方が広く使われています。"
-        }
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://0-tools.com/" },
+          { "@type": "ListItem", "position": 2, "name": "生後日数カウンター", "item": "https://0-tools.com/tools/baby-day-counter/" }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "新生児はいつまでですか？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "新生児とは生後28日（生後4週間）未満の赤ちゃんを指します。このツールで生後日数が28日未満の場合は新生児期にあたります。"
-        }
+        "@type": "HowTo",
+        "name": "生後日数カウンターの使い方",
+        "totalTime": "PT1M",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "生年月日を入力", "text": "赤ちゃんの生年月日をカレンダーから選択します。" },
+          { "@type": "HowToStep", "position": 2, "name": "初日の数え方を選択", "text": "「初日を含める」または「初日を含めない」を選択します。一般的には初日を含めない数え方が広く使われています。" },
+          { "@type": "HowToStep", "position": 3, "name": "生後日数・週数・月齢を確認", "text": "「計算する」ボタンを押すと、生後日数・週数・月齢が表示されます。お宮参りや百日祝いまでの日数も同時に確認できます。" }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "月齢と週齢はどう違いますか？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "月齢は生まれた月を基準に「生後○ヶ月」と数えます。週齢（週数）は7日を1週として「生後○週○日」と数えます。乳幼児健診などでは月齢が、医療現場では週齢が使われることが多いです。"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "お宮参りや百日祝いはいつですか？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "お宮参りは生後30〜31日目（男の子）または32〜33日目（女の子）が一般的です。百日祝い（お食い初め）は生後100日目が目安です。地域によって異なる場合があります。"
-        }
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "生後週数（週齢）の数え方は？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "生まれた日を0日目として、7日ごとに1週齢が増えます。生後7日目から生後1週、14日目から生後2週となります。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "「初日を含める」と「初日を含めない」の違いは？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "「初日を含める」は生まれた日を1日目として数え、「初日を含めない」は生まれた日を0日目として翌日を1日目とします。一般的には初日を含めない数え方が広く使われています。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "新生児はいつまでですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "新生児とは生後28日（生後4週間）未満の赤ちゃんを指します。このツールで生後日数が28日未満の場合は新生児期にあたります。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "月齢と週齢はどう違いますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "月齢は生まれた月を基準に「生後○ヶ月」と数えます。週齢（週数）は7日を1週として「生後○週○日」と数えます。乳幼児健診などでは月齢が、医療現場では週齢が使われることが多いです。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "お宮参りや百日祝いはいつですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "お宮参りは生後30〜31日目（男の子）または32〜33日目（女の子）が一般的です。百日祝い（お食い初め）は生後100日目が目安です。地域によって異なる場合があります。"
+            }
+          }
+        ]
       }
     ]
   }
