@@ -20,6 +20,7 @@ EXCLUDE_PATTERNS = [
 # Priority / changefreq rules (checked in order, first match wins)
 RULES = [
     (lambda p: p == ("index.html",),                  "1.0", "weekly"),
+    (lambda p: len(p) > 1 and p[1] in ("baby-day-counter", "baby-food-calendar"), "1.0", "weekly"),
     (lambda p: p[0] == "tools",                        "0.8", "monthly"),
     (lambda p: p == ("blog", "index.html"),            "0.8", "weekly"),
     (lambda p: p[0] == "blog",                         "0.7", "monthly"),
