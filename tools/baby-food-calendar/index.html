@@ -167,7 +167,7 @@
   <!-- MONTH NAV -->
   <div class="month-nav">
     <button onclick="changeMonth(-1)">‹</button>
-    <span class="month-title" id="monthTitle"></span>
+    <span class="month-title" id="monthTitle"><!-- JSが上書き --></span>
     <button onclick="changeMonth(1)">›</button>
   </div>
 
@@ -374,8 +374,8 @@
 </div>
 
 <!-- DISCLAIMER MODAL (初回のみ表示) -->
-<div class="disclaimer-overlay" id="disclaimerOverlay"></div>
-<div class="disclaimer-modal" id="disclaimerModal">
+<div class="disclaimer-overlay" id="disclaimerOverlay" style="display:none;"></div>
+<div class="disclaimer-modal" id="disclaimerModal" style="display:none;">
   <div class="dm-body">
     <div class="dm-title">⚠️ ご利用前にご確認ください</div>
     <p class="dm-text">本ツールは離乳食の記録・管理を<strong>補助</strong>することを目的としており、<strong>医療行為・栄養指導・育児アドバイスの代替ではありません。</strong></p>
@@ -472,6 +472,7 @@
     <a href="/tools/age-calc/" style="color:var(--text2);text-decoration:none;">年齢・月齢計算</a>
     <a href="/blog/baby-food-calendar-guide/" style="color:var(--text2);text-decoration:none;">📖 使い方ガイド</a>
     <a href="/faq/" style="color:var(--text2);text-decoration:none;">FAQ</a>
+    <a href="/about/" style="color:var(--text2);text-decoration:none;">運営者情報</a>
     <a href="/privacy/" style="color:var(--text2);text-decoration:none;">プライバシーポリシー</a>
   </nav>
   <p style="font-size:11px;color:var(--text3);margin-top:10px;">© 2026 0-TOOLs</p>
