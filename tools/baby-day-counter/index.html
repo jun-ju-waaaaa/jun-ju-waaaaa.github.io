@@ -866,12 +866,15 @@
     </div>
 
     <!-- 楽天モーションウィジェット（もしもアフィリエイト版） -->
-    <div class="rakuten-widget-wrap" id="rakutenWidget">
+    <!-- ★ インデックス登録完了後に style="display:none" を削除し、スクリプトのコメントを外す ★ -->
+    <div class="rakuten-widget-wrap" id="rakutenWidget" style="display:none">
       <div class="ad-title">📦 おすすめアイテム（楽天）</div>
       <div class="rakuten-widget-scroll">
         <div class="rakuten-widget-inner">
           <!-- MAF Rakuten Widget FROM HERE -->
+          <!--
           <script type="text/javascript">MafRakutenWidgetParam=function() { return{ size:'468x160',design:'slide',recommend:'on',auto_mode:'on',a_id:'5575137', border:'off'};};</script><script type="text/javascript" src="https://dn.msmstatic.com/site/rakuten/widget.js"></script>
+          -->
           <!-- MAF Rakuten Widget TO HERE -->
         </div>
       </div>
@@ -1281,15 +1284,20 @@
     }
 
     // =====================
-    // 初期化：保存済み誕生日を復元
+    // 初期化：保存済み誕生日を復元 / デフォルト表示（クローラー対応）
     // =====================
     (function init() {
       try {
         const saved = localStorage.getItem('baby_birthdate');
+        const input = document.getElementById('birthDate');
         if (saved) {
-          document.getElementById('birthDate').value = saved;
-          calculate();
+          input.value = saved;
+        } else {
+          // 保存値がない場合は今日の日付をデフォルトにセット
+          const t = new Date();
+          input.value = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
         }
+        calculate();
       } catch(e) {}
     })();
   </script>
