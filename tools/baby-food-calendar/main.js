@@ -1519,7 +1519,7 @@ if(isIOS()){
 function exportData(){
   const date     = new Date().toISOString().slice(0,10);
   const jsonStr  = JSON.stringify(S, null, 2);
-  const fileName = `離乳食カレンダー_${date}.json`;
+  const fileName = `離乳食予定管理カレンダー_${date}.json`;
 
   if(isIOS() && navigator.share){
     const file = new File([jsonStr], fileName, {type:'application/json'});
