@@ -75,8 +75,8 @@ async function handleFile(file) {
 
     setProgress(20, 'サムネイル準備中...');
 
-    // pdf.js でサムネイル描画
-    pdfJsDoc = await pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) }).promise;
+    // pdf.js でサムネイル描画（pdfBytes の所有権が移転しないようコピーを渡す）
+    pdfJsDoc = await pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes.slice(0)) }).promise;
 
     processCard.classList.add('hidden');
     buildPageGrid();
