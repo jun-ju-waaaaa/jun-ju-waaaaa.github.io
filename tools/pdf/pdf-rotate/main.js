@@ -180,7 +180,7 @@ async function renderThumbnail(idx) {
   try {
     const page = await pdfJsDoc.getPage(idx + 1);
     const baseVp = page.getViewport({ scale: 1.0 });
-    const scale = Math.min(150 / baseVp.width, 200 / baseVp.height);
+    const scale = Math.min(260 / baseVp.width, 360 / baseVp.height);
     const vp = page.getViewport({ scale });
 
     const canvas = document.getElementById(`canvas-${idx}`);
@@ -205,11 +205,11 @@ function rotatePage(idx, delta) {
 
 function updateCardVisual(i) {
   const r = rotations[i];
-  const canvas = document.getElementById(`canvas-${i}`);
+  const wrap   = document.getElementById(`cwrap-${i}`);
   const card   = document.getElementById(`card-${i}`);
   const rotInd = document.getElementById(`rot-${i}`);
 
-  if (canvas) canvas.style.transform = `rotate(${r}deg)`;
+  if (wrap) wrap.style.transform = `rotate(${r}deg)`;
 
   if (r === 0) {
     rotInd.textContent = '—';
