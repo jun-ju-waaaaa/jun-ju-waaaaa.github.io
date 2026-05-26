@@ -64,19 +64,20 @@ async function handleFile(file) {
   setProgress(0, 'PDF読み込み中...');
 
   try {
-    pdfBytes = await file.arrayBuffer();
+    // Uint8Array で保持することで ArrayBuffer の所有権移転を防ぐ
+    pdfBytes = new Uint8Array(await file.arrayBuffer());
     fileNameLabel.textContent = esc(file.name);
 
-    // pdf-lib でページ数・既存回転を取得
-    const pdfLibDoc = await PDFDocument.load(pdfBytes);
+    // pdf-lib でページ数・既存回転を取得（コピーを渡す）
+    const pdfLibDoc = await PDFDocument.load(pdfBytes.slice(0));
     pageCount = pdfLibDoc.getPageCount();
     rotations = new Array(pageCount).fill(0);
     pageCountLabel.textContent = `${pageCount}ページ`;
 
     setProgress(20, 'サムネイル準備中...');
 
-    // pdf.js でサムネイル描画（pdfBytes の所有権が移転しないようコピーを渡す）
-    pdfJsDoc = await pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes.slice(0)) }).promise;
+    // pdf.js でサムネイル描画（コピーを渡す）
+    pdfJsDoc = await pdfjsLib.getDocument({ data: pdfBytes.slice(0) }).promise;
 
     processCard.classList.add('hidden');
     buildPageGrid();
@@ -237,7 +238,7 @@ async function savePDF() {
   setProgress(0, '処理中...');
 
   try {
-    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pdfDoc = await PDFDocument.load(pdfBytes.slice(0));
     const pages  = pdfDoc.getPages();
 
     for (let i = 0; i < pages.length; i++) {
