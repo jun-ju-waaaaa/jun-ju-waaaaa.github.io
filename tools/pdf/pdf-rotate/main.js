@@ -243,9 +243,9 @@ async function savePDF() {
 
     for (let i = 0; i < pages.length; i++) {
       if (rotations[i] !== 0) {
-        // rotations[i] は CW 方向。PDF rotation は CCW 方向なので符号反転
+        // PDF Rotate も CSS rotate() もどちらも CW 正なので単純に加算
         const current  = pages[i].getRotation().angle;
-        const newAngle = ((current - rotations[i]) % 360 + 360) % 360;
+        const newAngle = (current + rotations[i]) % 360;
         pages[i].setRotation(degrees(newAngle));
       }
       setProgress(Math.round(((i + 1) / pages.length) * 90),
