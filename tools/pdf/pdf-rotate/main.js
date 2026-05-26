@@ -177,17 +177,43 @@ function createPageCard(i) {
 // ── サムネイル描画 ───────────────────────────────
 let renderTokens = []; // 各ページの描画バージョン（古い描画を破棄するため）
 
+// 同時レンダリング数を制限するセマフォ
+function makeSemaphore(limit) {
+  let running = 0;
+  const queue = [];
+  return function acquire() {
+    return new Promise(resolve => {
+      function tryRun() {
+        if (running < limit) {
+          running++;
+          resolve(() => { running--; if (queue.length) queue.shift()(); });
+        } else {
+          queue.push(tryRun);
+        }
+      }
+      tryRun();
+    });
+  };
+}
+
+const acquireRenderSlot = makeSemaphore(2); // 同時2ページまで
+
 async function renderAllThumbnails() {
+  const tasks = [];
   for (let i = 0; i < pageCount; i++) {
-    await renderThumbnail(i);
+    tasks.push(renderThumbnail(i));
   }
+  await Promise.all(tasks);
 }
 
 async function renderThumbnail(idx) {
   const token = ++renderTokens[idx];
+  const release = await acquireRenderSlot();
   try {
-    const page = await pdfJsDoc.getPage(idx + 1);
     if (renderTokens[idx] !== token) return;
+
+    const page = await pdfJsDoc.getPage(idx + 1);
+    if (renderTokens[idx] !== token) { page.cleanup(); return; }
 
     // pdf.js の rotation はページ固有回転 + ユーザー追加回転の合計
     const totalRot = (page.rotate + rotations[idx]) % 360;
@@ -196,18 +222,27 @@ async function renderThumbnail(idx) {
     const vp = page.getViewport({ scale, rotation: totalRot });
 
     const canvas = document.getElementById(`canvas-${idx}`);
-    if (!canvas) return;
+    if (!canvas) { page.cleanup(); return; }
     canvas.width = vp.width;
     canvas.height = vp.height;
-    await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+
+    const renderTask = page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+    await renderTask.promise;
+    page.cleanup();
+
     if (renderTokens[idx] !== token) return;
 
     const spinner = document.getElementById(`spinner-${idx}`);
     if (spinner) spinner.remove();
     canvas.style.display = 'block';
-  } catch {
-    const spinner = document.getElementById(`spinner-${idx}`);
-    if (spinner) spinner.textContent = '—';
+  } catch (err) {
+    // キャンセル（RenderingCancelledException）は無視、それ以外はエラー表示
+    if (err && err.name !== 'RenderingCancelledException') {
+      const spinner = document.getElementById(`spinner-${idx}`);
+      if (spinner) spinner.textContent = '—';
+    }
+  } finally {
+    release();
   }
 }
 
