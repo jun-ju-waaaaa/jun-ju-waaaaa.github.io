@@ -72,6 +72,7 @@ async function handleFile(file) {
     const pdfLibDoc = await PDFDocument.load(pdfBytes.slice(0));
     pageCount = pdfLibDoc.getPageCount();
     rotations = new Array(pageCount).fill(0);
+    renderTokens = new Array(pageCount).fill(0);
     pageCountLabel.textContent = `${pageCount}ページ`;
 
     setProgress(20, 'サムネイル準備中...');
@@ -170,6 +171,8 @@ function createPageCard(i) {
 }
 
 // ── サムネイル描画 ───────────────────────────────
+let renderTokens = []; // 各ページの描画バージョン（古い描画を破棄するため）
+
 async function renderAllThumbnails() {
   for (let i = 0; i < pageCount; i++) {
     await renderThumbnail(i);
@@ -177,16 +180,23 @@ async function renderAllThumbnails() {
 }
 
 async function renderThumbnail(idx) {
+  const token = ++renderTokens[idx];
   try {
     const page = await pdfJsDoc.getPage(idx + 1);
-    const baseVp = page.getViewport({ scale: 1.0 });
+    if (renderTokens[idx] !== token) return;
+
+    // pdf.js の rotation はページ固有回転 + ユーザー追加回転の合計
+    const totalRot = (page.rotate + rotations[idx]) % 360;
+    const baseVp = page.getViewport({ scale: 1.0, rotation: totalRot });
     const scale = Math.min(260 / baseVp.width, 360 / baseVp.height);
-    const vp = page.getViewport({ scale });
+    const vp = page.getViewport({ scale, rotation: totalRot });
 
     const canvas = document.getElementById(`canvas-${idx}`);
+    if (!canvas) return;
     canvas.width = vp.width;
     canvas.height = vp.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    if (renderTokens[idx] !== token) return;
 
     const spinner = document.getElementById(`spinner-${idx}`);
     if (spinner) spinner.remove();
@@ -201,15 +211,13 @@ async function renderThumbnail(idx) {
 function rotatePage(idx, delta) {
   rotations[idx] = ((rotations[idx] + delta) % 360 + 360) % 360;
   updateCardVisual(idx);
+  renderThumbnail(idx); // CSSトランスフォームではなく再描画
 }
 
 function updateCardVisual(i) {
   const r = rotations[i];
-  const wrap   = document.getElementById(`cwrap-${i}`);
   const card   = document.getElementById(`card-${i}`);
   const rotInd = document.getElementById(`rot-${i}`);
-
-  if (wrap) wrap.style.transform = `rotate(${r}deg)`;
 
   if (r === 0) {
     rotInd.textContent = '—';
@@ -284,10 +292,11 @@ function setProgress(pct, text) {
 resetBtn.addEventListener('click', reset);
 
 function reset() {
-  pdfBytes  = null;
-  pdfJsDoc  = null;
-  pageCount = 0;
-  rotations = [];
+  pdfBytes     = null;
+  pdfJsDoc     = null;
+  pageCount    = 0;
+  rotations    = [];
+  renderTokens = [];
   if (resultUrl) { URL.revokeObjectURL(resultUrl); resultUrl = null; }
   pageGrid.innerHTML = '';
   resultCard.classList.add('hidden');
