@@ -20,13 +20,12 @@
   }
 
   function updateThemeIcon() {
-    const btn = document.getElementById('btn-theme');
-    if (!btn) return;
+    const input = document.getElementById('btn-theme');
+    if (!input) return;
     const isDark = document.documentElement.dataset.theme === 'dark' ||
       (!document.documentElement.dataset.theme &&
         window.matchMedia('(prefers-color-scheme: dark)').matches);
-    btn.textContent = isDark ? '☀️' : '🌙';
-    btn.setAttribute('aria-label', isDark ? 'ライトモードに切替' : 'ダークモードに切替');
+    input.checked = isDark;
   }
 
   /* ---- ヘッダー注入 ---- */
@@ -37,10 +36,14 @@
       <div class="site-header__inner">
         <a class="site-header__logo" href="/">0-TOOLs</a>
         <div class="site-header__actions">
-          <button class="btn-theme" id="btn-theme" aria-label="ダークモードに切替">🌙</button>
+          <label class="theme-switch" title="ダークモード切替">
+            <input type="checkbox" id="btn-theme" role="switch" aria-label="ダークモード切替">
+            <span>ダークモード</span>
+            <span class="theme-switch__track"><span class="theme-switch__thumb"></span></span>
+          </label>
         </div>
       </div>`;
-    document.getElementById('btn-theme').addEventListener('click', toggleTheme);
+    document.getElementById('btn-theme').addEventListener('change', toggleTheme);
     updateThemeIcon();
   }
 

@@ -96,23 +96,49 @@ body {
   gap: 8px;
 }
 
-.btn-theme {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  padding: 6px 10px;
-  font-size: 16px;
-  cursor: pointer;
-  min-width: 36px;
-  min-height: 36px;
+.theme-switch {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: background 0.15s;
+  gap: 6px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.85);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  user-select: none;
 }
-
-.btn-theme:hover { background: rgba(255,255,255,0.3); }
+.theme-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.theme-switch__track {
+  width: 38px;
+  height: 22px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 11px;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.theme-switch input:checked ~ .theme-switch__track {
+  background: rgba(255,255,255,0.45);
+}
+.theme-switch__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.theme-switch input:checked ~ .theme-switch__track .theme-switch__thumb {
+  transform: translateX(16px);
+}
 
 /* =============================================
    パンくず
