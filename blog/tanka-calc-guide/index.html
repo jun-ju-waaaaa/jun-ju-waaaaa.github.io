@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6LH1TXVP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6LH1TXVP8');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>㎡単価・坪単価とは？計算式・換算・物件比較のコツを徹底解説｜0-TOOLs</title>
+<link rel="canonical" href="https://0-tools.com/blog/tanka-calc-guide/">
+<meta name="description" content="㎡単価＝価格÷㎡、坪単価＝価格÷坪数（㎡÷3.306）の計算式を具体例つきで解説。㎡⇔坪換算早見表・使い分け基準・物件比較のコツ・ツールの使い方まで。登録不要・無料。">
+<meta property="og:title" content="㎡単価・坪単価とは？計算式・換算・物件比較のコツを徹底解説｜0-TOOLs">
+<meta property="og:description" content="㎡単価・坪単価の計算式、換算方法、使い分け基準、物件比較のコツを解説。無料ツールで瞬時に計算。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://0-tools.com/blog/tanka-calc-guide/">
+<meta property="og:image" content="https://0-tools.com/assets/images/og-blog.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="0-TOOLs">
+<meta property="article:published_time" content="2026-05-29T00:00:00+09:00">
+<meta property="article:modified_time" content="2026-05-29T00:00:00+09:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="㎡単価・坪単価とは？計算式・換算・物件比較のコツを徹底解説｜0-TOOLs">
+<meta name="twitter:description" content="㎡単価・坪単価の計算式、換算方法、使い分け基準、物件比較のコツを解説。無料ツールで瞬時に計算。">
+<meta name="twitter:image" content="https://0-tools.com/assets/images/og-blog.png">
+<link rel="stylesheet" href="../../page.css">
+<link rel="stylesheet" href="../../assets/css/blog.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://0-tools.com/blog/tanka-calc-guide/#article",
+      "headline": "㎡単価・坪単価とは？計算式・換算・物件比較のコツを徹底解説",
+      "description": "㎡単価・坪単価の計算式、換算方法、使い分け基準、物件比較のコツを解説。無料ブラウザツールで瞬時に計算できます。",
+      "datePublished": "2026-05-29T00:00:00+09:00",
+      "dateModified": "2026-05-29T00:00:00+09:00",
+      "author": {"@type": "Organization", "name": "0-TOOLs", "url": "https://0-tools.com"},
+      "publisher": {"@type": "Organization", "name": "0-TOOLs", "url": "https://0-tools.com"},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://0-tools.com/blog/tanka-calc-guide/"},
+      "image": "https://0-tools.com/assets/images/og-blog.png",
+      "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".article-title", ".article-body"]}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://0-tools.com/"},
+        {"@type": "ListItem", "position": 2, "name": "ブログ", "item": "https://0-tools.com/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "㎡単価・坪単価の計算方法", "item": "https://0-tools.com/blog/tanka-calc-guide/"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "㎡単価の計算式は？",
+          "acceptedAnswer": {"@type": "Answer", "text": "㎡単価 = 物件価格（円）÷ 面積（㎡）です。例：3,000万円・60㎡の場合、30,000,000 ÷ 60 = 500,000円/㎡（50万円/㎡）。"}
+        },
+        {
+          "@type": "Question",
+          "name": "坪単価の計算式は？",
+          "acceptedAnswer": {"@type": "Answer", "text": "坪単価 = 物件価格（円）÷ 坪数。坪数 = ㎡ × 0.3025。例：3,000万円・60㎡の場合、坪数 = 60 × 0.3025 = 18.15坪、坪単価 = 30,000,000 ÷ 18.15 ≈ 1,653,000円/坪（約165万円/坪）。"}
+        },
+        {
+          "@type": "Question",
+          "name": "㎡単価と坪単価の換算方法は？",
+          "acceptedAnswer": {"@type": "Answer", "text": "坪単価 = ㎡単価 ÷ 0.3025、㎡単価 = 坪単価 × 0.3025。例：㎡単価50万円 → 坪単価約165万円。坪単価100万円 → ㎡単価約30.3万円。"}
+        },
+        {
+          "@type": "Question",
+          "name": "坪単価と㎡単価はどちらを使うべき？",
+          "acceptedAnswer": {"@type": "Answer", "text": "日本の戸建て・土地広告では坪単価が慣習的に使われます。マンションや賃貸では㎡単価も広く使われます。海外物件との比較や国際的な文脈では㎡単価が適しています。"}
+        },
+        {
+          "@type": "Question",
+          "name": "賃料の㎡単価・坪単価も計算できますか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "はい。「価格・賃料」欄に月額賃料を入力すれば月額の㎡単価・坪単価を計算できます。例：月10万円・30㎡ → ㎡単価約3,333円/㎡・月。物件の割安・割高比較に活用できます。"}
+        },
+        {
+          "@type": "Question",
+          "name": "坪単価だけで物件の割安・割高を判断できますか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "坪単価（㎡単価）は価格÷面積の比較指標であり、立地・階数・日照・築年数・管理費・設備の差は反映されません。同じエリア・同じ築年数の物件で比較すると精度が上がります。単価は参考指標として活用し、これらの要素も総合的に判断することが重要です。"}
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6LH1TXVP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6LH1TXVP8');
+</script>
+  <a href="/" class="site-brand">0-TOOLs</a>
+  <a href="/" class="header-home">← ツール一覧</a>
+</header>
+
+<main class="page-main">
+  <div style="padding: 28px 16px 64px;">
+    <div class="article-container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">ホーム</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/blog/">ブログ</a>
+        <span class="breadcrumb-sep">/</span>
+        <span aria-current="page">㎡単価・坪単価の計算方法</span>
+      </nav>
+
+      <article itemscope itemtype="https://schema.org/Article">
+
+        <header class="article-header">
+          <span class="article-category">使い方ガイド</span>
+          <h1 class="article-title" itemprop="headline">
+            ㎡単価・坪単価とは？<br>計算式・換算・物件比較のコツを徹底解説
+          </h1>
+          <div class="article-meta">
+            <span class="article-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <time datetime="2026-05-29" itemprop="datePublished">2026年5月29日</time>
+            </span>
+            <span class="article-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              読了約5分
+            </span>
+            <span class="article-meta-item" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+              <span itemprop="name">0-TOOLs</span>
+            </span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>「この物件、割安？割高？」——価格だけでは広さの違う物件を横並びで比較できません。そこで使われるのが<strong>㎡単価</strong>（平米単価）と<strong>坪単価</strong>です。</p>
+          <p>本記事では計算式の基礎から換算方法・使い分けの基準・物件比較のコツまでを解説します。0-TOOLsの<a href="/tools/tanka-calc/">㎡単価・坪単価計算ツール</a>なら、価格と面積を入力するだけで両方の単価を即時計算できます。</p>
+        </div>
+
+        <nav class="toc" aria-label="目次">
+          <div class="toc-title">目次</div>
+          <ol class="toc-list">
+            <li><a href="#what">㎡単価・坪単価とは</a></li>
+            <li><a href="#formula">計算式と具体例</a></li>
+            <li><a href="#convert">㎡と坪の換算早見表</a></li>
+            <li><a href="#difference">使い分けの基準</a></li>
+            <li><a href="#how-to">ツールの使い方（4ステップ）</a></li>
+            <li><a href="#tips">物件比較のコツ</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+            <li><a href="#summary">まとめ</a></li>
+          </ol>
+        </nav>
+
+        <div class="article-body">
+
+          <h2 id="what">㎡単価・坪単価とは</h2>
+
+          <p>㎡単価（平米単価）とは<strong>1㎡あたりの不動産価格</strong>、坪単価とは<strong>1坪（＝3.30578㎡）あたりの不動産価格</strong>のことです。</p>
+
+          <p>たとえば3,000万円の物件でも、40㎡と80㎡では実質的な価値がまったく異なります。単価に換算することで、広さの違う物件を公平に比較できます。</p>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>単価の種類</th><th>定義</th><th>計算式</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>㎡単価（平米単価）</strong></td>
+                <td>1平方メートルあたりの価格</td>
+                <td>価格 ÷ 面積（㎡）</td>
+              </tr>
+              <tr>
+                <td><strong>坪単価</strong></td>
+                <td>1坪（3.30578㎡）あたりの価格</td>
+                <td>価格 ÷ 坪数（㎡×0.3025）</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 id="formula">計算式と具体例</h2>
+
+          <h3>㎡単価の計算式</h3>
+          <p><strong>㎡単価（円/㎡）＝ 物件価格（円）÷ 面積（㎡）</strong></p>
+          <p>例：3,000万円・60㎡の場合<br>
+          30,000,000 ÷ 60 = <strong>500,000円/㎡（50万円/㎡）</strong></p>
+
+          <h3>坪単価の計算式</h3>
+          <p><strong>坪単価（円/坪）＝ 物件価格（円）÷ 坪数　※坪数 = ㎡ × 0.3025</strong></p>
+          <p>例：3,000万円・60㎡の場合<br>
+          坪数 = 60 × 0.3025 ＝ 18.15坪<br>
+          30,000,000 ÷ 18.15 ≈ <strong>1,653,000円/坪（約165万円/坪）</strong></p>
+
+          <div class="note-box">
+            <span class="note-label">換算のポイント</span>
+            1坪 = 3.30578㎡（曲尺の換算値）。㎡→坪は × 0.3025、坪→㎡は ÷ 0.3025。暗算では「× 0.3」で近似できます。
+          </div>
+
+          <h3>㎡単価と坪単価の関係</h3>
+          <p>1坪 ≒ 3.306㎡なので、以下の関係が常に成り立ちます：</p>
+          <p><strong>坪単価 ＝ ㎡単価 ÷ 0.3025</strong><br>
+          <strong>㎡単価 ＝ 坪単価 × 0.3025</strong></p>
+
+          <h2 id="convert">㎡と坪の換算早見表</h2>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>㎡単価</th><th>坪単価の目安</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>10万円/㎡</td><td>約33万円/坪</td></tr>
+              <tr><td>30万円/㎡</td><td>約99万円/坪</td></tr>
+              <tr><td>50万円/㎡</td><td>約165万円/坪</td></tr>
+              <tr><td>100万円/㎡</td><td>約331万円/坪</td></tr>
+              <tr><td>200万円/㎡</td><td>約661万円/坪</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="difference">使い分けの基準</h2>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>場面</th><th>使いやすい単価</th><th>理由</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>分譲マンション比較</td><td>㎡単価</td><td>マンション広告では㎡表記が一般的</td></tr>
+              <tr><td>土地・戸建て比較</td><td>坪単価</td><td>日本の不動産業界の慣習</td></tr>
+              <tr><td>賃料比較</td><td>どちらも可</td><td>エリアの商慣習に合わせる</td></tr>
+              <tr><td>海外物件との比較</td><td>㎡単価</td><td>国際標準はm²（平米）</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="how-to">ツールの使い方（4ステップ）</h2>
+
+          <ol class="step-list">
+            <li>
+              <span class="step-num">1</span>
+              <div class="step-body">
+                <strong><a href="/tools/tanka-calc/">㎡単価・坪単価計算ツール</a>を開く</strong><br>
+                ページを開くと計算画面がすぐに表示されます。インストール・登録は不要です。
+              </div>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <div class="step-body">
+                <strong>価格を万円単位で入力する</strong><br>
+                「価格・賃料」欄に数値を入力します。初期単位は<strong>万円</strong>なので「3000」と入力すると3,000万円として計算されます。右のドロップダウンで「円」に切り替えることも可能です。
+              </div>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <div class="step-body">
+                <strong>面積を㎡か坪で入力する</strong><br>
+                「面積（㎡）」と「面積（坪）」の2フィールドが横並びで表示されています。どちらか一方を入力すると、もう一方へ<strong>自動換算</strong>されます。
+              </div>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <div class="step-body">
+                <strong>㎡単価・坪単価を確認する</strong><br>
+                入力と同時に<strong>㎡単価（円/㎡）と坪単価（円/坪）の両方</strong>が自動表示されます。比較したい物件ごとに繰り返すだけです。
+              </div>
+            </li>
+          </ol>
+
+          <h2 id="tips">物件比較のコツ</h2>
+
+          <p><strong>壁芯面積と内法面積の違いに注意する</strong></p>
+          <p>マンションの広告面積（壁芯面積）と登記簿上の面積（内法面積）には約5〜8%の差があります。単価を比較するときは同じ基準の面積を使うことが重要です。</p>
+
+          <p><strong>専有面積だけで比較する</strong></p>
+          <p>バルコニーや廊下など専有できない面積が含まれると単価が低く見えることがあります。実際に生活できる専有面積ベースで比較するのが合理的です。</p>
+
+          <p><strong>同じエリア・築年数の物件で比較する</strong></p>
+          <p>㎡単価・坪単価はあくまで価格比較の補助指標です。立地・築年数・設備・階数なども総合的に判断しましょう。</p>
+
+          <p><strong>管理費・修繕積立金を含めた実質コストで見る</strong></p>
+          <p>マンションの場合、管理費や修繕積立金が月数万円かかります。これを年換算して物件価格に加えた「実質コスト」で比較すると、表面上の坪単価では見えない差が浮かび上がります。</p>
+
+          <p><strong>賃料の月額㎡単価で賃貸物件を比較する</strong></p>
+          <p>購入だけでなく賃貸にも単価比較は有効です。月額賃料を専有面積で割った「月額㎡単価」で比較すると、見かけの賃料では気づかない割高・割安が明確になります。</p>
+          <table class="compare-table">
+            <thead><tr><th>物件</th><th>月額賃料</th><th>専有面積</th><th>月額㎡単価</th></tr></thead>
+            <tbody>
+              <tr><td>物件A</td><td>12万円</td><td>40㎡</td><td>3,000円/㎡</td></tr>
+              <tr><td>物件B</td><td>8万円</td><td>25㎡</td><td>3,200円/㎡</td></tr>
+            </tbody>
+          </table>
+          <p>この例では物件Aの方が月額は高いですが、㎡単価では物件Aの方が割安です。</p>
+
+          <div class="cta-box">
+            <div class="cta-box-title">今すぐ㎡単価・坪単価を計算する</div>
+            <div class="cta-box-desc">価格（万円対応）と面積を入力するだけ<br>㎡⇔坪の自動換算つき・両単価を同時表示</div>
+            <a href="/tools/tanka-calc/" class="cta-btn">㎡単価・坪単価計算ツールを使う →</a>
+            <div class="cta-note">登録不要・無料・スマホ対応</div>
+          </div>
+
+          <h2 id="faq">よくある質問</h2>
+
+          <dl style="margin:0">
+            <dt style="font-weight:700;margin-top:16px">Q. ㎡単価の計算式を教えてください</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. <strong>㎡単価 = 物件価格（円）÷ 面積（㎡）</strong>です。3,000万円・60㎡なら 30,000,000 ÷ 60 = 500,000円/㎡（50万円/㎡）になります。</dd>
+
+            <dt style="font-weight:700;margin-top:16px">Q. 坪単価の計算式を教えてください</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. <strong>坪単価 = 物件価格（円）÷ 坪数（㎡×0.3025）</strong>です。3,000万円・60㎡なら坪数＝60×0.3025＝18.15坪で、30,000,000 ÷ 18.15 ≒ 1,653,000円/坪（約165万円/坪）になります。</dd>
+
+            <dt style="font-weight:700;margin-top:16px">Q. ㎡単価と坪単価を換算するには？</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. <strong>坪単価 = ㎡単価 ÷ 0.3025</strong>、逆に<strong>㎡単価 = 坪単価 × 0.3025</strong>です。㎡単価50万円なら坪単価は約165万円になります。</dd>
+
+            <dt style="font-weight:700;margin-top:16px">Q. 賃料の㎡単価も計算できますか？</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. はい。「価格・賃料」欄に月額賃料を入力すれば、月額の㎡単価・坪単価を計算できます。例：月10万円・30㎡ → ㎡単価 約3,333円/㎡・月。賃貸物件の割安・割高比較にも活用できます。</dd>
+
+            <dt style="font-weight:700;margin-top:16px">Q. 入力データはサーバーに送られますか？</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. いいえ。ツールはすべてブラウザ内のみで動作します。価格・面積データが外部サーバーに送信されることは一切ありません。</dd>
+
+            <dt style="font-weight:700;margin-top:16px">Q. 坪単価だけで物件の割安・割高を判断できますか？</dt>
+            <dd style="margin:4px 0 0 0;line-height:1.7">A. 坪単価（㎡単価）は価格÷面積の比較指標であり、<strong>立地・階数・日照・築年数・管理費・設備の差は反映されません</strong>。同じエリア・同じ築年数の物件で比較すると精度が上がります。単価は参考指標として活用し、これらの要素も総合的に判断することが重要です。</dd>
+          </dl>
+
+          <h2 id="summary">まとめ</h2>
+
+          <ul>
+            <li>㎡単価 = 価格 ÷ 面積（㎡）、坪単価 = 価格 ÷ 坪数（㎡ ÷ 3.30578）</li>
+            <li>坪単価 ＝ ㎡単価 ÷ 0.3025 の関係があり、ツールが㎡⇔坪を自動換算する</li>
+            <li>日本の不動産広告では坪単価、マンション・海外比較では㎡単価が便利</li>
+            <li>ツールは万円単位で入力でき、㎡か坪どちらかを入力するともう一方へ自動換算される</li>
+            <li>同エリア・同築年数の物件で単価を比べると割安・割高が明確になる</li>
+            <li>単価は参考指標。立地・築年数・管理費・設備なども含めて総合的に判断する</li>
+          </ul>
+
+          <p>物件探しや購入検討の際は、ぜひ<a href="/tools/tanka-calc/">㎡単価・坪単価計算ツール</a>を活用して、客観的な価格比較に役立ててください。</p>
+
+        </div>
+
+        <div class="share-row">
+          <span class="share-label">シェア:</span>
+          <a href="https://twitter.com/intent/tweet?text=㎡単価・坪単価とは？計算式・相場・換算方法を徹底解説&url=https://0-tools.com/blog/tanka-calc-guide/" class="share-btn share-btn-x" target="_blank" rel="noopener noreferrer">𝕏 でシェア</a>
+        </div>
+
+        <aside class="related-section" aria-label="関連記事・ツール">
+          <h2 class="related-heading">関連ツール・記事</h2>
+          <div class="related-grid">
+            <a class="related-card" href="/tools/tanka-calc/">
+              <span class="related-card-icon">🏢</span>
+              <div class="related-card-text">
+                <div class="related-card-label">ツール</div>
+                <div class="related-card-title">㎡単価・坪単価計算ツール</div>
+              </div>
+            </a>
+            <a class="related-card" href="/tools/tsubo-calc/">
+              <span class="related-card-icon">🏠</span>
+              <div class="related-card-text">
+                <div class="related-card-label">ツール</div>
+                <div class="related-card-title">平米・坪変換ツール（㎡⇔坪・畳）</div>
+              </div>
+            </a>
+            <a class="related-card" href="/blog/tsubo-calc-guide/">
+              <span class="related-card-icon">📖</span>
+              <div class="related-card-text">
+                <div class="related-card-label">記事</div>
+                <div class="related-card-title">平米と坪・畳を変換する方法</div>
+              </div>
+            </a>
+            <a class="related-card" href="/tools/percent-calc/">
+              <span class="related-card-icon">📊</span>
+              <div class="related-card-text">
+                <div class="related-card-label">ツール</div>
+                <div class="related-card-title">パーセント計算ツール（割引・増減率）</div>
+              </div>
+            </a>
+          </div>
+        </aside>
+
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2026 0-TOOLs</p>
+  <nav class="footer-nav">
+    <a href="/guide/">使い方</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/about/">運営者情報</a>
+    <a href="/contact/">お問い合わせ</a>
+    <a href="/privacy/">プライバシーポリシー・免責事項</a>
+  </nav>
+</footer>
+
+</body>
+</html>
