@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://0-tools.com/blog/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -115,6 +115,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://0-tools.com/blog/tanka-calc-guide/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://0-tools.com/blog/tax-calc-guide/</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -123,12 +129,6 @@
   <url>
     <loc>https://0-tools.com/blog/time-calc-guide/</loc>
     <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://0-tools.com/blog/tanka-calc-guide/</loc>
-    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -182,7 +182,7 @@
   </url>
   <url>
     <loc>https://0-tools.com/sitemap/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -289,6 +289,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://0-tools.com/tools/tanka-calc/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://0-tools.com/tools/tax-calc/</loc>
     <lastmod>2026-05-27</lastmod>
     <changefreq>monthly</changefreq>
@@ -297,12 +303,6 @@
   <url>
     <loc>https://0-tools.com/tools/time-calc/</loc>
     <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://0-tools.com/tools/tanka-calc/</loc>
-    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
