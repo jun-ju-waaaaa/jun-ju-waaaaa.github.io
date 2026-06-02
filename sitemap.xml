@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://0-tools.com/blog/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -99,6 +99,12 @@
   <url>
     <loc>https://0-tools.com/blog/percent-calc-guide/</loc>
     <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://0-tools.com/blog/property-tax-calc-guide/</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -170,7 +176,7 @@
   </url>
   <url>
     <loc>https://0-tools.com/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -182,7 +188,7 @@
   </url>
   <url>
     <loc>https://0-tools.com/sitemap/</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -283,6 +289,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://0-tools.com/tools/property-tax-calc/</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://0-tools.com/tools/qr-gen/</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -296,31 +308,19 @@
   </url>
   <url>
     <loc>https://0-tools.com/tools/tanka-calc/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/tools/tax-calc/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://0-tools.com/tools/time-calc/</loc>
     <lastmod>2026-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://0-tools.com/blog/property-tax-calc-guide/</loc>
-    <lastmod>2026-06-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://0-tools.com/tools/property-tax-calc/</loc>
-    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
