@@ -494,10 +494,54 @@ footer nav a {
 
 footer nav a:hover { text-decoration: underline; }
 
+/* === Two-column layout === */
+.two-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 /* === Responsive === */
 @media (max-width: 480px) {
   .file-size { display: none; }
   .file-actions { gap: 2px; }
+}
+
+@media (min-width: 769px) {
+  #container {
+    max-width: 960px;
+    padding: 16px 24px 48px;
+  }
+
+  .two-col {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .col-main {
+    flex: 3;
+    min-width: 0;
+  }
+
+  .col-side {
+    flex: 2;
+    min-width: 0;
+    position: sticky;
+    top: 24px;
+  }
+
+  .upload-zone {
+    padding: 48px 32px;
+  }
+
+  .file-size {
+    display: inline;
+  }
+
+  .file-name {
+    font-size: 14px;
+  }
 }
 
 /* === FAQ section === */
@@ -537,6 +581,145 @@ footer nav a:hover { text-decoration: underline; }
   color: var(--text-muted);
   padding: 0 20px 14px;
   line-height: 1.7;
+}
+
+/* === About section === */
+.about-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.about-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.about-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* === How-to section === */
+.howto-section,
+.feature-section,
+.related-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+
+.howto-section h2,
+.feature-section h2,
+.related-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.howto-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.howto-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.howto-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.howto-list strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.howto-list p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feature-list li {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.feature-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.feature-list strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.feature-list p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.related-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.related-list li a {
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.related-list li a:hover {
+  text-decoration: underline;
 }
 
 /* === Utilities === */

@@ -21,10 +21,10 @@
   <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
   <meta name="google-adsense-account" content="ca-pub-6769343629657319">
 
-  <meta name="description" content="複数のPDFファイルを無料で簡単に結合できるブラウザ完結のオンラインツールです。ドラッグ＆ドロップでファイルの順番を自由に並び替えられます。サーバーへのアップロード不要・登録不要で安全にPDF結合できます。スマホ・PCどちらでも利用可能です。">
+  <meta name="description" content="複数のPDFファイルを無料で簡単に結合できるブラウザ完結のオンラインツールです。ドラッグ＆ドロップでファイルの順番を自由に並び替えられます。サーバーへのアップロード不要・登録不要でPDF結合できます。スマホ・PCどちらでも利用可能です。">
 
   <meta property="og:title" content="PDF結合｜複数のPDFを無料でまとめる・順番変更可能">
-  <meta property="og:description" content="複数のPDFを無料で結合。順番の並び替えも可能。ブラウザ内で処理するため安全・高速。">
+  <meta property="og:description" content="複数のPDFを無料で結合。順番の並び替えも可能。ブラウザ内で処理するため高速。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://0-tools.com/tools/pdf/pdf-merge/">
   <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
@@ -63,7 +63,7 @@
           {
             "@type": "Question",
             "name": "ファイルはサーバーに送られますか？",
-            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結するため、PDFの内容が外部に漏れることはありません。"}
+            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結します。"}
           },
           {
             "@type": "Question",
@@ -103,6 +103,14 @@
             "text": "「結合してダウンロード」ボタンをタップすると、ブラウザ内で結合処理が行われ、完了後にダウンロードできます。"
           }
         ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://0-tools.com/tools/pdf/pdf-merge/",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".about-section", ".faq-section"]
+        }
       }
     ]
   }
@@ -134,7 +142,7 @@
 
     <header class="app-header">
       <h1 class="app-title">PDF結合</h1>
-      <p class="app-sub">ブラウザ完結型 · 無料 · 安全</p>
+      <p class="app-sub">ブラウザ完結型 · 無料 · 登録不要</p>
     </header>
 
     <div class="privacy-badge">
@@ -145,102 +153,188 @@
       ファイルは端末外に送信されません
     </div>
 
-    <!-- アップロードエリア -->
-    <div id="uploadCard" class="card" style="padding:0;">
-      <div id="dropArea" class="upload-zone">
-        <div class="upload-icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-            <line x1="9" y1="16" x2="13" y2="16"/>
-          </svg>
+    <!-- PDF結合とは -->
+    <section class="about-section">
+      <h2>PDF結合とは</h2>
+      <p>PDF結合とは、複数のPDFファイルをひとつのPDFファイルにまとめる操作のことです。契約書・請求書・報告書など、別々に作成したPDFを一括で送付したいときや、スキャンした複数ページをひとつのファイルにしたいときに使われます。</p>
+      <p>一般的にはAdobe AcrobatなどのPDFソフトが必要ですが、このツールはブラウザだけで無料・登録不要で利用できます。ファイルはサーバーに送信されません。</p>
+    </section>
+
+    <div class="two-col">
+      <div class="col-main">
+        <!-- アップロードエリア -->
+        <div id="uploadCard" class="card" style="padding:0;">
+          <div id="dropArea" class="upload-zone">
+            <div class="upload-icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="9" y1="12" x2="15" y2="12"/>
+                <line x1="9" y1="16" x2="13" y2="16"/>
+              </svg>
+            </div>
+            <p class="upload-title">PDFをタップして選択（複数可）</p>
+            <p class="upload-hint">または ここにドロップ</p>
+            <button id="fileButton" type="button" class="btn btn-primary">
+              ファイルを選択
+            </button>
+          </div>
+          <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple style="display:none">
         </div>
-        <p class="upload-title">PDFをタップして選択（複数可）</p>
-        <p class="upload-hint">または ここにドロップ</p>
-        <button id="fileButton" type="button" class="btn btn-primary">
-          ファイルを選択
-        </button>
-      </div>
-      <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple style="display:none">
-    </div>
 
-    <!-- ファイルリスト -->
-    <div id="fileListSection" class="card hidden">
-      <div class="list-header">
-        <p class="section-label">結合するファイル（上から順に結合されます）</p>
-        <button id="addMoreBtn" type="button" class="btn-add-more">＋ ファイルを追加</button>
-      </div>
-      <ul id="fileList" class="file-list"></ul>
-      <button id="mergeBtn" type="button" class="btn btn-success btn-block" disabled>
-        結合してダウンロード
-      </button>
-    </div>
-
-    <!-- 処理中 -->
-    <div id="processingSection" class="card hidden">
-      <div class="progress-wrap">
-        <div class="progress-label">
-          <span id="progressText">処理中...</span>
-          <span id="progressPct">0%</span>
+        <!-- ファイルリスト -->
+        <div id="fileListSection" class="card hidden">
+          <div class="list-header">
+            <p class="section-label">結合するファイル（上から順に結合されます）</p>
+            <button id="addMoreBtn" type="button" class="btn-add-more">＋ ファイルを追加</button>
+          </div>
+          <ul id="fileList" class="file-list"></ul>
+          <button id="mergeBtn" type="button" class="btn btn-success btn-block" disabled>
+            結合してダウンロード
+          </button>
         </div>
-        <div id="progressContainer">
-          <div id="progressBar"></div>
+
+        <!-- 処理中 -->
+        <div id="processingSection" class="card hidden">
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span id="progressText">処理中...</span>
+              <span id="progressPct">0%</span>
+            </div>
+            <div id="progressContainer">
+              <div id="progressBar"></div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- 完了 -->
-    <div id="resultSection" class="card hidden">
-      <div class="complete-banner">
-        <span class="complete-icon">✓</span>
-        <span>結合が完了しました！</span>
-      </div>
-      <a id="downloadBtn" class="btn btn-success btn-block" style="margin-bottom:14px;">
-        結合したPDFをダウンロード
-      </a>
-      <p class="note-small">※ページを閉じると変換データは自動的に消去されます</p>
-      <div class="result-actions">
-        <button id="resetBtn" type="button" class="btn btn-ghost">
-          別のPDFを結合する
-        </button>
-      </div>
-    </div>
+        <!-- 完了 -->
+        <div id="resultSection" class="card hidden">
+          <div class="complete-banner">
+            <span class="complete-icon">✓</span>
+            <span>結合が完了しました！</span>
+          </div>
+          <a id="downloadBtn" class="btn btn-success btn-block" style="margin-bottom:14px;">
+            結合したPDFをダウンロード
+          </a>
+          <p class="note-small">※ページを閉じると変換データは自動的に消去されます</p>
+          <div class="result-actions">
+            <button id="resetBtn" type="button" class="btn btn-ghost">
+              別のPDFを結合する
+            </button>
+          </div>
+        </div>
+      </div><!-- /.col-main -->
 
-    <!-- FAQ -->
-    <div class="faq-section">
-      <h2>よくある質問</h2>
-      <div class="faq-item">
-        <p class="faq-q">無料で使えますか？</p>
-        <p class="faq-a">はい、完全無料です。ファイル数・回数の制限はありません。</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">ファイルはサーバーに送られますか？</p>
-        <p class="faq-a">送られません。処理はすべてブラウザ内で完結します。PDFの内容が外部に漏れることはありません。</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">スマホ（iPhone・Android）でも使えますか？</p>
-        <p class="faq-a">はい、アプリのインストールなしでブラウザから利用できます。iPhoneの「ファイル」アプリやAndroidの「ファイル」アプリからPDFを選択できます。</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">何ファイルまで結合できますか？</p>
-        <p class="faq-a">上限はありません。ただし大量のファイルや大容量PDFは端末のメモリに依存するため、処理に時間がかかる場合があります。</p>
-      </div>
-    </div>
+      <div class="col-side">
+        <!-- FAQ -->
+        <div class="faq-section">
+          <h2>よくある質問</h2>
+          <div class="faq-item">
+            <p class="faq-q">PDF結合は完全無料で使えますか？</p>
+            <p class="faq-a">はい、完全無料で利用できます。アカウント登録やクレジットカードの入力も不要です。ファイル数・結合回数に制限はなく、何度でも無料でお使いいただけます。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">PDFファイルはサーバーに送られますか？</p>
+            <p class="faq-a">送られません。このツールはpdf-libというオープンソースライブラリを使用しており、すべての処理をあなたの端末（ブラウザ）内で完結させます。PDFファイルが外部サーバーに送信されることはありません。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">スマホ（iPhone・Android）でも使えますか？</p>
+            <p class="faq-a">はい、iPhone・Androidのブラウザから利用できます。アプリのインストールは不要です。iPhoneの場合はSafariの「ファイル」アプリ、Androidの場合はChromeから端末内のPDFを選択できます。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">何ファイルまで結合できますか？</p>
+            <p class="faq-a">ファイル数の上限はありません。ただし、ファイル数やページ数が多い場合は端末のメモリに依存するため、処理に時間がかかる場合があります。目安として、一般的なPCであれば20〜30ファイル程度はスムーズに処理できます。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">パスワード付きPDFは結合できますか？</p>
+            <p class="faq-a">パスワード保護されたPDFは結合できません。事前にパスワードを解除してからご利用ください。パスワードなしのPDFであれば、スキャンデータや画像PDFも含めて結合できます。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">結合したPDFのファイル名は変更できますか？</p>
+            <p class="faq-a">ダウンロード後に端末上でファイル名を変更してください。ダウンロードされるファイル名はデフォルトで「merged.pdf」となります。</p>
+          </div>
+        </div>
 
-    <!-- ツール説明 -->
-    <details class="info-section">
-      <summary class="info-toggle">このツールについて ▾</summary>
-      <div class="info-body">
-        <h3>できること</h3>
-        <p>複数のPDFファイルをひとつに結合します。↑↓ボタンでファイルの結合順を自由に変更できます。</p>
-        <h3>仕組み</h3>
-        <p>pdf-lib（オープンソースライブラリ）を使い、すべての処理をブラウザ内で行います。ファイルはサーバーに送信されません。</p>
-        <h3>なぜ無料？</h3>
-        <p>サーバー費用が発生しないため、完全無料で提供できます。</p>
-      </div>
-    </details>
+        <!-- ツール説明 -->
+        <details class="info-section">
+          <summary class="info-toggle">このツールについて ▾</summary>
+          <div class="info-body">
+            <h3>できること</h3>
+            <p>複数のPDFファイルをひとつに結合します。↑↓ボタンでファイルの結合順を自由に変更できます。</p>
+            <h3>仕組み</h3>
+            <p>pdf-lib（オープンソースライブラリ）を使い、すべての処理をブラウザ内で行います。ファイルはサーバーに送信されません。</p>
+            <h3>なぜ無料？</h3>
+            <p>サーバー費用が発生しないため、完全無料で提供できます。</p>
+          </div>
+        </details>
+      </div><!-- /.col-side -->
+    </div><!-- /.two-col -->
+
+    <!-- 使い方セクション -->
+    <section class="howto-section">
+      <h2>PDF結合の使い方</h2>
+      <ol class="howto-list">
+        <li>
+          <span class="howto-num">1</span>
+          <div>
+            <strong>PDFファイルを選択する</strong>
+            <p>「ファイルを選択」ボタンをクリックするか、PDFをドラッグ＆ドロップします。複数ファイルを一度に選択できます。</p>
+          </div>
+        </li>
+        <li>
+          <span class="howto-num">2</span>
+          <div>
+            <strong>結合する順番を並び替える</strong>
+            <p>ファイルリストの↑↓ボタンで結合順を自由に変更できます。上から順に結合されます。</p>
+          </div>
+        </li>
+        <li>
+          <span class="howto-num">3</span>
+          <div>
+            <strong>結合してダウンロードする</strong>
+            <p>「結合してダウンロード」ボタンをクリックすると、ブラウザ内で処理が完了し、PDFがダウンロードされます。</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- このツールの特徴セクション -->
+    <section class="feature-section">
+      <h2>このPDF結合ツールの特徴</h2>
+      <ul class="feature-list">
+        <li>
+          <strong>完全無料・登録不要</strong>
+          <p>アカウント登録やメールアドレスの入力は不要です。ページを開いてすぐ使えます。</p>
+        </li>
+        <li>
+          <strong>ファイルがサーバーに送られない</strong>
+          <p>すべての処理はブラウザ（端末）内で完結します。PDFファイルが外部サーバーに送信されることはありません。</p>
+        </li>
+        <li>
+          <strong>ファイル数・回数の制限なし</strong>
+          <p>何ファイルでも、何度でも無料で結合できます。端末のメモリが許す限り対応します。</p>
+        </li>
+        <li>
+          <strong>順番を自由に並び替えられる</strong>
+          <p>↑↓ボタンでファイルの結合順を自由に変更できます。複数のPDFをひとつにまとめる作業がスムーズになります。</p>
+        </li>
+        <li>
+          <strong>スマホ・PC両対応</strong>
+          <p>iPhone・Androidのブラウザでも利用できます。アプリのインストールは不要です。</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 関連ツールセクション -->
+    <section class="related-section">
+      <h2>関連するPDFツール</h2>
+      <ul class="related-list">
+        <li><a href="/tools/pdf/pdf-compress/">PDF圧縮｜ファイルサイズを無料で小さくする</a></li>
+        <li><a href="/tools/pdf/pdf-to-jpeg/">PDF→JPEG変換｜PDFを画像に無料で変換する</a></li>
+        <li><a href="/tools/pdf/pdf-rotate/">PDF回転｜ページの向きを無料で変える</a></li>
+      </ul>
+    </section>
 
     <p class="caution">
       ※パスワード保護されたPDFは結合できません<br>
