@@ -15,6 +15,29 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 EXCLUDE_PATTERNS = [
     "sample",           # sample-article.html etc.
     "contact/thanks",   # Thank-you redirect page
+    # 非育児ブログ記事（育児特化サイト移行に伴い除外）
+    "blog/tanka-calc-guide",
+    "blog/json-format-guide",
+    "blog/bizday-calc-guide",
+    "blog/time-calc-guide",
+    "blog/base64-guide",
+    "blog/webp-convert-guide",
+    "blog/favicon-gen-guide",
+    "blog/bmi-calc-guide",
+    "blog/size-converter-guide",
+    "blog/pdf-merge-guide",
+    "blog/pdf-to-jpeg-guide",
+    "blog/pdf-compress-tips",
+    "blog/color-converter-guide",
+    "blog/tax-calc-guide",
+    "blog/word-count-guide",
+    "blog/age-calc-guide",
+    "blog/qr-gen-guide",
+    "blog/percent-calc-guide",
+    "blog/tsubo-calc-guide",
+    "blog/claude-code-dev-guide",
+    "blog/property-tax-calc-guide",
+    "blog/pdf-rotate-guide",
 ]
 
 # Priority / changefreq rules (checked in order, first match wins)
@@ -24,7 +47,7 @@ RULES = [
     (lambda p: p[0] == "tools",                        "0.8", "monthly"),
     (lambda p: p == ("blog", "index.html"),            "0.8", "weekly"),
     (lambda p: p[0] == "blog",                         "0.7", "monthly"),
-    (lambda p: p[0] in ("faq", "guide"),               "0.6", "monthly"),
+    (lambda p: p[0] in ("faq", "guide"),               "0.5", "monthly"),
     (lambda p: p[0] == "sitemap",                      "0.5", "monthly"),
     (lambda p: p[0] in ("about", "contact", "privacy"), "0.4", "yearly"),
 ]
@@ -66,6 +89,14 @@ def should_exclude(rel: Path) -> bool:
     return any(pat in rel_str for pat in EXCLUDE_PATTERNS)
 
 
+def has_noindex(filepath: Path) -> bool:
+    try:
+        content = filepath.read_text(encoding="utf-8", errors="ignore")
+        return '<meta name="robots" content="noindex">' in content
+    except Exception:
+        return False
+
+
 def collect_html_files() -> list[Path]:
     files = []
     for html in sorted(REPO_ROOT.rglob("*.html")):
@@ -76,6 +107,8 @@ def collect_html_files() -> list[Path]:
             continue
         rel = html.relative_to(REPO_ROOT)
         if should_exclude(rel):
+            continue
+        if has_noindex(html):
             continue
         files.append(html)
     return files
