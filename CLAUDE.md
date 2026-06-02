@@ -112,10 +112,11 @@
 - related-section（関連ツール2件 + 関連記事2件）
 
 カテゴリ（`data-category`）:
+- `baby` → 育児・子育て（最優先）
+- `guide` → 使い方ガイド
 - `pdf` → PDF活用
 - `image` → 画像変換
 - `web` → Web制作
-- `guide` → 使い方ガイド
 
 **`blog/index.html` 更新:** `.blog-grid` の**先頭**に記事カード追加（新しい順）
 
