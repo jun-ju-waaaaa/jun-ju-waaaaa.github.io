@@ -61,6 +61,12 @@
 | 赤ちゃん生後週数・月齢計算カレンダー | [https://0-tools.com/tools/baby-day-counter/](https://0-tools.com/tools/baby-day-counter/) |
 | 離乳食予定管理カレンダー | [https://0-tools.com/tools/baby-food-calendar/](https://0-tools.com/tools/baby-food-calendar/) |
 
+### 不動産ツール
+
+| ツール | URL |
+|--------|-----|
+| 固定資産税・都市計画税 日割り計算ツール | [https://0-tools.com/tools/property-tax-calc/](https://0-tools.com/tools/property-tax-calc/) |
+
 ---
 
 ## ライセンス
