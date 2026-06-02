@@ -21,10 +21,10 @@
   <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
   <meta name="google-adsense-account" content="ca-pub-6769343629657319">
 
-  <meta name="description" content="PDFのページを90度ずつ回転できる無料オンラインツール。全ページ一括回転・ページ個別回転の両方に対応。ブラウザ内で処理するためサーバーへのアップロード不要で安全です。登録不要・スマホ・PC対応。">
+  <meta name="description" content="PDFのページを90度ずつ回転できる無料オンラインツール。全ページ一括回転・ページ個別回転の両方に対応。ファイルはサーバーに送信されず、ブラウザ内で処理が完結します。登録不要・スマホ・PC対応。">
 
   <meta property="og:title" content="PDF回転｜ページを90度ずつ無料で回転・保存できるオンラインツール">
-  <meta property="og:description" content="PDFのページを90度ずつ無料で回転。全ページ一括・個別ページ対応。ブラウザ内で処理するため安全・高速。">
+  <meta property="og:description" content="PDFのページを90度ずつ無料で回転。全ページ一括・個別ページ対応。ファイルはサーバーに送信されず、ブラウザ内で処理が完結します。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://0-tools.com/tools/pdf/pdf-rotate/">
   <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
@@ -63,7 +63,7 @@
           {
             "@type": "Question",
             "name": "ファイルはサーバーに送られますか？",
-            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結するため、PDFの内容が外部に漏れることはありません。機密文書も安心して使えます。"}
+            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結します。PDFファイルが外部サーバーに送信されることはありません。"}
           },
           {
             "@type": "Question",
@@ -79,6 +79,11 @@
             "@type": "Question",
             "name": "パスワード付きPDFは対応していますか？",
             "acceptedAnswer": {"@type": "Answer", "text": "パスワード保護されたPDFは対応していません。事前にパスワードを解除してからお試しください。"}
+          },
+          {
+            "@type": "Question",
+            "name": "回転したPDFのファイル名は何になりますか？",
+            "acceptedAnswer": {"@type": "Answer", "text": "ダウンロードされるファイル名は「rotated.pdf」になります。ダウンロード後に端末上でファイル名を変更してください。"}
           }
         ]
       },
@@ -141,7 +146,7 @@
 
     <header class="app-header">
       <h1 class="app-title">PDF回転</h1>
-      <p class="app-sub">ブラウザ完結型 · 無料 · 安全</p>
+      <p class="app-sub">ブラウザ完結型 · 無料 · サーバー送信なし</p>
     </header>
 
     <div class="privacy-badge">
@@ -239,25 +244,35 @@
     <!-- FAQ -->
     <div class="faq-section">
       <h2>よくある質問</h2>
+
       <div class="faq-item">
         <p class="faq-q">無料で使えますか？</p>
-        <p class="faq-a">はい、完全無料です。ページ数・回数の制限はありません。</p>
+        <p class="faq-a">はい、完全無料です。ページ数・回数の制限はなく、何度でも利用できます。アカウント登録も不要です。</p>
       </div>
+
       <div class="faq-item">
         <p class="faq-q">ファイルはサーバーに送られますか？</p>
-        <p class="faq-a">送られません。処理はすべてブラウザ内で完結します。PDFの内容が外部に漏れることはないため、機密文書も安心して使えます。</p>
+        <p class="faq-a">送られません。処理はすべてブラウザ内で完結します。PDFファイルが外部サーバーに送信されることはありません。</p>
       </div>
+
       <div class="faq-item">
         <p class="faq-q">特定のページだけ回転させることはできますか？</p>
-        <p class="faq-a">はい。各ページのサムネイル下にある ↺（左90°）↻（右90°）ボタンで個別に回転できます。「全ページ一括回転」でまとめて回転することも可能です。</p>
+        <p class="faq-a">はい。各ページのサムネイル下にある ↺（左90°）↻（右90°）ボタンで個別に回転できます。「全ページ一括回転」ボタンですべてのページをまとめて回転することも可能です。回転を変更していないページは元のまま保存されます。</p>
       </div>
+
       <div class="faq-item">
         <p class="faq-q">スマホ（iPhone・Android）でも使えますか？</p>
-        <p class="faq-a">はい、アプリのインストールなしでブラウザから利用できます。</p>
+        <p class="faq-a">はい、アプリのインストールなしでブラウザから利用できます。ページ数が多いPDFはサムネイル生成に時間がかかる場合があります。</p>
       </div>
+
       <div class="faq-item">
         <p class="faq-q">パスワード付きPDFは対応していますか？</p>
         <p class="faq-a">パスワード保護されたPDFは対応していません。事前にパスワードを解除してからお試しください。</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-q">回転したPDFのファイル名は何になりますか？</p>
+        <p class="faq-a">ダウンロードされるファイル名は「rotated.pdf」になります。ダウンロード後に端末上でファイル名を変更してください。</p>
       </div>
     </div>
 
@@ -273,6 +288,12 @@
         <p>サーバー費用が発生しないため、完全無料で提供できます。</p>
       </div>
     </details>
+
+    <section class="about-section">
+      <h2>PDF回転とは</h2>
+      <p>PDF回転とは、PDFのページの向きを変える操作のことです。スキャンしたPDFが横向きになっていたり、一部のページだけ向きが違う場合などに使われます。</p>
+      <p>このツールはpdf-libというオープンソースライブラリを使用しており、すべての処理をブラウザ内で行います。PDFファイルはサーバーに送信されません。全ページを一括で回転することも、特定のページだけ個別に回転することも可能です。</p>
+    </section>
 
     <p class="caution">
       ※パスワード保護されたPDFは回転できません<br>

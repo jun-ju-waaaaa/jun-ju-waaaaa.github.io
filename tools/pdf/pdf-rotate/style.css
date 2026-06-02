@@ -581,5 +581,49 @@ footer nav a:hover { text-decoration: underline; }
   line-height: 1.7;
 }
 
+/* === About section === */
+.about-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+
+.about-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.about-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* === PC layout === */
+@media (min-width: 769px) {
+  #container {
+    max-width: 860px;
+    padding: 16px 24px 48px;
+  }
+
+  .page-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .upload-zone {
+    padding: 48px 32px;
+  }
+}
+
 /* === Utilities === */
 .hidden { display: none !important; }

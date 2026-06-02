@@ -508,3 +508,106 @@ footer nav a:hover { text-decoration: underline; }
 
 /* === Utilities === */
 .hidden { display: none !important; }
+
+/* === Two-column layout === */
+.two-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (min-width: 769px) {
+  #container {
+    max-width: 960px;
+    padding: 16px 24px 48px;
+  }
+
+  .two-col {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .col-main {
+    flex: 3;
+    min-width: 0;
+  }
+
+  .col-side {
+    flex: 2;
+    min-width: 0;
+    position: sticky;
+    top: 24px;
+  }
+
+  .upload-zone {
+    padding: 48px 32px;
+  }
+}
+
+/* === FAQ section === */
+.faq-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.faq-section h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 16px 20px 0;
+  letter-spacing: 0.3px;
+}
+
+.faq-item {
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+}
+
+.faq-item:first-of-type { margin-top: 12px; }
+
+.faq-q {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 14px 20px 6px;
+}
+
+.faq-a {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 0 20px 14px;
+  line-height: 1.7;
+}
+
+/* === About section === */
+.about-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+
+.about-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.about-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}

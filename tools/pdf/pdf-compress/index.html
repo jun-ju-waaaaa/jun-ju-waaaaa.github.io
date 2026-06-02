@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <!-- Google Analytics -->
@@ -16,15 +16,15 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-  <title>PDF圧縮｜無料・安全・高速のオンラインPDF圧縮ツール</title>
+  <title>PDF圧縮｜無料・高速のオンラインPDF圧縮ツール - 0-TOOLs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
   <meta name="google-adsense-account" content="ca-pub-6769343629657319">
 
-  <meta name="description" content="PDFファイルを無料で圧縮できるオンラインツール。アップロード不要で安全、すべての処理がブラウザ内で完結します。スマホ・PC対応で高速にPDFを軽量化できます。">
+  <meta name="description" content="PDFファイルを無料で圧縮できるオンラインツール。ファイルはサーバーに送信されず、すべての処理がブラウザ内で完結します。スマホ・PC対応で高速にPDFを軽量化できます。">
 
-  <meta property="og:title" content="PDF圧縮｜無料・安全・高速のオンラインPDF圧縮ツール">
-  <meta property="og:description" content="PDFファイルを無料で圧縮できるオンラインツール。アップロード不要で安全、ブラウザ内で完結します。">
+  <meta property="og:title" content="PDF圧縮｜無料・高速のオンラインPDF圧縮ツール - 0-TOOLs">
+  <meta property="og:description" content="PDFファイルを無料で圧縮できるオンラインツール。ファイルはサーバーに送信されず、ブラウザ内で完結します。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://0-tools.com/tools/pdf/pdf-compress/">
   <meta property="og:image" content="https://0-tools.com/shared/og-default.png">
@@ -89,7 +89,7 @@
           {
             "@type": "Question",
             "name": "ファイルはサーバーに送られますか？",
-            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結するため、PDFの内容が外部に漏れることはありません。機密文書も安心して使えます。"}
+            "acceptedAnswer": {"@type": "Answer", "text": "送られません。すべての処理はブラウザ（端末）内で完結します。PDFファイルが外部サーバーに送信されることはありません。"}
           },
           {
             "@type": "Question",
@@ -100,6 +100,22 @@
             "@type": "Question",
             "name": "圧縮してもファイルサイズが変わりません",
             "acceptedAnswer": {"@type": "Answer", "text": "すでに高度に圧縮されたPDFの場合、サイズが変わらないことがあります。品質設定を「最小」に下げることで改善される場合があります。"}
+          },
+          {
+            "@type": "Question",
+            "name": "圧縮品質はどれを選べばいいですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "メール添付や一般的な閲覧には標準（144dpi）がおすすめです。ファイルサイズを最小にしたい場合は最小（72dpi）、印刷用途には印刷（200dpi）を選んでください。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "複数のPDFをまとめて圧縮できますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい、複数ファイルを一度に選択できます。ファイルごとに圧縮処理が行われ、それぞれ個別にダウンロードできます。"
+            }
           }
         ]
       }
@@ -136,7 +152,7 @@
     <!-- ヘッダー -->
     <header class="app-header">
       <h1 class="app-title">PDF圧縮</h1>
-      <p class="app-sub">ブラウザ完結型 · 無料 · 安全</p>
+      <p class="app-sub">ブラウザ完結型 · 無料 · サーバー送信なし</p>
     </header>
 
     <!-- プライバシー注記 -->
@@ -148,123 +164,175 @@
       ファイルは端末外に送信されません
     </div>
 
-    <!-- 品質選択 -->
-    <div class="card">
-      <p class="section-label">圧縮品質</p>
-      <div class="quality-grid">
-        <label class="quality-pill">
-          <input type="radio" name="qualityPreset" value="min">
-          <span class="pill-inner">
-            <span class="pill-name">最小</span>
-            <span class="pill-desc">72dpi</span>
-          </span>
-        </label>
-        <label class="quality-pill">
-          <input type="radio" name="qualityPreset" value="mobile">
-          <span class="pill-inner">
-            <span class="pill-name">スマホ</span>
-            <span class="pill-desc">96dpi</span>
-          </span>
-        </label>
-        <label class="quality-pill">
-          <input type="radio" name="qualityPreset" value="pc" checked>
-          <span class="pill-inner">
-            <span class="pill-name">標準</span>
-            <span class="pill-desc">144dpi</span>
-          </span>
-        </label>
-        <label class="quality-pill">
-          <input type="radio" name="qualityPreset" value="print">
-          <span class="pill-inner">
-            <span class="pill-name">印刷</span>
-            <span class="pill-desc">200dpi</span>
-          </span>
-        </label>
-        <label class="quality-pill">
-          <input type="radio" name="qualityPreset" value="pc-hi">
-          <span class="pill-inner">
-            <span class="pill-name">高画質</span>
-            <span class="pill-desc">300dpi</span>
-          </span>
-        </label>
-      </div>
-    </div>
+    <div class="two-col">
+      <div class="col-main">
 
-    <!-- アップロードエリア -->
-    <div class="card" style="padding:0;">
-      <div id="dropArea" class="upload-zone">
-        <div class="upload-icon-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="12" y1="17" x2="12" y2="11"/>
-            <polyline points="9 14 12 11 15 14"/>
-          </svg>
+        <!-- 品質選択 -->
+        <div class="card">
+          <p class="section-label">圧縮品質</p>
+          <div class="quality-grid">
+            <label class="quality-pill">
+              <input type="radio" name="qualityPreset" value="min">
+              <span class="pill-inner">
+                <span class="pill-name">最小</span>
+                <span class="pill-desc">72dpi</span>
+              </span>
+            </label>
+            <label class="quality-pill">
+              <input type="radio" name="qualityPreset" value="mobile">
+              <span class="pill-inner">
+                <span class="pill-name">スマホ</span>
+                <span class="pill-desc">96dpi</span>
+              </span>
+            </label>
+            <label class="quality-pill">
+              <input type="radio" name="qualityPreset" value="pc" checked>
+              <span class="pill-inner">
+                <span class="pill-name">標準</span>
+                <span class="pill-desc">144dpi</span>
+              </span>
+            </label>
+            <label class="quality-pill">
+              <input type="radio" name="qualityPreset" value="print">
+              <span class="pill-inner">
+                <span class="pill-name">印刷</span>
+                <span class="pill-desc">200dpi</span>
+              </span>
+            </label>
+            <label class="quality-pill">
+              <input type="radio" name="qualityPreset" value="pc-hi">
+              <span class="pill-inner">
+                <span class="pill-name">高画質</span>
+                <span class="pill-desc">300dpi</span>
+              </span>
+            </label>
+          </div>
         </div>
-        <p class="upload-title">PDFをタップして選択</p>
-        <p class="upload-hint">または ここにドロップ（複数可）</p>
-        <button id="fileButton" type="button" class="btn btn-primary">
-          ファイルを選択
-        </button>
-      </div>
-      <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
-    </div>
 
-    <!-- 処理中セクション -->
-    <div id="processingSection" class="card hidden">
-      <div class="progress-wrap">
-        <div class="progress-label">
-          <span id="progressText">処理中...</span>
-          <span id="progressPct">0%</span>
+        <!-- アップロードエリア -->
+        <div class="card" style="padding:0;">
+          <div id="dropArea" class="upload-zone">
+            <div class="upload-icon-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="17" x2="12" y2="11"/>
+                <polyline points="9 14 12 11 15 14"/>
+              </svg>
+            </div>
+            <p class="upload-title">PDFをタップして選択</p>
+            <p class="upload-hint">または ここにドロップ（複数可）</p>
+            <button id="fileButton" type="button" class="btn btn-primary">
+              ファイルを選択
+            </button>
+          </div>
+          <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
         </div>
-        <div id="progressContainer">
-          <div id="progressBar"></div>
+
+        <!-- 処理中セクション -->
+        <div id="processingSection" class="card hidden">
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span id="progressText">処理中...</span>
+              <span id="progressPct">0%</span>
+            </div>
+            <div id="progressContainer">
+              <div id="progressBar"></div>
+            </div>
+          </div>
+          <button id="cancelBtn" type="button" class="btn btn-danger">キャンセル</button>
         </div>
-      </div>
-      <button id="cancelBtn" type="button" class="btn btn-danger">キャンセル</button>
-    </div>
 
-    <!-- キャンセルメッセージ -->
-    <div id="cancelMsg" class="cancel-msg hidden">キャンセルされました</div>
+        <!-- キャンセルメッセージ -->
+        <div id="cancelMsg" class="cancel-msg hidden">キャンセルされました</div>
 
-    <!-- 完了セクション -->
-    <div id="resultSection" class="card hidden">
-      <div class="complete-banner">
-        <span class="complete-icon">✓</span>
-        <span id="completeMsgText">圧縮が完了しました！</span>
-      </div>
+        <!-- 完了セクション -->
+        <div id="resultSection" class="card hidden">
+          <div class="complete-banner">
+            <span class="complete-icon">✓</span>
+            <span id="completeMsgText">圧縮が完了しました！</span>
+          </div>
 
-      <!-- 単体ダウンロード -->
-      <a id="download" class="btn btn-success btn-block" style="display:none; margin-bottom:14px;">
-        圧縮後のPDFをダウンロード
-      </a>
+          <!-- 単体ダウンロード -->
+          <a id="download" class="btn btn-success btn-block" style="display:none; margin-bottom:14px;">
+            圧縮後のPDFをダウンロード
+          </a>
 
-      <!-- 複数ファイルリスト -->
-      <ul id="completeList" class="result-list"></ul>
+          <!-- 複数ファイルリスト -->
+          <ul id="completeList" class="result-list"></ul>
 
-      <p id="downloadNote" class="note-small" style="display:none;">
-        ※ページを閉じると変換データは自動的に消去されます
-      </p>
+          <p id="downloadNote" class="note-small" style="display:none;">
+            ※ページを閉じると変換データは自動的に消去されます
+          </p>
 
-      <div class="result-actions">
-        <button id="resetBtn" type="button" class="btn btn-ghost">
-          別のPDFを圧縮する
-        </button>
-      </div>
-    </div>
+          <div class="result-actions">
+            <button id="resetBtn" type="button" class="btn btn-ghost">
+              別のPDFを圧縮する
+            </button>
+          </div>
+        </div>
 
-    <!-- 情報セクション（折りたたみ） -->
-    <details class="info-section">
-      <summary class="info-toggle">このツールについて ▾</summary>
-      <div class="info-body">
-        <h3>仕組み</h3>
-        <p>PDFの各ページを画像化し、JPEGとして再圧縮することでファイルサイズを削減します。文字データは画像化されます。</p>
-        <h3>なぜ無料？</h3>
-        <p>すべての処理が端末内で完結するため、サーバー費用が発生しません。</p>
+      </div><!-- /.col-main -->
 
-      </div>
-    </details>
+      <div class="col-side">
+
+        <!-- 情報セクション（折りたたみ） -->
+        <details class="info-section">
+          <summary class="info-toggle">このツールについて ▾</summary>
+          <div class="info-body">
+            <h3>仕組み</h3>
+            <p>PDFの各ページを画像化し、JPEGとして再圧縮することでファイルサイズを削減します。文字データは画像化されます。</p>
+            <h3>なぜ無料？</h3>
+            <p>すべての処理が端末内で完結するため、サーバー費用が発生しません。</p>
+
+          </div>
+        </details>
+
+        <!-- FAQ -->
+        <section class="faq-section">
+          <h2>よくある質問</h2>
+
+          <div class="faq-item">
+            <p class="faq-q">PDF圧縮は完全無料で使えますか？</p>
+            <p class="faq-a">はい、完全無料です。ファイル数・回数の制限はなく、何度でも利用できます。アカウント登録も不要です。</p>
+          </div>
+
+          <div class="faq-item">
+            <p class="faq-q">PDFはサーバーに送られますか？</p>
+            <p class="faq-a">送られません。すべての処理はブラウザ（端末）内で完結します。PDFファイルが外部サーバーに送信されることはありません。</p>
+          </div>
+
+          <div class="faq-item">
+            <p class="faq-q">圧縮してもファイルサイズが変わりません</p>
+            <p class="faq-a">すでに高度に圧縮されたPDFの場合、サイズが変わらないことがあります。品質設定を「最小（72dpi）」に下げることで改善される場合があります。また、文字のみのPDFは画像を含まないため、このツールでの圧縮効果が小さい場合があります。</p>
+          </div>
+
+          <div class="faq-item">
+            <p class="faq-q">圧縮品質はどれを選べばいいですか？</p>
+            <p class="faq-a">メール添付や一般的な閲覧には「標準（144dpi）」がおすすめです。ファイルサイズを最小にしたい場合は「最小（72dpi）」、印刷用途には「印刷（200dpi）」を選んでください。</p>
+          </div>
+
+          <div class="faq-item">
+            <p class="faq-q">スマホでPDFを圧縮できますか？</p>
+            <p class="faq-a">はい、iPhone・AndroidのブラウザからPDF圧縮ツールを利用できます。アプリのインストールは不要です。ただしスマホはメモリが少ないため、大きなPDFは処理に時間がかかる場合があります。</p>
+          </div>
+
+          <div class="faq-item">
+            <p class="faq-q">複数のPDFをまとめて圧縮できますか？</p>
+            <p class="faq-a">はい、複数ファイルを一度に選択できます。ファイルごとに圧縮処理が行われ、それぞれ個別にダウンロードできます。</p>
+          </div>
+        </section>
+
+      </div><!-- /.col-side -->
+    </div><!-- /.two-col -->
+
+    <!-- PDF圧縮とは -->
+    <section class="about-section">
+      <h2>PDF圧縮とは</h2>
+      <p>PDF圧縮とは、PDFファイルのデータ量を削減してファイルサイズを小さくする操作のことです。メール添付のサイズ制限を超えるPDFを送る際や、ストレージを節約したいときに使われます。</p>
+      <p>このツールはPDFの各ページを画像として再描画し、JPEG形式で再圧縮することでファイルサイズを削減します。すべての処理はブラウザ内で行われ、PDFファイルはサーバーに送信されません。文字のみで構成されたPDFは画像を含まないため、圧縮効果が小さい場合があります。</p>
+    </section>
 
     <!-- 注意書き -->
     <p class="caution">
