@@ -1,6 +1,6 @@
 # 0-TOOLs
 
-無料で使えるブラウザ完結型ツール集。インストール不要・登録不要。
+育児・子育てに役立つ無料ブラウザ完結型ツール集。インストール不要・登録不要。
 
 **[https://0-tools.com](https://0-tools.com)**
 
@@ -13,6 +13,13 @@
 ---
 
 ## ツール一覧
+
+### 育児・生活ツール
+
+| ツール | URL |
+|--------|-----|
+| 赤ちゃん生後週数・月齢計算カレンダー | [https://0-tools.com/tools/baby-day-counter/](https://0-tools.com/tools/baby-day-counter/) |
+| 離乳食予定管理カレンダー | [https://0-tools.com/tools/baby-food-calendar/](https://0-tools.com/tools/baby-food-calendar/) |
 
 ### 計算ツール
 
@@ -53,13 +60,6 @@
 | PDF結合 | [https://0-tools.com/tools/pdf/pdf-merge/](https://0-tools.com/tools/pdf/pdf-merge/) |
 | PDF回転 | [https://0-tools.com/tools/pdf/pdf-rotate/](https://0-tools.com/tools/pdf/pdf-rotate/) |
 | PDFを画像に変換（JPEG・PNG・WebP） | [https://0-tools.com/tools/pdf/pdf-to-jpeg/](https://0-tools.com/tools/pdf/pdf-to-jpeg/) |
-
-### 育児・生活ツール
-
-| ツール | URL |
-|--------|-----|
-| 赤ちゃん生後週数・月齢計算カレンダー | [https://0-tools.com/tools/baby-day-counter/](https://0-tools.com/tools/baby-day-counter/) |
-| 離乳食予定管理カレンダー | [https://0-tools.com/tools/baby-food-calendar/](https://0-tools.com/tools/baby-food-calendar/) |
 
 ### 不動産ツール
 
