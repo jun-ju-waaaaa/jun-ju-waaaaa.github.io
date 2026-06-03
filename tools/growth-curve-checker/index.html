@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6LH1TXVP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6LH1TXVP8');
+</script>
+
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
+<meta name="google-adsense-account" content="ca-pub-6769343629657319">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>赤ちゃん成長記録ツール【令和5年最新データ・0〜12ヶ月対応】| 0-tools.com</title>
+<meta name="description" content="身長・体重を記録するたびに成長曲線グラフが更新。厚労省令和5年データと比較しながら赤ちゃんの成長を記録できます。登録不要・無料・ブラウザ保存。">
+<link rel="canonical" href="https://0-tools.com/tools/growth-curve-checker/">
+<meta property="og:title" content="赤ちゃん成長記録ツール【令和5年最新データ・0〜12ヶ月対応】">
+<meta property="og:description" content="身長・体重を記録するたびに成長曲線グラフが更新。厚労省令和5年データと比較しながら赤ちゃんの成長を記録できます。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0-tools.com/tools/growth-curve-checker/">
+<meta property="og:image" content="https://0-tools.com/apple-touch-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="赤ちゃん成長記録ツール">
+<meta name="twitter:description" content="測定するたびグラフが伸びる。厚労省令和5年最新データと比較しながら0〜12ヶ月の成長を記録。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "赤ちゃん成長記録ツール",
+      "url": "https://0-tools.com/tools/growth-curve-checker/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "description": "身長・体重を記録するたびに成長曲線グラフが更新。厚労省令和5年データと比較しながら赤ちゃんの成長を記録できます。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+      "publisher": { "@type": "Organization", "name": "0-TOOLs", "url": "https://0-tools.com" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://0-tools.com/" },
+        { "@type": "ListItem", "position": 2, "name": "赤ちゃん成長記録ツール", "item": "https://0-tools.com/tools/growth-curve-checker/" }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "赤ちゃん成長記録ツールの使い方",
+      "totalTime": "PT1M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "生年月日・性別を登録する", "text": "お子さんの生年月日をカレンダーから選択し、性別（男の子・女の子）を選んで「保存する」をタップします。" },
+        { "@type": "HowToStep", "position": 2, "name": "測定日・身長・体重を入力して「記録を追加」", "text": "測定日と身長（cm）・体重（kg）を入力し「記録を追加」をタップします。記録はブラウザに自動保存されます。" },
+        { "@type": "HowToStep", "position": 3, "name": "グラフで成長の軌跡を確認する", "text": "記録を追加するたびに成長曲線グラフが更新され、お子さんの成長の軌跡が折れ線で表示されます。" },
+        { "@type": "HowToStep", "position": 4, "name": "健診のたびに記録を追加していく", "text": "乳幼児健診のたびに測定値を追加することで、成長の変化を継続的に確認できます。" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "パーセンタイルとは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "パーセンタイルとは、同じ月齢の子ども100人を小さい順に並べたとき、何番目にあたるかを表す数値です。50パーセンタイルが中央値（真ん中）、3〜97パーセンタイルが正常範囲の目安とされています。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "3パーセンタイル未満・97パーセンタイル超は問題ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "必ずしも問題とは限りませんが、成長の経緯や傾向を小児科医に確認することをおすすめします。一時点のパーセンタイルより、成長曲線のラインと平行に伸びているかが重要です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "データは何を基準にしていますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "厚生労働省「令和5年 乳幼児身体発育調査」のパーセンタイル値を使用しています。全国の0〜12ヶ月の乳児を対象とした最新の国内調査データです。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "このツールは医療診断に使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "このツールは参考情報の提供を目的としており、医療診断を行うものではありません。お子さんの発育に気になる点がある場合は、かかりつけの小児科医にご相談ください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "入力したデータは保存・送信されますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "記録はブラウザのlocalStorageにのみ保存されます。外部サーバーへの送信は一切行いません。ブラウザのデータをクリアすると記録も消えます。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #fff8fb;
+    --bg2: #fff0f6;
+    --text: #2a1a22;
+    --text-sub: #7a5a68;
+    --card: #ffffff;
+    --card-border: #ffd6e8;
+    --input-bg: #fff4f8;
+    --input-border: #ffb3d1;
+    --accent: #ff4d94;
+    --accent2: #ff7eb3;
+    --accent-light: #fff0f6;
+    --btn-bg: #ff4d94;
+    --btn-text: #fff;
+    --shadow: rgba(255,77,148,0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a2e;
+      --bg2: #16213e;
+      --text: #f5e6ef;
+      --text-sub: #c4a0b5;
+      --card: #222240;
+      --card-border: #4a2a3a;
+      --input-bg: #2a1a2e;
+      --input-border: #7a3a5a;
+      --accent: #ff7eb3;
+      --accent2: #ffaad0;
+      --accent-light: #2a1a2e;
+      --btn-bg: #cc3377;
+      --btn-text: #fff;
+      --shadow: rgba(0,0,0,0.4);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow-x: hidden;
+  }
+
+  .site-header {
+    background: var(--bg);
+    padding: 18px 20px 0;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  .desc {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    margin-bottom: 0;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+
+  .input-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 22px 18px 18px;
+    box-shadow: 0 4px 20px var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  .input-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .field-group {
+    margin-bottom: 14px;
+  }
+
+  input[type="date"],
+  input[type="number"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    border: 1.5px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
+    border-radius: 12px;
+    height: 52px;
+    transition: border-color 0.2s;
+  }
+
+  input[type="date"]:focus,
+  input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    cursor: pointer;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    opacity: 0.5;
+  }
+
+  .gender-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .gender-label {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .gender-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .gender-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    border-radius: 12px;
+    border: 1.5px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-sub);
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    gap: 6px;
+    touch-action: manipulation;
+  }
+
+  .gender-label input[type="radio"]:checked + .gender-btn {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .measurement-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .measurement-row .field-group {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .input-unit-wrap {
+    position: relative;
+  }
+
+  .input-unit-wrap input {
+    padding-right: 44px;
+  }
+
+  .input-unit {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  .privacy-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    margin-bottom: 14px;
+  }
+
+  .privacy-badge svg {
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  .calc-btn {
+    width: 100%;
+    height: 52px;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .calc-btn:active {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+
+  .error-msg {
+    display: none;
+    background: #fff0f0;
+    border: 1px solid #fca5a5;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: #dc2626;
+    margin-bottom: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .error-msg {
+      background: #3a1010;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+  }
+
+  /* 結果エリア */
+  #results { display: none; }
+
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .result-card-title {
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .result-age {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+
+  .result-age-sub {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    margin-top: 4px;
+  }
+
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px 14px 14px;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 14px;
+  }
+
+  .chart-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    margin-bottom: 14px;
+  }
+
+  .source-box {
+    background: var(--bg2);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  .disclaimer-box {
+    background: rgba(251,146,60,0.06);
+    border: 1px solid rgba(251,146,60,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+
+  .link-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    touch-action: manipulation;
+  }
+
+  .link-card:hover {
+    border-color: var(--accent2);
+    background: var(--accent-light);
+  }
+
+  .link-card-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .link-card-title {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .link-card-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+  }
+
+  /* SEOコンテンツ */
+  .seo-content {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .seo-content h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text);
+  }
+
+  .seo-content h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 12px 0 6px;
+  }
+
+  .seo-content p {
+    margin-bottom: 8px;
+    color: var(--text-sub);
+    font-size: 0.85rem;
+  }
+
+  /* About 折りたたみ */
+  .about-section {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+
+  .about-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 18px;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    touch-action: manipulation;
+  }
+
+  .about-toggle .arrow {
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    transition: transform 0.2s;
+  }
+
+  .about-toggle[aria-expanded="true"] .arrow {
+    transform: rotate(180deg);
+  }
+
+  .about-body {
+    display: none;
+    padding: 0 18px 16px;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--text-sub);
+  }
+
+  .about-body.open {
+    display: block;
+  }
+
+  /* FAQ */
+  .faq-section {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 14px;
+  }
+
+  .faq-section h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text);
+  }
+
+  .faq-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .faq-q {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .faq-q::before {
+    content: 'Q. ';
+    color: var(--accent);
+  }
+
+  .faq-a {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    line-height: 1.7;
+  }
+
+  /* 関連ツール */
+  .related-section {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+  }
+
+  .related-section h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .related-links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .related-link-item {
+    display: block;
+    text-decoration: none;
+    padding: 12px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .related-link-item:hover {
+    border-color: var(--accent2);
+    background: var(--accent-light);
+  }
+
+  .related-link-title {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .related-link-desc {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-sub);
+  }
+
+  /* フッター */
+  .site-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    padding: 12px 16px 20px;
+  }
+
+  .site-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 12px;
+    margin-bottom: 8px;
+  }
+
+  .site-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .site-footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    .chart-wrapper { height: 300px; }
+  }
+
+  /* プロフィール表示カード */
+  .profile-view-card {
+    padding: 16px 18px 14px;
+  }
+
+  .profile-view-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .profile-view-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-sub);
+  }
+
+  .profile-view-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .change-link {
+    background: none;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    cursor: pointer;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    touch-action: manipulation;
+    margin-top: 10px;
+  }
+
+  .change-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* 記録テーブルカード */
+  .records-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px 14px 14px;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 14px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    min-width: 260px;
+  }
+
+  .records-table th {
+    color: var(--text-sub);
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    border-bottom: 1.5px solid var(--card-border);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .records-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .records-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px 6px;
+    border-radius: 6px;
+    touch-action: manipulation;
+    line-height: 1;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .delete-btn:hover {
+    background: rgba(239,68,68,0.1);
+  }
+
+  /* ===== 保存タブ ===== */
+  .save-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .save-section-desc {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .save-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 14px;
+  }
+
+  .save-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .save-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .save-ios-note {
+    font-size: 0.78rem;
+    color: var(--text-sub);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .save-warn-note {
+    font-size: 0.78rem;
+    color: #c2410c;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .save-warn-note { color: #fb923c; }
+  }
+
+  .save-btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .save-btn:active {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+
+  .export-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+  }
+
+  .import-btn {
+    background: var(--card);
+    color: var(--accent);
+    border: 1.5px solid var(--accent) !important;
+  }
+
+  .save-privacy-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    color: var(--text-sub);
+    margin-top: 4px;
+  }
+
+  /* ===== 下部タブバー ===== */
+  .bottom-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: var(--card);
+    border-top: 1.5px solid var(--card-border);
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 -2px 12px var(--shadow);
+  }
+
+  .bottom-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    gap: 3px;
+    color: var(--text-sub);
+    touch-action: manipulation;
+    transition: color 0.15s;
+    padding: 8px 0 10px;
+    position: relative;
+  }
+
+  .bottom-tab.active {
+    color: var(--accent);
+  }
+
+  .bottom-tab.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 2.5px;
+    background: var(--accent);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .tab-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .tab-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* SNSシェアボタン */
+  .share-chart-btn {
+    width: 100%;
+    height: 52px;
+    background: var(--card);
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 14px;
+  }
+
+  .share-chart-btn:active {
+    background: var(--accent-light);
+  }
+
+  /* 記録なし空状態 */
+  .no-records-msg {
+    text-align: center;
+    padding: 48px 20px 24px;
+    color: var(--text-sub);
+  }
+
+  .no-records-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    opacity: 0.45;
+  }
+
+  .no-records-msg p {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--text-sub);
+  }
+
+  .no-records-sub {
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>赤ちゃん成長記録ツール</h1>
+  <p class="subtitle">測定するたびグラフが伸びる。0〜12ヶ月の成長を記録しよう</p>
+  <p class="desc">厚労省令和5年最新データ ｜ ブラウザ保存 ｜ 登録不要・無料</p>
+</header>
+
+<div style="max-width:480px;margin:0 auto;padding:8px 16px 0;font-size:0.82rem;color:var(--text-sub);line-height:1.7;text-align:center;">
+  生年月日・性別を登録し、測定日・身長・体重を記録するたびに、厚生労働省の最新データに基づいた<strong>成長曲線グラフ</strong>が自動更新されます。0〜12ヶ月の成長の軌跡を記録しましょう。
+</div>
+
+<!-- ===== タブ1: 基本情報 ===== -->
+<div id="tabBasic">
+  <main class="container">
+
+    <!-- プロフィール入力 -->
+    <div class="input-card" id="profileCard">
+      <div class="field-group">
+        <label class="input-label" for="birthDate">生年月日</label>
+        <input type="date" id="birthDate" aria-label="生年月日を選択">
+      </div>
+
+      <div class="field-group">
+        <label class="input-label">性別</label>
+        <div class="gender-group" role="group" aria-label="性別を選択">
+          <label class="gender-label">
+            <input type="radio" name="gender" value="male">
+            <span class="gender-btn">👦 男の子</span>
+          </label>
+          <label class="gender-label">
+            <input type="radio" name="gender" value="female">
+            <span class="gender-btn">👧 女の子</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="calc-btn" id="saveProfileBtn" aria-label="基本情報を保存する">保存する</button>
+    </div>
+
+    <!-- プロフィール表示（保存後） -->
+    <div class="input-card profile-view-card" id="profileView" style="display:none">
+      <div class="profile-view-row">
+        <span class="profile-view-label">生年月日</span>
+        <span class="profile-view-value" id="profileViewDate"></span>
+      </div>
+      <div class="profile-view-row">
+        <span class="profile-view-label">性別</span>
+        <span class="profile-view-value" id="profileViewGender"></span>
+      </div>
+      <div style="text-align:right">
+        <button class="change-link" id="editProfileBtn">変更する</button>
+      </div>
+    </div>
+
+    <!-- 測定記録の追加フォーム（常時表示） -->
+    <div class="input-card" id="recordForm">
+      <div class="field-group">
+        <label class="input-label" for="measureDate">測定日</label>
+        <input type="date" id="measureDate" aria-label="測定日を選択">
+      </div>
+
+      <div class="measurement-row">
+        <div class="field-group">
+          <label class="input-label" for="recordHeight">身長</label>
+          <div class="input-unit-wrap">
+            <input type="number" id="recordHeight" min="20" max="130" step="0.1" placeholder="例：70.0" aria-label="身長（cm）">
+            <span class="input-unit">cm</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="input-label" for="recordWeight">体重</label>
+          <div class="input-unit-wrap">
+            <input type="number" id="recordWeight" min="0.5" max="30" step="0.01" placeholder="例：8.5" aria-label="体重（kg）">
+            <span class="input-unit">kg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="privacy-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        入力データはお使いの端末（ブラウザ）にのみ保存されます。外部サーバーへは一切送信されません。
+      </div>
+
+      <button class="calc-btn" id="addRecordBtn" aria-label="記録を追加する">記録を追加</button>
+    </div>
+
+    <div class="error-msg" id="errorMsg" role="alert" aria-live="polite"></div>
+
+    <!-- このツールについて -->
+    <div class="about-section">
+      <button class="about-toggle" id="aboutToggle" aria-expanded="false" aria-controls="aboutBody">
+        <span>このツールについて</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="about-body" id="aboutBody">
+        <p><strong>仕組み：</strong>測定値をブラウザのlocalStorageに保存し、記録を追加するたびに成長曲線グラフを更新します。</p>
+        <p><strong>なぜ無料なのか：</strong>0-TOOLsはGoogle AdSenseによる広告収益で運営しており、ツール自体は無料でご利用いただけます。</p>
+        <p><strong>安全性：</strong>お子さんの身体情報は外部サーバーへ一切送信されません。ブラウザのデータをクリアすると記録も消えます。</p>
+      </div>
+    </div>
+
+    <!-- 使い方 -->
+    <section class="seo-content" aria-labelledby="howto-title">
+      <h2 id="howto-title">ツールの使い方</h2>
+      <p>① 生年月日をカレンダーから選択します。月齢は今日の日付から自動計算されます。<br>
+         ② 性別（男の子・女の子）を選択します。<br>
+         ③ 直近の健診や自宅測定での身長（cm）と体重（kg）を入力します。<br>
+         ④「記録を追加」ボタンを押すと、成長曲線グラフとパーセンタイル判定が表示されます。</p>
+      <h3>グラフの見方</h3>
+      <p>グラフには3・10・50・90・97パーセンタイルの5本のラインが表示されます。お子さんのデータは<strong>青い折れ線</strong>でプロットされます。青い線が緑の中央値ライン（50パーセンタイル）の近くにあれば標準的な発育です。</p>
+      <h3>こんなときに役立ちます</h3>
+      <p>乳幼児健診の前後に確認したいとき／健診で言われた「パーセンタイル」の意味を理解したいとき／成長の記録をグラフで視覚的に確認したいとき</p>
+    </section>
+
+    <!-- パーセンタイル解説 -->
+    <section class="seo-content" aria-labelledby="percentile-title">
+      <h2 id="percentile-title">パーセンタイルとは？</h2>
+      <p>パーセンタイルとは、同じ月齢の子ども100人を小さい順に並べたとき、何番目にあたるかを表す値です。</p>
+      <h3>50パーセンタイル（中央値）</h3>
+      <p>ちょうど真ん中。100人中50番目の大きさで、最も「標準的」な値です。</p>
+      <h3>3〜97パーセンタイルが正常範囲の目安</h3>
+      <p>日本の乳幼児健診では、3〜97パーセンタイルを正常範囲の目安としています。この範囲から外れる場合でも、必ずしも異常ではありませんが、成長の経過を小児科医に相談することをおすすめします。</p>
+      <h3>大切なのは「傾き」</h3>
+      <p>一時点のパーセンタイルより、成長曲線のラインと平行に伸びているかが重要です。急に曲線から大きく外れる変化があった場合は、かかりつけ医に相談してください。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" aria-labelledby="faq-title">
+      <h2 id="faq-title">よくある質問（FAQ）</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">パーセンタイルが低い（高い）と問題ですか？</div>
+        <p class="faq-a">3〜97パーセンタイルの範囲内であれば基本的に正常範囲とされています。ただし、急に曲線から外れたり、成長の傾きが大きく変化したりする場合は、かかりつけの小児科医に相談することをおすすめします。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">データは何歳まで対応していますか？</div>
+        <p class="faq-a">0ヶ月（生後0日）から12ヶ月（1歳）まで対応しています。厚生労働省「令和5年 乳幼児身体発育調査」の0〜12ヶ月データに基づいています。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">身長や体重の測り方は？</div>
+        <p class="faq-a">直近の乳幼児健診での測定値を使うのが最も正確です。自宅での測定は、身長は壁に背をつけてまっすぐ立たせ（寝かせ）て測り、体重は着衣やおむつを除いた値を使うと精度が上がります。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">入力データは保存されますか？</div>
+        <p class="faq-a">記録はブラウザのlocalStorageにのみ保存されます。外部サーバーへの送信は一切行いません。ブラウザのデータをクリアすると記録も消えます。</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">男女で成長曲線が異なるのはなぜですか？</div>
+        <p class="faq-a">男の子と女の子では身長・体重の発育パターンが異なるため、厚生労働省の調査データも男女別に集計されています。このツールでは性別を選択することで、より正確な基準値と比較できます。</p>
+      </div>
+    </section>
+
+    <!-- 関連ツール -->
+    <section class="related-section" aria-labelledby="related-title">
+      <h2 id="related-title">関連ツール・記事</h2>
+      <div class="related-links-grid">
+        <a href="/tools/baby-day-counter/" class="related-link-item">
+          <span class="related-link-title">📅 生後日数カウンター</span>
+          <span class="related-link-desc">生後日数・週数・月齢をカレンダー表示。お宮参り・百日祝いまでの日数も自動計算。</span>
+        </a>
+        <a href="/tools/baby-food-calendar/" class="related-link-item">
+          <span class="related-link-title">🍼 離乳食予定管理カレンダー</span>
+          <span class="related-link-desc">予定登録・コピー貼付・アレルギー管理を一画面で。月齢自動判定・無料。</span>
+        </a>
+        <a href="/blog/growth-curve-checker-guide/" class="related-link-item">
+          <span class="related-link-title">成長曲線の見方・パーセンタイルの基礎知識</span>
+          <span class="related-link-desc">健診で言われる「パーセンタイル」の読み方と成長曲線の活用法を詳しく解説。</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <nav>
+      <a href="/">ツール一覧</a>
+      <a href="/blog/">ブログ</a>
+      <a href="/sitemap/">サイトマップ</a>
+      <a href="/guide/">使い方</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/about/">運営者情報</a>
+      <a href="/contact/">お問い合わせ</a>
+      <a href="/privacy/">プライバシーポリシー・免責事項</a>
+    </nav>
+    <p>© 2025–2026 0-TOOLs — 無料オンラインツール集</p>
+  </footer>
+</div>
+<!-- /tabBasic -->
+
+<!-- ===== タブ2: 成長曲線 ===== -->
+<div id="tabCurve" style="display:none">
+  <div class="container">
+
+    <!-- 記録なし空状態 -->
+    <div id="noRecordsMsg" class="no-records-msg" style="display:none">
+      <div class="no-records-icon">📈</div>
+      <p>まだ記録がありません</p>
+      <p class="no-records-sub">「基本情報」タブから記録を追加すると<br>成長曲線グラフが表示されます</p>
+    </div>
+
+    <!-- グラフエリア + 記録一覧テーブル -->
+    <div id="results">
+
+      <div class="chart-card">
+        <div class="chart-card-title">📏 身長の成長曲線</div>
+        <div class="chart-wrapper">
+          <canvas id="heightChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">⚖️ 体重の成長曲線</div>
+        <div class="chart-wrapper">
+          <canvas id="weightChart"></canvas>
+        </div>
+      </div>
+
+      <!-- SNSシェア -->
+      <button class="share-chart-btn" id="shareChartBtn" aria-label="グラフを画像としてシェア">
+        📷 グラフを画像でシェア・保存
+      </button>
+
+      <!-- 記録一覧テーブル -->
+      <div class="records-card">
+        <div class="chart-card-title">📋 記録一覧</div>
+        <div class="table-wrap">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th>測定日</th>
+                <th>月齢</th>
+                <th>身長</th>
+                <th>体重</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="recordsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="source-box">
+        データ出典：厚生労働省「令和5年 乳幼児身体発育調査」（https://www.e-stat.go.jp/）をもとに作成
+      </div>
+
+      <div class="disclaimer-box">
+        ※このツールは参考情報の提供を目的としており、医療診断を行うものではありません。お子さんの発育に気になる点がある場合は、かかりつけの小児科医にご相談ください。
+      </div>
+
+      <div class="link-cards">
+        <a href="/tools/baby-day-counter/" class="link-card">
+          <span class="link-card-icon">📅</span>
+          <span>
+            <span class="link-card-title">生後何日目か確認する</span>
+            <span class="link-card-desc">生後日数カウンター — 週数・月齢・節目まで自動計算</span>
+          </span>
+        </a>
+        <a href="/tools/baby-food-calendar/" class="link-card">
+          <span class="link-card-icon">🍼</span>
+          <span>
+            <span class="link-card-title">離乳食の進め方を確認する</span>
+            <span class="link-card-desc">離乳食予定管理カレンダー — 月齢自動判定・アレルギー管理</span>
+          </span>
+        </a>
+      </div>
+
+    </div>
+    <!-- /results -->
+
+  </div><!-- /container -->
+</div>
+<!-- /tabCurve -->
+
+<!-- ===== タブ3: 保存 ===== -->
+<div id="tabSave" style="display:none">
+  <div class="container">
+    <div class="save-section-title">💾 バックアップ・復元</div>
+    <p class="save-section-desc">スマホの買い替え・キャッシュクリア・履歴削除でデータが消えることがあります。定期的にバックアップを保存しておきましょう。</p>
+
+    <div class="save-card">
+      <div class="save-card-title">📤 保存（バックアップ）</div>
+      <p class="save-card-desc">記録データをJSONファイルとしてダウンロードします。機種変更前・節目ごとに保存するのがおすすめです。</p>
+      <p class="save-ios-note">📱 iOSの場合はシートが開くので「ファイルに保存」をタップしてください</p>
+      <button class="save-btn export-btn" id="exportBtn">📤 保存する</button>
+    </div>
+
+    <div class="save-card">
+      <div class="save-card-title">📥 復元（バックアップ読み込み）</div>
+      <p class="save-card-desc">保存済みのJSONバックアップファイルを読み込みます。新しいスマホや別の端末でデータを引き継ぐときに使います。</p>
+      <p class="save-warn-note">⚠️ 復元すると現在のデータは上書きされます</p>
+      <button class="save-btn import-btn" id="importBtn">📥 復元する</button>
+      <input type="file" id="importInput" accept=".json,application/json" style="display:none">
+    </div>
+
+    <div class="save-privacy-badge">
+      🔒 データは端末内にのみ保存されます。外部サーバーへの送信は一切ありません。
+    </div>
+  </div>
+</div>
+<!-- /tabSave -->
+
+<!-- ===== 下部タブバー ===== -->
+<nav class="bottom-tab-bar" role="tablist" aria-label="メインナビゲーション">
+  <button id="btnTabBasic" class="bottom-tab active" role="tab" aria-selected="true" aria-controls="tabBasic">
+    <span class="tab-icon">📋</span>
+    <span class="tab-label">基本情報</span>
+  </button>
+  <button id="btnTabCurve" class="bottom-tab" role="tab" aria-selected="false" aria-controls="tabCurve">
+    <span class="tab-icon">📈</span>
+    <span class="tab-label">成長曲線</span>
+  </button>
+  <button id="btnTabSave" class="bottom-tab" role="tab" aria-selected="false" aria-controls="tabSave">
+    <span class="tab-icon">💾</span>
+    <span class="tab-label">保存</span>
+  </button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+// 令和5年 乳幼児身体発育調査（厚生労働省）パーセンタイル値
+// 各配列: [3rd, 10th, 25th, 50th, 75th, 90th, 97th]
+
+const GROWTH_DATA = {
+  height: {
+    male: {
+      0: [45.24, 46.7, 48.05, 49.42, 50.68, 51.74, 52.72],
+      1: [51.26, 52.7, 54.06, 55.46, 56.76, 57.87, 58.9],
+      2: [54.94, 56.38, 57.74, 59.16, 60.51, 61.65, 62.73],
+      3: [57.99, 59.43, 60.81, 62.27, 63.64, 64.83, 65.95],
+      4: [60.23, 61.68, 63.08, 64.55, 65.96, 67.18, 68.33],
+      5: [61.88, 63.34, 64.75, 66.25, 67.68, 68.92, 70.11],
+      6: [63.22, 64.69, 66.11, 67.63, 69.08, 70.35, 71.56],
+      7: [64.39, 65.86, 67.3, 68.84, 70.32, 71.61, 72.84],
+      8: [65.46, 66.95, 68.4, 69.96, 71.47, 72.78, 74.04],
+      9: [66.47, 67.98, 69.45, 71.03, 72.56, 73.9, 75.19],
+      10: [67.45, 68.97, 70.46, 72.07, 73.63, 74.99, 76.3],
+      11: [68.4, 69.93, 71.45, 73.08, 74.67, 76.06, 77.4],
+      12: [71.59, 73.19, 74.78, 76.51, 78.19, 79.68, 81.12],
+      18: [76.74, 78.48, 80.21, 82.11, 83.97, 85.62, 87.23],
+      24: [80.47, 82.34, 84.2, 86.26, 88.29, 90.1, 91.88],
+      30: [84.34, 86.31, 88.3, 90.5, 92.68, 94.64, 96.57],
+      36: [87.78, 89.86, 91.95, 94.28, 96.61, 98.7, 100.77],
+      42: [91.02, 93.19, 95.38, 97.84, 100.3, 102.52, 104.72],
+      48: [94.17, 96.42, 98.72, 101.29, 103.88, 106.22, 108.56],
+      54: [97.28, 99.62, 102.01, 104.69, 107.41, 109.87, 112.33],
+      60: [100.35, 102.76, 105.24, 108.04, 110.87, 113.46, 116.04],
+      66: [103.34, 105.84, 108.41, 111.31, 114.26, 116.96, 119.67],
+      72: [106.27, 108.84, 111.5, 114.5, 117.57, 120.38, 123.21],
+    },
+    female: {
+      0: [44.47, 46.01, 47.39, 48.77, 50.02, 51.05, 52.0],
+      1: [50.54, 51.87, 53.15, 54.49, 55.76, 56.86, 57.9],
+      2: [53.87, 55.22, 56.53, 57.92, 59.25, 60.4, 61.49],
+      3: [56.47, 57.85, 59.19, 60.62, 61.99, 63.18, 64.32],
+      4: [58.6, 60.0, 61.37, 62.84, 64.25, 65.47, 66.65],
+      5: [60.37, 61.8, 63.2, 64.7, 66.14, 67.4, 68.61],
+      6: [61.87, 63.32, 64.74, 66.27, 67.75, 69.04, 70.29],
+      7: [63.15, 64.62, 66.07, 67.63, 69.14, 70.46, 71.73],
+      8: [64.27, 65.76, 67.23, 68.82, 70.35, 71.7, 73.01],
+      9: [65.28, 66.79, 68.27, 69.88, 71.45, 72.83, 74.15],
+      10: [66.21, 67.74, 69.25, 70.89, 72.48, 73.88, 75.23],
+      11: [67.13, 68.67, 70.2, 71.86, 73.48, 74.91, 76.29],
+      12: [70.34, 71.95, 73.56, 75.3, 77.02, 78.53, 80.0],
+      18: [75.65, 77.38, 79.12, 81.02, 82.89, 84.56, 86.19],
+      24: [79.46, 81.31, 83.17, 85.22, 87.25, 89.06, 90.83],
+      30: [83.44, 85.4, 87.38, 89.56, 91.74, 93.69, 95.61],
+      36: [86.78, 88.84, 90.93, 93.25, 95.56, 97.65, 99.7],
+      42: [89.93, 92.1, 94.3, 96.75, 99.2, 101.42, 103.62],
+      48: [93.21, 95.48, 97.8, 100.39, 103.0, 105.36, 107.71],
+      54: [96.45, 98.84, 101.28, 104.01, 106.78, 109.29, 111.79],
+      60: [99.57, 102.06, 104.62, 107.5, 110.42, 113.08, 115.74],
+      66: [102.54, 105.15, 107.82, 110.85, 113.92, 116.73, 119.54],
+      72: [105.39, 108.1, 110.89, 114.05, 117.28, 120.23, 123.19],
+    },
+  },
+  weight: {
+    male: {
+      0: [2.316, 2.581, 2.804, 3.057, 3.315, 3.556, 3.815],
+      1: [3.756, 4.093, 4.43, 4.798, 5.162, 5.485, 5.801],
+      2: [4.591, 4.982, 5.373, 5.802, 6.227, 6.604, 6.974],
+      3: [5.223, 5.65, 6.079, 6.55, 7.017, 7.434, 7.842],
+      4: [5.711, 6.163, 6.617, 7.118, 7.617, 8.063, 8.5],
+      5: [6.094, 6.563, 7.036, 7.56, 8.082, 8.55, 9.01],
+      6: [6.399, 6.881, 7.368, 7.909, 8.448, 8.933, 9.411],
+      7: [6.645, 7.137, 7.635, 8.188, 8.742, 9.24, 9.732],
+      8: [6.852, 7.351, 7.858, 8.421, 8.986, 9.495, 9.997],
+      9: [7.034, 7.54, 8.054, 8.627, 9.201, 9.719, 10.231],
+      10: [7.203, 7.715, 8.236, 8.817, 9.4, 9.926, 10.448],
+      11: [7.365, 7.884, 8.412, 9.001, 9.593, 10.128, 10.659],
+      12: [7.938, 8.482, 9.038, 9.661, 10.29, 10.86, 11.427],
+      18: [8.933, 9.531, 10.146, 10.84, 11.547, 12.192, 12.838],
+      24: [9.853, 10.504, 11.181, 11.954, 12.748, 13.48, 14.22],
+      30: [10.659, 11.358, 12.093, 12.943, 13.828, 14.654, 15.499],
+      36: [11.382, 12.121, 12.91, 13.835, 14.813, 15.74, 16.702],
+      42: [12.096, 12.874, 13.715, 14.718, 15.797, 16.84, 17.939],
+      48: [12.845, 13.661, 14.556, 15.642, 16.834, 18.009, 19.274],
+      54: [13.642, 14.496, 15.447, 16.622, 17.941, 19.27, 20.737],
+      60: [14.487, 15.379, 16.388, 17.658, 19.118, 20.631, 22.349],
+      66: [15.371, 16.3, 17.368, 18.74, 20.357, 22.084, 24.116],
+      72: [16.282, 17.248, 18.375, 19.852, 21.642, 23.617, 26.04],
+    },
+    female: {
+      0: [2.222, 2.46, 2.702, 2.95, 3.21, 3.436, 3.662],
+      1: [3.505, 3.806, 4.107, 4.44, 4.77, 5.066, 5.356],
+      2: [4.275, 4.612, 4.955, 5.334, 5.714, 6.056, 6.392],
+      3: [4.899, 5.267, 5.642, 6.061, 6.482, 6.862, 7.239],
+      4: [5.397, 5.79, 6.192, 6.642, 7.097, 7.51, 7.92],
+      5: [5.791, 6.203, 6.626, 7.103, 7.586, 8.026, 8.465],
+      6: [6.1, 6.527, 6.968, 7.466, 7.973, 8.436, 8.899],
+      7: [6.344, 6.784, 7.239, 7.755, 8.281, 8.765, 9.25],
+      8: [6.54, 6.99, 7.457, 7.989, 8.533, 9.034, 9.539],
+      9: [6.704, 7.163, 7.64, 8.186, 8.746, 9.264, 9.786],
+      10: [6.848, 7.315, 7.802, 8.361, 8.936, 9.469, 10.008],
+      11: [6.985, 7.459, 7.956, 8.526, 9.115, 9.663, 10.219],
+      12: [7.486, 7.985, 8.511, 9.121, 9.759, 10.357, 10.97],
+      18: [8.501, 9.043, 9.623, 10.304, 11.027, 11.714, 12.429],
+      24: [9.52, 10.109, 10.744, 11.501, 12.314, 13.097, 13.923],
+      30: [10.455, 11.086, 11.775, 12.603, 13.505, 14.386, 15.327],
+      36: [11.188, 11.854, 12.587, 13.478, 14.461, 15.434, 16.487],
+      42: [11.818, 12.526, 13.313, 14.282, 15.366, 16.455, 17.654],
+      48: [12.511, 13.277, 14.139, 15.215, 16.438, 17.692, 19.098],
+      54: [13.238, 14.068, 15.013, 16.211, 17.598, 19.048, 20.712],
+      60: [13.981, 14.877, 15.909, 17.237, 18.804, 20.478, 22.449],
+      66: [14.746, 15.719, 16.855, 18.341, 20.134, 22.101, 24.491],
+      72: [15.516, 16.582, 17.846, 19.534, 21.627, 24.001, 27.008],
+    },
+  },
+};
+
+const MONTHS = [0,1,2,3,4,5,6,7,8,9,10,11,12,18,24,30,36,42,48,54,60,66,72];
+
+let heightChart = null;
+let weightChart = null;
+
+let S = { profile: null, records: [] };
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function calcMonthAge(birthDateStr, targetDateStr) {
+  const birth = new Date(birthDateStr + 'T00:00:00');
+  const target = targetDateStr ? new Date(targetDateStr + 'T00:00:00') : new Date();
+  let months = (target.getFullYear() - birth.getFullYear()) * 12
+             + (target.getMonth() - birth.getMonth());
+  if (target.getDate() < birth.getDate()) months--;
+  return Math.max(0, months);
+}
+
+function interpolatePercentiles(ageMonths, gender, measurement) {
+  const data = GROWTH_DATA[measurement][gender];
+  if (ageMonths <= 0) return data[0].slice();
+  if (ageMonths >= 72) return data[72].slice();
+
+  let lowerKey = 0, upperKey = 72;
+  for (let i = 0; i < MONTHS.length - 1; i++) {
+    if (MONTHS[i] <= ageMonths && ageMonths <= MONTHS[i + 1]) {
+      lowerKey = MONTHS[i];
+      upperKey = MONTHS[i + 1];
+      break;
+    }
+  }
+
+  if (lowerKey === upperKey) return data[lowerKey].slice();
+
+  const t = (ageMonths - lowerKey) / (upperKey - lowerKey);
+  const lo = data[lowerKey];
+  const hi = data[upperKey];
+  return lo.map((v, i) => Math.round((v + t * (hi[i] - v)) * 100) / 100);
+}
+
+
+function buildPercentileData(gender, measurement, pIdx) {
+  return MONTHS.filter(m => m <= 12).map(m => ({ x: m, y: GROWTH_DATA[measurement][gender][m][pIdx] }));
+}
+
+function isDark() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('growthTracker');
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (parsed.profile &&
+        typeof parsed.profile.birthDate === 'string' &&
+        /^\d{4}-\d{2}-\d{2}$/.test(parsed.profile.birthDate)) {
+      S.profile = {
+        birthDate: parsed.profile.birthDate,
+        gender: parsed.profile.gender === 'female' ? 'female' : 'male'
+      };
+    }
+    if (Array.isArray(parsed.records)) {
+      S.records = parsed.records.filter(r =>
+        typeof r.id === 'number' &&
+        typeof r.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(r.date) &&
+        typeof r.height === 'number' && r.height >= 20 && r.height <= 130 &&
+        typeof r.weight === 'number' && r.weight >= 0.5 && r.weight <= 30
+      );
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  localStorage.setItem('growthTracker', JSON.stringify(S));
+}
+
+function createChart(canvasId, gender, measurement, records) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const unitLabel = measurement === 'height' ? '身長 (cm)' : '体重 (kg)';
+  const dark = isDark();
+  const gridColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+  const labelColor = dark ? '#c4a0b5' : '#7a5a68';
+
+  const childData = records
+    .map(r => ({
+      x: calcMonthAge(S.profile.birthDate, r.date),
+      y: measurement === 'height' ? r.height : r.weight
+    }))
+    .filter(p => p.x >= 0 && p.x <= 12);
+
+  const datasets = [
+    {
+      label: '97パーセンタイル',
+      data: buildPercentileData(gender, measurement, 6),
+      borderColor: 'rgba(239,68,68,0.5)',
+      backgroundColor: 'transparent',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      cubicInterpolationMode: 'monotone',
+      spanGaps: true,
+    },
+    {
+      label: '90パーセンタイル',
+      data: buildPercentileData(gender, measurement, 5),
+      borderColor: 'rgba(251,146,60,0.5)',
+      backgroundColor: 'transparent',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      cubicInterpolationMode: 'monotone',
+      spanGaps: true,
+    },
+    {
+      label: '50パーセンタイル（中央値）',
+      data: buildPercentileData(gender, measurement, 3),
+      borderColor: 'rgba(34,197,94,0.9)',
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      pointRadius: 0,
+      cubicInterpolationMode: 'monotone',
+      spanGaps: true,
+    },
+    {
+      label: '10パーセンタイル',
+      data: buildPercentileData(gender, measurement, 1),
+      borderColor: 'rgba(251,146,60,0.5)',
+      backgroundColor: 'transparent',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      cubicInterpolationMode: 'monotone',
+      spanGaps: true,
+    },
+    {
+      label: '3パーセンタイル',
+      data: buildPercentileData(gender, measurement, 0),
+      borderColor: 'rgba(239,68,68,0.5)',
+      backgroundColor: 'transparent',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      cubicInterpolationMode: 'monotone',
+      spanGaps: true,
+    },
+    {
+      label: 'お子さん',
+      data: childData,
+      borderColor: 'rgba(59,130,246,1)',
+      backgroundColor: 'rgba(59,130,246,1)',
+      borderWidth: 2.5,
+      pointRadius: 7,
+      pointHoverRadius: 10,
+      tension: 0.3,
+      spanGaps: false,
+      order: 0,
+    },
+  ];
+
+  return new Chart(ctx, {
+    type: 'line',
+    data: { datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 10, family: "'Noto Sans JP', system-ui, sans-serif" },
+            boxWidth: 16,
+            color: labelColor,
+            padding: 8,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const unit = measurement === 'height' ? 'cm' : 'kg';
+              return `${ctx.dataset.label}: ${ctx.parsed.y}${unit}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,
+          max: 12,
+          title: {
+            display: true,
+            text: '月齢（ヶ月）',
+            font: { size: 11, family: "'Noto Sans JP', system-ui, sans-serif" },
+            color: labelColor,
+          },
+          ticks: {
+            stepSize: 1,
+            font: { size: 10 },
+            color: labelColor,
+          },
+          grid: { color: gridColor },
+        },
+        y: {
+          title: {
+            display: true,
+            text: unitLabel,
+            font: { size: 11, family: "'Noto Sans JP', system-ui, sans-serif" },
+            color: labelColor,
+          },
+          ticks: {
+            font: { size: 10 },
+            color: labelColor,
+          },
+          grid: { color: gridColor },
+        },
+      },
+    },
+  });
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function renderProfile() {
+  if (S.profile) {
+    document.getElementById('profileCard').style.display = 'none';
+    document.getElementById('profileView').style.display = 'block';
+    document.getElementById('profileViewDate').textContent = S.profile.birthDate;
+    document.getElementById('profileViewGender').textContent =
+      S.profile.gender === 'male' ? '👦 男の子' : '👧 女の子';
+  } else {
+    document.getElementById('profileCard').style.display = 'block';
+    document.getElementById('profileView').style.display = 'none';
+  }
+}
+
+function renderRecordForm() {
+  document.getElementById('recordForm').style.display = 'block';
+}
+
+
+function renderTable() {
+  const tbody = document.getElementById('recordsTbody');
+  const sortedDesc = [...S.records].sort((a, b) => b.date.localeCompare(a.date));
+
+  tbody.innerHTML = sortedDesc.map(r => {
+    const monthAge = calcMonthAge(S.profile.birthDate, r.date);
+    return '<tr>' +
+      '<td>' + esc(r.date) + '</td>' +
+      '<td>' + esc(String(monthAge)) + 'ヶ月</td>' +
+      '<td>' + esc(String(r.height)) + 'cm</td>' +
+      '<td>' + esc(String(r.weight)) + 'kg</td>' +
+      '<td><button class="delete-btn" data-id="' + esc(String(r.id)) + '" aria-label="記録を削除">🗑️</button></td>' +
+      '</tr>';
+  }).join('');
+
+  tbody.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = Number(this.getAttribute('data-id'));
+      if (confirm('この記録を削除しますか？')) {
+        S.records = S.records.filter(r => r.id !== id);
+        saveState();
+        renderAll();
+      }
+    });
+  });
+}
+
+function renderChartsAndTable() {
+  const resultsEl = document.getElementById('results');
+  const noRecordsEl = document.getElementById('noRecordsMsg');
+
+  if (!S.profile || S.records.length === 0) {
+    resultsEl.style.display = 'none';
+    noRecordsEl.style.display = 'block';
+    return;
+  }
+
+  noRecordsEl.style.display = 'none';
+  resultsEl.style.display = 'block';
+
+  const sortedAsc = [...S.records].sort((a, b) => a.date.localeCompare(b.date));
+
+  if (heightChart) { heightChart.destroy(); heightChart = null; }
+  if (weightChart) { weightChart.destroy(); weightChart = null; }
+
+  heightChart = createChart('heightChart', S.profile.gender, 'height', sortedAsc);
+  weightChart = createChart('weightChart', S.profile.gender, 'weight', sortedAsc);
+
+  renderTable();
+}
+
+function renderAll() {
+  renderProfile();
+  renderRecordForm();
+  renderChartsAndTable();
+}
+
+function saveProfile() {
+  const birthDate = document.getElementById('birthDate').value;
+  const genderRadio = document.querySelector('input[name="gender"]:checked');
+
+  document.getElementById('errorMsg').style.display = 'none';
+
+  if (!birthDate || !/^\d{4}-\d{2}-\d{2}$/.test(birthDate)) {
+    showError('生年月日を入力してください。');
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  if (birthDate > today) {
+    showError('生年月日は今日以前の日付を入力してください。');
+    return;
+  }
+
+  if (!genderRadio) {
+    showError('性別を選択してください。');
+    return;
+  }
+
+  S.profile = { birthDate, gender: genderRadio.value };
+  saveState();
+  renderAll();
+}
+
+function editProfile() {
+  document.getElementById('profileView').style.display = 'none';
+  document.getElementById('profileCard').style.display = 'block';
+  if (S.profile) {
+    document.getElementById('birthDate').value = S.profile.birthDate;
+    const radio = document.querySelector('input[name="gender"][value="' + S.profile.gender + '"]');
+    if (radio) radio.checked = true;
+  }
+}
+
+function addRecord() {
+  document.getElementById('errorMsg').style.display = 'none';
+
+  if (!S.profile) { showError('先に生年月日・性別を保存してください。'); return; }
+
+  const dateVal = document.getElementById('measureDate').value;
+  const heightVal = parseFloat(document.getElementById('recordHeight').value);
+  const weightVal = parseFloat(document.getElementById('recordWeight').value);
+
+  if (!dateVal || !/^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
+    showError('測定日を入力してください。');
+    return;
+  }
+  if (dateVal < S.profile.birthDate) {
+    showError('測定日は生年月日以降の日付を入力してください。');
+    return;
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  if (dateVal > today) {
+    showError('測定日は今日以前の日付を入力してください。');
+    return;
+  }
+  if (isNaN(heightVal) || heightVal < 20 || heightVal > 130) {
+    showError('身長は20〜130cmの範囲で入力してください。');
+    return;
+  }
+  if (isNaN(weightVal) || weightVal < 0.5 || weightVal > 30) {
+    showError('体重は0.5〜30kgの範囲で入力してください。');
+    return;
+  }
+
+  const monthAge = calcMonthAge(S.profile.birthDate, dateVal);
+  if (monthAge > 12) {
+    showError('このツールは0〜12ヶ月（1歳）までに対応しています。');
+    return;
+  }
+
+  S.records.push({
+    id: Date.now(),
+    date: dateVal,
+    height: Math.round(heightVal * 10) / 10,
+    weight: Math.round(weightVal * 100) / 100
+  });
+  S.records.sort((a, b) => a.date.localeCompare(b.date));
+  saveState();
+
+  document.getElementById('recordHeight').value = '';
+  document.getElementById('recordWeight').value = '';
+
+  renderAll();
+  switchMainTab('curve');
+}
+
+// ===== SNSシェア =====
+async function shareChart() {
+  const hCanvas = document.getElementById('heightChart');
+  const wCanvas = document.getElementById('weightChart');
+
+  const dpr = window.devicePixelRatio || 1;
+  const cw = hCanvas.width;
+  const hh = hCanvas.height;
+  const wh = wCanvas.height;
+  const padTop = Math.round(60 * dpr);
+  const gap    = Math.round(14 * dpr);
+  const padBot = Math.round(40 * dpr);
+  const totalH = padTop + hh + gap + wh + padBot;
+
+  const comp = document.createElement('canvas');
+  comp.width  = cw;
+  comp.height = totalH;
+  const ctx = comp.getContext('2d');
+
+  const dark = isDark();
+  ctx.fillStyle = dark ? '#1a1a2e' : '#fff8fb';
+  ctx.fillRect(0, 0, cw, totalH);
+
+  // ヘッダー
+  const latest = [...S.records].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const monthAge = latest ? calcMonthAge(S.profile.birthDate, latest.date) : 0;
+  const genderText = S.profile.gender === 'male' ? '👦 男の子' : '👧 女の子';
+  ctx.fillStyle = dark ? '#f5e6ef' : '#2a1a22';
+  ctx.font = `700 ${Math.round(14 * dpr)}px 'Noto Sans JP', system-ui, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText('赤ちゃん成長記録 — 生後' + monthAge + 'ヶ月 ' + genderText, cw / 2, Math.round(36 * dpr));
+
+  // グラフ描画
+  ctx.drawImage(hCanvas, 0, padTop);
+  ctx.drawImage(wCanvas, 0, padTop + hh + gap);
+
+  // フッター
+  ctx.fillStyle = dark ? '#c4a0b5' : '#7a5a68';
+  ctx.font = `${Math.round(10 * dpr)}px system-ui, sans-serif`;
+  ctx.fillText('0-tools.com / 赤ちゃん成長記録ツール', cw / 2, padTop + hh + gap + wh + Math.round(26 * dpr));
+
+  const today = new Date().toISOString().slice(0, 10);
+  comp.toBlob(async (blob) => {
+    const file = new File([blob], 'growth-' + today + '.png', { type: 'image/png' });
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: '成長記録グラフ',
+          text: '生後' + monthAge + 'ヶ月の成長曲線グラフ（0-tools.com）'
+        });
+      } else {
+        throw new Error('fallback');
+      }
+    } catch(err) {
+      if (err.name === 'AbortError') return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'growth-' + today + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }, 'image/png');
+}
+
+// ===== バックアップ・復元 =====
+function exportData() {
+  const data = JSON.stringify(S, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const today = new Date().toISOString().slice(0, 10);
+  a.download = 'growth-tracker-' + today + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function triggerImport() {
+  document.getElementById('importInput').click();
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      const newState = { profile: null, records: [] };
+      if (parsed.profile &&
+          typeof parsed.profile.birthDate === 'string' &&
+          /^\d{4}-\d{2}-\d{2}$/.test(parsed.profile.birthDate)) {
+        newState.profile = {
+          birthDate: parsed.profile.birthDate,
+          gender: parsed.profile.gender === 'female' ? 'female' : 'male'
+        };
+      }
+      if (Array.isArray(parsed.records)) {
+        newState.records = parsed.records.filter(r =>
+          typeof r.id === 'number' &&
+          typeof r.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(r.date) &&
+          typeof r.height === 'number' && r.height >= 20 && r.height <= 130 &&
+          typeof r.weight === 'number' && r.weight >= 0.5 && r.weight <= 30
+        );
+      }
+      if (!newState.profile && newState.records.length === 0) {
+        alert('有効なデータが見つかりませんでした。');
+        return;
+      }
+      if (!confirm('現在のデータを上書きして復元しますか？')) return;
+      S = newState;
+      saveState();
+      renderAll();
+      if (S.profile && S.records.length > 0) {
+        switchMainTab('curve');
+      } else {
+        switchMainTab('basic');
+      }
+    } catch(err) {
+      alert('ファイルの読み込みに失敗しました。正しいJSONファイルを選択してください。');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ===== タブ切替 =====
+let currentTab = 'basic';
+
+function switchMainTab(tab) {
+  document.getElementById('tabBasic').style.display = tab === 'basic' ? 'block' : 'none';
+  document.getElementById('tabCurve').style.display = tab === 'curve' ? 'block' : 'none';
+  document.getElementById('tabSave').style.display  = tab === 'save'  ? 'block' : 'none';
+  const btnBasic = document.getElementById('btnTabBasic');
+  const btnCurve = document.getElementById('btnTabCurve');
+  const btnSave  = document.getElementById('btnTabSave');
+  btnBasic.classList.toggle('active', tab === 'basic');
+  btnCurve.classList.toggle('active', tab === 'curve');
+  btnSave.classList.toggle('active',  tab === 'save');
+  btnBasic.setAttribute('aria-selected', String(tab === 'basic'));
+  btnCurve.setAttribute('aria-selected', String(tab === 'curve'));
+  btnSave.setAttribute('aria-selected',  String(tab === 'save'));
+  currentTab = tab;
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+document.getElementById('btnTabBasic').addEventListener('click', () => switchMainTab('basic'));
+document.getElementById('btnTabCurve').addEventListener('click', () => switchMainTab('curve'));
+document.getElementById('btnTabSave').addEventListener('click',  () => switchMainTab('save'));
+
+document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
+document.getElementById('editProfileBtn').addEventListener('click', editProfile);
+document.getElementById('addRecordBtn').addEventListener('click', addRecord);
+document.getElementById('shareChartBtn').addEventListener('click', shareChart);
+document.getElementById('exportBtn').addEventListener('click', exportData);
+document.getElementById('importBtn').addEventListener('click', triggerImport);
+document.getElementById('importInput').addEventListener('change', importData);
+
+document.getElementById('aboutToggle').addEventListener('click', function() {
+  const body = document.getElementById('aboutBody');
+  const expanded = this.getAttribute('aria-expanded') === 'true';
+  this.setAttribute('aria-expanded', String(!expanded));
+  body.classList.toggle('open', !expanded);
+});
+
+loadState();
+document.getElementById('measureDate').value = new Date().toISOString().slice(0, 10);
+renderAll();
+if (S.profile && S.records.length > 0) {
+  switchMainTab('curve');
+}
+</script>
+
+</body>
+</html>
