@@ -1262,10 +1262,11 @@
 
       // GAイベント
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'calculate', {
+        gtag('event', 'calculate_baby_age', {
           event_category: 'tool',
           event_label: includeFirstDay ? 'include_first' : 'exclude_first',
-          value: days
+          value: days,
+          months_age: months
         });
       }
     }
