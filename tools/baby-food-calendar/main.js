@@ -1652,16 +1652,3 @@ selDate=today();
 renderCalendar();
 renderDetail();
 
-// ── DISCLAIMER MODAL ──────────────────────────────────────────────
-// インデックス登録完了後(2026-06-19以降)のみ初回訪問時に表示する
-try {
-  if (new Date() >= new Date('2026-06-19') && !localStorage.getItem('bfc-disclaimer-v1')) {
-    document.getElementById('disclaimerOverlay').style.display = 'block';
-    document.getElementById('disclaimerModal').style.display  = 'block';
-  }
-} catch (e) {}
-function closeDisclaimerModal() {
-  localStorage.setItem('bfc-disclaimer-v1', '1');
-  document.getElementById('disclaimerOverlay').style.display = 'none';
-  document.getElementById('disclaimerModal').style.display  = 'none';
-}
