@@ -11,19 +11,19 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>離乳食予定管理カレンダー【無料】予定カレンダー・食材記録・月齢自動判定 | 0-tools</title>
+<title>離乳食カレンダー【無料】予定・記録・アレルギー管理を一画面で | 0-tools</title>
 <link rel="canonical" href="https://jun-ju-waaaaa.github.io/tools/baby-food-calendar/">
-<meta name="description" content="赤ちゃんの誕生日を入力するだけで月齢を自動判定し、ゴックン期〜完了期の離乳食スケジュールをカレンダーで管理。食べた食材・アレルギー反応の記録と先の予定立てを一画面で完結。登録不要・完全無料。厚生労働省ガイド準拠。データはスマホ内にのみ保存。">
+<meta name="description" content="離乳食の予定を先に組めるカレンダー。生年月日から月齢を自動判定し、ゴックン期〜完了期の食材記録・アレルギー管理を一画面で完結。厚生労働省ガイド準拠。登録不要・無料・データは端末内のみ保存。">
 <meta name="google-site-verification" content="wjbUCUovh1Qbnv4qczntyVJstAfRlQh7R6nQk2jWIU8">
 <meta name="google-adsense-account" content="ca-pub-6769343629657319">
-<meta property="og:title" content="離乳食予定管理カレンダー｜予定カレンダー・食材記録を無料で">
-<meta property="og:description" content="先の予定を自由に組める離乳食管理ツール。月齢自動判定・食材記録をカレンダーで管理。端末内で動作するので安全です。">
+<meta property="og:title" content="離乳食カレンダー｜予定・記録・アレルギー管理を一画面で【無料】">
+<meta property="og:description" content="離乳食の予定を先に組めるカレンダー。月齢自動判定・食材記録・アレルギー管理を一画面で。登録不要・無料・データは端末内のみ保存。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jun-ju-waaaaa.github.io/tools/baby-food-calendar/">
 <meta property="og:image" content="https://jun-ju-waaaaa.github.io/apple-touch-icon.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="離乳食予定管理カレンダー｜予定カレンダー・食材記録を無料で">
-<meta name="twitter:description" content="先の予定を自由に組める離乳食管理ツール。月齢自動判定・食材記録をカレンダーで管理。">
+<meta name="twitter:title" content="離乳食カレンダー｜予定・記録・アレルギー管理を一画面で【無料】">
+<meta name="twitter:description" content="離乳食の予定を先に組めるカレンダー。月齢自動判定・食材記録・アレルギー管理を一画面で。登録不要・無料。">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -47,20 +47,23 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "name": "離乳食予定管理カレンダー",
+      "name": "離乳食カレンダー｜予定・記録・アレルギー管理",
       "url": "https://jun-ju-waaaaa.github.io/tools/baby-food-calendar/",
-      "description": "赤ちゃんの離乳食記録・予定管理ができる無料のブラウザアプリ。食べた食材・アレルギー食材をカレンダーで可視化。",
+      "description": "離乳食の予定を先に組めるカレンダー。月齢自動判定・食材記録・アレルギー管理を一画面で完結できる無料ブラウザアプリ。",
       "applicationCategory": "HealthApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
+      "datePublished": "2026-06-15",
+      "dateModified": "2026-06-25",
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"},
-      "publisher": {"@type": "Organization", "name": "0-TOOLs", "url": "https://jun-ju-waaaaa.github.io"}
+      "publisher": {"@type": "Organization", "name": "0-TOOLs", "url": "https://jun-ju-waaaaa.github.io"},
+      "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".hdr h1", ".hdr p", "#schedule-title", "#allergy-title", "#faq-title"]}
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://jun-ju-waaaaa.github.io/"},
-        {"@type": "ListItem", "position": 2, "name": "離乳食予定管理カレンダー", "item": "https://jun-ju-waaaaa.github.io/tools/baby-food-calendar/"}
+        {"@type": "ListItem", "position": 2, "name": "離乳食カレンダー", "item": "https://jun-ju-waaaaa.github.io/tools/baby-food-calendar/"}
       ]
     },
     {
@@ -68,28 +71,28 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "データはどこに保存されますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "入力した食材記録はお使いのスマートフォン・PCのブラウザ（localStorage）に保存されます。外部サーバーへの送信は一切ありません。"}
+          "name": "離乳食はいつから始めればいいですか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "厚生労働省「授乳・離乳の支援ガイド（2019年版）」によると、離乳食の開始時期は生後5〜6ヶ月頃が目安です。開始のサインは、①首がすわり支えれば座れる、②スプーンを口に入れても舌で押し出すことが少なくなった、③食べ物に興味を示す、の3つです。"}
         },
         {
           "@type": "Question",
-          "name": "アカウント登録やアプリのインストールは必要ですか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "不要です。ブラウザで開くだけでご利用いただけます。インストールもログインも必要ありません。"}
-        },
-        {
-          "@type": "Question",
-          "name": "スマホとPCで同期できますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "現在は各端末のブラウザに個別に保存されます。複数端末での同期には対応していません。よく使う端末でご利用ください。"}
+          "name": "2回食・3回食はいつから始めますか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "2回食は生後7〜8ヶ月頃（モグモグ期・離乳中期）から、3回食は生後9〜11ヶ月頃（カミカミ期・離乳後期）から始めるのが目安です。食事のリズムをつくりながら、食べられる食材の種類と量を徐々に増やしていきます。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
         },
         {
           "@type": "Question",
           "name": "離乳食の時期（ゴックン期・モグモグ期など）はどう判定されますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "赤ちゃんの生年月日を入力すると生後月数を自動計算し、5ヶ月未満は授乳期、5〜6ヶ月はゴックン期、7〜8ヶ月はモグモグ期、9〜11ヶ月はカミカミ期、12〜18ヶ月はパクパク期、19ヶ月以降は幼児食期と表示されます。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
+          "acceptedAnswer": {"@type": "Answer", "text": "生年月日から生後月数を自動計算し、厚生労働省「授乳・離乳の支援ガイド（2019年版）」に基づいて判定します。5〜6ヶ月はゴックン期（離乳初期）、7〜8ヶ月はモグモグ期（離乳中期）、9〜11ヶ月はカミカミ期（離乳後期）、12〜18ヶ月はパクパク期（離乳完了期）です。"}
         },
         {
           "@type": "Question",
-          "name": "アレルギー食材の記録はできますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "はい。食材ごとにアレルギー反応（湿疹・嘔吐など）を記録でき、カレンダー上では赤いドットで表示されます。食材リスト画面で過去のアレルギー食材を一覧確認できます。"}
+          "name": "離乳食で注意すべきアレルギー食材は何ですか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "食品表示法で定められた特定原材料8品目（卵・乳・小麦・えび・かに・落花生・そば・くるみ）は特に注意が必要です。新しい食材は1日1種類、小さじ1杯から、病院が開いている平日の午前中に試してください。また1歳未満にハチミツは厳禁です（乳児ボツリヌス症のリスク）。"}
+        },
+        {
+          "@type": "Question",
+          "name": "離乳食の固さの目安は月齢ごとにどう変わりますか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "離乳初期（5〜6ヶ月）はなめらかにすりつぶした状態、離乳中期（7〜8ヶ月）は舌でつぶせる固さ、離乳後期（9〜11ヶ月）は歯ぐきでつぶせる固さ、離乳完了期（12〜18ヶ月）は歯ぐきで噛める固さが目安です。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
         },
         {
           "@type": "Question",
@@ -98,34 +101,20 @@
         },
         {
           "@type": "Question",
-          "name": "離乳食の固さはどう変わりますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "離乳初期（5〜6ヶ月）はなめらかにすりつぶした状態、離乳中期（7〜8ヶ月）は舌でつぶせる固さ、離乳後期（9〜11ヶ月）は歯ぐきでつぶせる固さ、離乳完了期（12〜18ヶ月）は歯ぐきで噛める固さが目安です。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
-        },
-        {
-          "@type": "Question",
-          "name": "離乳食を始めるサインはなんですか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "以下のサインが目安です。①首のすわりがしっかりして寝返りができる、②5秒以上座れる、③スプーンを口に入れても舌で押し出すことが少なくなった、④食べ物に興味を示す。これらが揃う生後5〜6ヶ月頃が開始の目安です。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
-        },
-        {
-          "@type": "Question",
-          "name": "2回食・3回食はいつから始めますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "2回食は生後7〜8ヶ月頃（離乳中期）から、3回食は生後9〜11ヶ月頃（離乳後期）から始めるのが目安です。食事のリズムを確立しながら進めましょう。（厚生労働省 授乳・離乳の支援ガイド 2019年版）"}
-        },
-        {
-          "@type": "Question",
           "name": "他の離乳食アプリと何が違いますか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "多くの離乳食アプリのカレンダーは過去の記録を振り返る機能です。この離乳食予定管理カレンダーは「来週の火曜日にえびを試す」「病院が開いている日に新食材の予定を入れる」など、先の予定を自由に組める予定カレンダー機能を無料で提供しています。アカウント登録不要・データは端末内にのみ保存されます。"}
+          "acceptedAnswer": {"@type": "Answer", "text": "多くの離乳食アプリのカレンダーは過去の記録を振り返る機能です。この離乳食カレンダーは「来週の火曜日にえびを試す」「病院が開いている日に新食材の予定を入れる」など、先の予定を自由に組める予定カレンダー機能を無料で提供しています。アカウント登録不要・データは端末内にのみ保存されます。"}
         },
         {
           "@type": "Question",
-          "name": "離乳食の予定はどうやって立てればいいですか？",
-          "acceptedAnswer": {"@type": "Answer", "text": "カレンダーの日付をタップして「予定」タブから食材を追加できます。アレルギー反応が出たときすぐ受診できるよう、新食材は病院が開いている平日の午前中に予定を入れるのがおすすめです。複数の日付にまとめて予定を追加することも可能です。"}
+          "name": "データはどこに保存されますか？",
+          "acceptedAnswer": {"@type": "Answer", "text": "お使いのブラウザ内（localStorage）にのみ保存されます。外部サーバーへの送信は一切ありません。スマホ・PCどちらでも安全にご利用いただけます。"}
         }
       ]
     },
     {
       "@type": "HowTo",
-      "name": "離乳食予定管理カレンダーの使い方",
+      "name": "離乳食カレンダーの使い方",
+      "description": "赤ちゃんの生年月日を入力し、カレンダーで日付を選んで食材を記録・予定に追加する3ステップの使い方を解説します。",
       "totalTime": "PT1M",
       "step": [
         {"@type": "HowToStep", "position": 1, "name": "赤ちゃんの情報を入力", "text": "画面上部の「名前」「生年月日」を入力すると、生後月数と離乳食の時期（ゴックン期など）が自動表示されます。"},
@@ -140,8 +129,9 @@
 <body>
 
 <div class="hdr">
-  <h1>離乳食予定管理カレンダー｜予定を先に組める・食材記録・月齢自動判定</h1>
-  <p>赤ちゃんの誕生日を入力するだけで、ゴックン期〜完了期の離乳食時期を自動判定。食べた食材・アレルギー反応の記録と「来週えびを試す」などの先の予定をカレンダーで一画面管理できます。アカウント登録不要・完全無料・データは端末内にのみ保存。厚生労働省「授乳・離乳の支援ガイド（2019年版）」準拠。</p>
+  <h1>離乳食カレンダー｜予定・記録・アレルギー管理を一画面で</h1>
+  <p><strong>離乳食カレンダーとは</strong>、赤ちゃんの生年月日から離乳食の時期（ゴックン期・モグモグ期・カミカミ期・パクパク期）を自動判定し、食べた食材の記録・アレルギー管理・先の予定立てを一画面で行える無料のブラウザツールです。厚生労働省「授乳・離乳の支援ガイド（2019年版）」に準拠しています。</p>
+  <p>「来週えびを試す」「病院が開いている平日に新食材の予定を入れる」など、<strong>離乳食の予定を先に組めるカレンダー</strong>機能が特徴です。アカウント登録不要・完全無料・データは端末内にのみ保存されます。</p>
 </div>
 
 <!-- BABY BAR -->
@@ -387,7 +377,7 @@
 
 <!-- SEOコンテンツ: 使い方 -->
 <section style="margin:16px 14px 0;background:#fff;border:1px solid #EDD8CC;border-radius:12px;padding:16px;" aria-labelledby="howto-title">
-  <h2 id="howto-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:10px;">離乳食予定管理カレンダーの使い方</h2>
+  <h2 id="howto-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:10px;">離乳食カレンダーの使い方</h2>
   <ol style="padding-left:18px;font-size:13px;color:#475569;line-height:1.9;margin:0;">
     <li><strong>赤ちゃんの情報を入力</strong> — 名前と生年月日を入力すると、生後月数と離乳食の時期（ゴックン期・モグモグ期など）が自動表示されます。</li>
     <li><strong>カレンダーで日付を選択</strong> — 記録または予定を入れたい日をタップすると、下部に詳細パネルが開きます。</li>
@@ -399,26 +389,87 @@
 <!-- SEOコンテンツ: FAQ -->
 <section style="margin:12px 14px 0;background:#fff;border:1px solid #EDD8CC;border-radius:12px;padding:16px;" aria-labelledby="faq-title">
   <h2 id="faq-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:12px;">よくある質問（FAQ）</h2>
-  <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
-    <p style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">データはどこに保存されますか？</p>
-    <p style="font-size:12px;color:#475569;line-height:1.7;margin:0;">お使いのブラウザ内（localStorage）にのみ保存されます。外部サーバーへの送信は一切ありません。スマホ・PC どちらでも安全にご利用いただけます。</p>
-  </div>
-  <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
-    <p style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">離乳食の時期（ゴックン期など）はどう判定されますか？</p>
-    <p style="font-size:12px;color:#475569;line-height:1.7;margin:0;">生年月日から生後月数を自動計算し、厚生労働省「授乳・離乳の支援ガイド（2019年版）」に基づいて判定します。5〜6ヶ月はゴックン期、7〜8ヶ月はモグモグ期、9〜11ヶ月はカミカミ期、12〜18ヶ月はパクパク期です。</p>
-  </div>
-  <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
-    <p style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">アレルギー食材の記録はできますか？</p>
-    <p style="font-size:12px;color:#475569;line-height:1.7;margin:0;">はい。食材ごとにアレルギー反応（湿疹・嘔吐など）を記録でき、カレンダー上では赤いドットで表示されます。食材リスト画面で過去のアレルギー食材を一覧確認できます。</p>
-  </div>
-  <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
-    <p style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">他の離乳食アプリとどう違いますか？</p>
-    <p style="font-size:12px;color:#475569;line-height:1.7;margin:0;">多くのアプリは過去の記録閲覧が中心ですが、このカレンダーは「来週の火曜にえびを試す」など<strong>先の予定をカレンダーに組む</strong>ことに特化しています。アカウント登録不要・インストール不要で、ブラウザだけで動作します。</p>
-  </div>
-  <div style="border-top:1px solid #F5E6D8;padding:10px 0 0;">
-    <p style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">スマホを買い替えたらデータはどうなりますか？</p>
-    <p style="font-size:12px;color:#475569;line-height:1.7;margin:0;">データ管理画面から「バックアップ（JSON書き出し）」で保存し、新しいスマホで「復元（JSON読み込み）」することで引き継げます。スマホ買い替えや機種変更の前に必ずバックアップをお取りください。</p>
-  </div>
+  <dl style="margin:0;">
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">離乳食はいつから始めればいいですか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">厚生労働省「授乳・離乳の支援ガイド（2019年版）」によると、離乳食の開始時期は<strong>生後5〜6ヶ月頃</strong>が目安です。開始のサインは、①首がすわり支えれば座れる、②スプーンを口に入れても舌で押し出すことが少なくなった、③食べ物に興味を示す、の3つです。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">2回食・3回食はいつから始めますか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;"><strong>2回食は生後7〜8ヶ月頃</strong>（モグモグ期）から、<strong>3回食は生後9〜11ヶ月頃</strong>（カミカミ期）から始めるのが目安です。食事のリズムをつくりながら、食べられる食材の種類と量を徐々に増やしていきます。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">離乳食の時期（ゴックン期・モグモグ期など）はどう判定されますか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">生年月日から生後月数を自動計算し、厚生労働省「授乳・離乳の支援ガイド（2019年版）」に基づいて判定します。5〜6ヶ月はゴックン期（離乳初期）、7〜8ヶ月はモグモグ期（離乳中期）、9〜11ヶ月はカミカミ期（離乳後期）、12〜18ヶ月はパクパク期（離乳完了期）です。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">離乳食で注意すべきアレルギー食材は何ですか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">食品表示法で定められた<strong>特定原材料8品目</strong>（卵・乳・小麦・えび・かに・落花生・そば・くるみ）は特に注意が必要です。新しい食材は1日1種類、小さじ1杯から、病院が開いている平日の午前中に試してください。また<strong>1歳未満にハチミツは厳禁</strong>です（乳児ボツリヌス症のリスク）。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">他の離乳食アプリとどう違いますか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">多くのアプリは過去の記録閲覧が中心ですが、このカレンダーは「来週の火曜にえびを試す」など<strong>先の予定をカレンダーに組む</strong>ことに特化しています。アカウント登録不要・インストール不要で、ブラウザだけで動作します。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">データはどこに保存されますか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">お使いのブラウザ内（localStorage）にのみ保存されます。外部サーバーへの送信は一切ありません。スマホ・PC どちらでも安全にご利用いただけます。</dd>
+    </div>
+    <div style="border-top:1px solid #F5E6D8;padding:10px 0 0;">
+      <dt style="font-size:13px;font-weight:700;color:#3D2000;margin-bottom:4px;">スマホを買い替えたらデータはどうなりますか？</dt>
+      <dd style="font-size:12px;color:#475569;line-height:1.7;margin:0;">データ管理画面から「バックアップ（JSON書き出し）」で保存し、新しいスマホで「復元（JSON読み込み）」することで引き継げます。スマホ買い替えや機種変更の前に必ずバックアップをお取りください。</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- SEOコンテンツ: 離乳食の進め方 -->
+<section style="margin:12px 14px 0;background:#fff;border:1px solid #EDD8CC;border-radius:12px;padding:16px;" aria-labelledby="schedule-title">
+  <h2 id="schedule-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:10px;">離乳食はいつから？月齢別の進め方と食材の目安</h2>
+  <p style="font-size:12px;color:#475569;line-height:1.8;margin:0 0 12px;">厚生労働省「授乳・離乳の支援ガイド（2019年版）」では、離乳食の開始は<strong>生後5〜6ヶ月頃</strong>が目安とされています。首がすわり、支えれば座れるようになり、スプーンを口に入れても舌で押し出すことが少なくなったら開始のサインです。離乳食は4つの段階に分かれ、<strong>ゴックン期（5〜6ヶ月）→ モグモグ期（7〜8ヶ月）→ カミカミ期（9〜11ヶ月）→ パクパク期（12〜18ヶ月）</strong>の順に進めます。</p>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.7;">
+    <caption style="font-size:12px;font-weight:700;color:#3D2000;text-align:left;margin-bottom:6px;">離乳食の月齢別ステージ一覧（厚生労働省準拠）</caption>
+    <thead>
+      <tr style="background:#FFF8F0;">
+        <th style="padding:8px 6px;text-align:left;border-bottom:2px solid #EDD8CC;color:#3D2000;font-size:11px;">時期</th>
+        <th style="padding:8px 6px;text-align:left;border-bottom:2px solid #EDD8CC;color:#3D2000;font-size:11px;">月齢</th>
+        <th style="padding:8px 6px;text-align:left;border-bottom:2px solid #EDD8CC;color:#3D2000;font-size:11px;">回数</th>
+        <th style="padding:8px 6px;text-align:left;border-bottom:2px solid #EDD8CC;color:#3D2000;font-size:11px;">固さの目安</th>
+      </tr>
+    </thead>
+    <tbody style="color:#475569;">
+      <tr><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">ゴックン期</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">5〜6ヶ月</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">1回</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">なめらかにすりつぶした状態</td></tr>
+      <tr><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">モグモグ期</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">7〜8ヶ月</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">2回</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">舌でつぶせる固さ</td></tr>
+      <tr><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">カミカミ期</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">9〜11ヶ月</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">3回</td><td style="padding:7px 6px;border-bottom:1px solid #F5E6D8;">歯ぐきでつぶせる固さ</td></tr>
+      <tr><td style="padding:7px 6px;">パクパク期</td><td style="padding:7px 6px;">12〜18ヶ月</td><td style="padding:7px 6px;">3回＋補食</td><td style="padding:7px 6px;">歯ぐきで噛める固さ</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#7A5800;margin-top:10px;line-height:1.7;">このカレンダーでは生年月日を入力するだけで<strong>月齢を自動判定</strong>し、現在の離乳食時期を表示します。</p>
+</section>
+
+<!-- SEOコンテンツ: アレルギー対策 -->
+<section style="margin:12px 14px 0;background:#fff;border:1px solid #EDD8CC;border-radius:12px;padding:16px;" aria-labelledby="allergy-title">
+  <h2 id="allergy-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:10px;">離乳食のアレルギー対策と注意が必要な食材</h2>
+  <p style="font-size:12px;color:#475569;line-height:1.8;margin:0 0 10px;">食物アレルギーの原因となりやすい<strong>特定原材料8品目</strong>（卵・乳・小麦・えび・かに・落花生・そば・くるみ）は、初めて与える際に特に注意が必要です。</p>
+  <ul style="font-size:12px;color:#475569;line-height:1.9;padding-left:18px;margin:0 0 10px;">
+    <li>新食材は<strong>1日1種類</strong>、小さじ1杯から少量ずつ試す</li>
+    <li><strong>病院が開いている平日の午前中</strong>に与えるのが安心</li>
+    <li>食後30分〜2時間は体調の変化（発疹・嘔吐・呼吸困難）を観察する</li>
+    <li><strong>1歳未満にハチミツは禁止</strong>（乳児ボツリヌス症のリスク）</li>
+  </ul>
+  <p style="font-size:12px;color:#7A5800;line-height:1.7;margin:0;">このカレンダーでは<strong>アレルギー反応を記録</strong>でき、カレンダー上に赤いドットで表示されます。食材選択時にはアレルギー警告バッジが自動表示されます。</p>
+</section>
+
+<!-- AEOコンテンツ: 初めての離乳食チェックリスト -->
+<section style="margin:12px 14px 0;background:#fff;border:1px solid #EDD8CC;border-radius:12px;padding:16px;" aria-labelledby="checklist-title">
+  <h2 id="checklist-title" style="font-size:15px;font-weight:700;color:#3D2000;margin-bottom:10px;">初めての離乳食で押さえるべき5つのポイント</h2>
+  <p style="font-size:12px;color:#475569;line-height:1.8;margin:0 0 10px;">離乳食を安全に始めるために、以下の5つのポイントを押さえておきましょう。</p>
+  <ol style="font-size:12px;color:#475569;line-height:2.0;padding-left:18px;margin:0 0 10px;">
+    <li><strong>開始は生後5〜6ヶ月</strong> — 首がすわり、支えれば座れるようになってから始める</li>
+    <li><strong>最初の食材は10倍がゆ</strong> — 米を10倍の水で炊き、なめらかにすりつぶして小さじ1杯から</li>
+    <li><strong>新食材は1日1種類</strong> — 病院が開いている平日の午前中に試し、アレルギー反応を30分〜2時間観察</li>
+    <li><strong>特定原材料8品目に注意</strong> — 卵・乳・小麦・えび・かに・落花生・そば・くるみは少量から慎重に</li>
+    <li><strong>1歳未満にハチミツは厳禁</strong> — 乳児ボツリヌス症のリスクがあるため絶対に与えない</li>
+  </ol>
+  <p style="font-size:12px;color:#7A5800;line-height:1.7;margin:0;">出典：厚生労働省「授乳・離乳の支援ガイド（2019年改定版）」</p>
 </section>
 
 <!-- SEOコンテンツ: このツールについて -->
@@ -449,11 +500,11 @@
     <span style="display:block;font-size:13px;font-weight:700;color:#3D2000;margin-bottom:2px;">📈 成長曲線チェッカー</span>
     <span style="display:block;font-size:11px;color:#7A5800;line-height:1.4;">身長・体重を記録するたびにグラフが更新。厚労省令和5年データと比較しながら成長を可視化。</span>
   </a>
-  <a href="https://jun-ju-waaaaa.github.io/blog/baby-food-calendar-guide/" style="display:block;padding:12px 14px;background:#fff;border:1px solid #EDD8CC;border-radius:10px;margin-bottom:8px;text-decoration:none;">
-    <span style="display:block;font-size:13px;font-weight:700;color:#3D2000;margin-bottom:2px;">📖 離乳食予定管理カレンダーの使い方ガイド</span>
+  <a href="/blog/baby-food-calendar-guide/" style="display:block;padding:12px 14px;background:#fff;border:1px solid #EDD8CC;border-radius:10px;margin-bottom:8px;text-decoration:none;">
+    <span style="display:block;font-size:13px;font-weight:700;color:#3D2000;margin-bottom:2px;">📖 離乳食カレンダーの使い方ガイド</span>
     <span style="display:block;font-size:11px;color:#7A5800;line-height:1.4;">予定を先に組む・コピー＆ペースト・アレルギー警告バッジの全機能を解説。</span>
   </a>
-  <a href="https://jun-ju-waaaaa.github.io/blog/birth-day-counter-guide/" style="display:block;padding:12px 14px;background:#fff;border:1px solid #EDD8CC;border-radius:10px;margin-bottom:8px;text-decoration:none;">
+  <a href="/blog/birth-day-counter-guide/" style="display:block;padding:12px 14px;background:#fff;border:1px solid #EDD8CC;border-radius:10px;margin-bottom:8px;text-decoration:none;">
     <span style="display:block;font-size:13px;font-weight:700;color:#3D2000;margin-bottom:2px;">赤ちゃんの生後日数・週数・月齢を無料で計算する方法</span>
     <span style="display:block;font-size:11px;color:#7A5800;line-height:1.4;">予防接種・健診スケジュールへの活用例も解説。</span>
   </a>
