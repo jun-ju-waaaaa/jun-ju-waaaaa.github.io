@@ -1093,6 +1093,21 @@
         <div id="msmaflink-J1E21">リンク</div>
         <!-- MoshimoAffiliateEasyLink END -->
       </div>
+      <div class="milestone-ad visible" id="milestoneAdShupot">
+        <div class="milestone-ad-label">▼ 赤ちゃんにおすすめ</div>
+        <!-- START MoshimoAffiliateEasyLink -->
+        <script type="text/javascript">
+        (function(b,c,f,g,a,d,e){b.MoshimoAffiliateObject=a;
+        b[a]=b[a]||function(){arguments.currentScript=c.currentScript
+        ||c.scripts[c.scripts.length-2];(b[a].q=b[a].q||[]).push(arguments)};
+        c.getElementById(a)||(d=c.createElement(f),d.src=g,
+        d.id=a,e=c.getElementsByTagName("body")[0],e.appendChild(d))})
+        (window,document,"script","//dn.msmstatic.com/site/cardlink/bundle.js?20220329","msmaflink");
+        msmaflink({"n":"電動鼻吸い器　シュポット | 0ヵ月頃〜 風邪予防・体温計・衛生商品 ピジョン 鼻水 吸引 吸引器 電動 鼻水吸引器 鼻水吸い 鼻水吸い器 電動鼻水吸引器 鼻吸い 鼻吸い器 赤ちゃん 赤ちゃん用品 赤ちゃんグッズ SHUPOT","b":"","t":"","d":"https:\/\/thumbnail.image.rakuten.co.jp","c_p":"\/","p":["@0_mall\/pigeon-shop\/cabinet\/thumb\/11827558\/1046548.jpg","@0_gold\/pigeon-shop\/rankstamp\/sp\/1032018.jpg","@0_mall\/pigeon-shop\/cabinet\/item\/rank\/rank_1032018_r.jpg"],"u":{"u":"https:\/\/item.rakuten.co.jp\/pigeon-shop\/1032018\/","t":"rakuten","r_v":""},"v":"2.1","b_l":[{"id":1,"u_tx":"楽天市場で見る","u_bc":"#f76956","u_url":"https:\/\/item.rakuten.co.jp\/pigeon-shop\/1032018\/","a_id":5647246,"p_id":54,"pl_id":27059,"pc_id":54,"s_n":"rakuten","u_so":1}],"eid":"wtRZ1","s":"xs"});
+        </script>
+        <div id="msmaflink-wtRZ1">リンク</div>
+        <!-- MoshimoAffiliateEasyLink END -->
+      </div>
     </div>
 
     <!-- ✅ 新機能: 発達メッセージ -->
@@ -1298,7 +1313,8 @@
       const items = [...past.map(m => ({ ...m, diff: m.days - currentDays })), ...upcoming];
 
       if (items.length === 0) {
-        card.classList.remove('visible');
+        list.innerHTML = '';
+        card.classList.add('visible');
         return;
       }
 
@@ -1334,6 +1350,7 @@
       { id: 'milestoneAdOkuizome', label: 'okuizome_set' },
       { id: 'milestoneAdHalf', label: 'half_birthday_balloon' },
       { id: 'milestoneAdFirst', label: 'first_birthday_isshomai_strider' },
+      { id: 'milestoneAdShupot', label: 'always_shupot' },
     ];
     adTracking.forEach(({ id, label }) => {
       const el = document.getElementById(id);
