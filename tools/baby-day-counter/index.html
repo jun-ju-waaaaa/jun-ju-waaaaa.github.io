@@ -434,6 +434,15 @@
       opacity: 0.6;
     }
 
+    .is-hidden {
+      display: none;
+    }
+
+    #rakuten-widget {
+      max-width: 300px;
+      margin: 0 auto 16px;
+    }
+
     /* ✅ 新機能: 次の節目バナー */
     .milestone-card {
       background: var(--milestone-bg);
@@ -842,6 +851,12 @@
       <div class="result-card" id="monthCard">
         <div class="result-placeholder">生後月齢がここに表示されます</div>
       </div>
+    </div>
+
+    <div id="rakuten-widget" class="is-hidden">
+      <!-- MAF Rakuten Widget FROM HERE -->
+      <script type="text/javascript">MafRakutenWidgetParam=function() { return{ size:'300x250',design:'slide',recommend:'on',auto_mode:'on',a_id:'5647246', border:'on'};};</script><script type="text/javascript" src="https://dn.msmstatic.com/site/rakuten/widget.js"></script>
+      <!-- MAF Rakuten Widget TO HERE -->
     </div>
 
     <!-- ✅ 新機能: 次の節目まで -->
@@ -1254,6 +1269,9 @@
         weekCard.classList.remove('animate');
         monthCard.classList.remove('animate');
       }, 400);
+
+      // 楽天モーションウィジェット表示（節目・記念日の結果より先に表示）
+      document.getElementById('rakuten-widget').classList.remove('is-hidden');
 
       // 節目
       renderMilestones(days);
